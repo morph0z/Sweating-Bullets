@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwwc0u01bl5q1"]
+
+[ext_resource type="Script" uid="uid://u4kwhqlcr31c" path="res://control.gd" id="1_7wfix"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7wfix")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.253
+anchor_bottom = 0.131
+offset_right = -0.456024
+offset_bottom = 0.111992
