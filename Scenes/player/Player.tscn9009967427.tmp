@@ -1,0 +1,180 @@
+[gd_scene load_steps=28 format=3 uid="uid://dxo8l5kjh7cj5"]
+
+[ext_resource type="Script" uid="uid://ctrwyws0ih2tu" path="res://Scripts/player/player.gd" id="1_1ycki"]
+[ext_resource type="PackedScene" uid="uid://dwwc0u01bl5q1" path="res://Scenes/ui/DebugMenu.tscn" id="2_jnk8a"]
+[ext_resource type="Script" uid="uid://dtr2p1f3xhiav" path="res://Scripts/componets/hurtboxComponent.gd" id="2_kk05o"]
+[ext_resource type="Script" uid="uid://b5x2fagogswuw" path="res://Scripts/classes/camPiviotClass.gd" id="2_mphk7"]
+[ext_resource type="PackedScene" uid="uid://dv3buqoodu2" path="res://Scenes/objects/weapons/BasicGun.tscn" id="2_r5m3b"]
+[ext_resource type="Script" uid="uid://bm04r57d3em0p" path="res://Scripts/componets/mouseCaptureComponent.gd" id="3_r5va5"]
+[ext_resource type="Script" uid="uid://cwtbrbe1iwid6" path="res://Scenes/player/cameraEffects.gd" id="3_sy2hw"]
+[ext_resource type="Script" uid="uid://lnmket0am38i" path="res://Scripts/componets/healthComponent.gd" id="4_irnrt"]
+[ext_resource type="Script" uid="uid://dx6viv5g35mcd" path="res://Scripts/player/state_machine.gd" id="4_mphk7"]
+[ext_resource type="Script" uid="uid://d3g3rq2vmlbm1" path="res://Scripts/player/states/base_state.gd" id="5_8hdke"]
+[ext_resource type="Script" uid="uid://bkkjc0t5wolmf" path="res://Scripts/player/states/idle_state.gd" id="6_3tjkw"]
+[ext_resource type="Script" uid="uid://delaueyfbihfn" path="res://Scripts/player/states/standing_state.gd" id="7_kk05o"]
+[ext_resource type="Script" uid="uid://npapvw3ko1h4" path="res://Scripts/player/states/wallRunning_state.gd" id="8_3tjkw"]
+[ext_resource type="Script" uid="uid://b04ksf5ctwwk8" path="res://Scripts/player/states/sprinting_state.gd" id="9_r5m3b"]
+[ext_resource type="Script" uid="uid://u3omlotxo8om" path="res://Scripts/player/states/crouching_state.gd" id="10_0otme"]
+[ext_resource type="Script" uid="uid://cvswme48fvi5e" path="res://Scripts/player/states/sliding_state.gd" id="11_3tjkw"]
+[ext_resource type="Script" uid="uid://3i7fe0kmvqhn" path="res://Scripts/player/states/walking_state.gd" id="11_sy2hw"]
+[ext_resource type="Script" uid="uid://dkjxjlfqyrc77" path="res://Scripts/player/states/moving_state.gd" id="12_cba8u"]
+[ext_resource type="Script" uid="uid://djtq2iuleu2br" path="res://Scripts/player/states/airborne_state.gd" id="13_0h34x"]
+[ext_resource type="Script" uid="uid://pwqnvhb2qc14" path="res://Scripts/ui/retical_draw.gd" id="19_0otme"]
+[ext_resource type="Script" uid="uid://dxg6k2t6ocuqy" path="res://Scripts/ui/speedLines_draw.gd" id="21_cba8u"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r5va5"]
+radius = 0.534691
+height = 1.4491
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_etc70"]
+radius = 0.534691
+height = 2.42717
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mphk7"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jnk8a"]
+radius = 0.3825
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r5m3b"]
+size = Vector3(1, 2.5, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_irnrt"]
+radius = 0.525164
+height = 2.46123
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "health_component")]
+script = ExtResource("1_1ycki")
+camera = NodePath("CamPiviot")
+state_machine = NodePath("LimboHSM")
+standing_collision = NodePath("StandingCollision")
+crouching_collision = NodePath("CrouchingCollision")
+crouch_check = NodePath("CrouchCheck")
+interaction_raycast = NodePath("CamPiviot/Camera3D/Interation Ray")
+health_component = NodePath("Components/healthComponent")
+
+[node name="CrouchingCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.487195, 0)
+shape = SubResource("CapsuleShape3D_r5va5")
+
+[node name="StandingCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_etc70")
+
+[node name="CrouchCheck" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.700361, 0)
+shape = SubResource("SphereShape3D_mphk7")
+target_position = Vector3(0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.215, 0, 0, 0, 1.194, 0, 0, 0, 1.176, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_jnk8a")
+
+[node name="PickUpItemBox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpItemBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.136407, -0.0106586)
+shape = SubResource("BoxShape3D_r5m3b")
+
+[node name="CamPiviot" type="Node3D" parent="." node_paths=PackedStringArray("player_reference", "component_mouse_capture_reference")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.632453, 0)
+script = ExtResource("2_mphk7")
+player_reference = NodePath("..")
+component_mouse_capture_reference = NodePath("../Components/mouseCaptureComponent")
+
+[node name="Camera3D" type="Camera3D" parent="CamPiviot" node_paths=PackedStringArray("playerReference")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.298994)
+script = ExtResource("3_sy2hw")
+playerReference = NodePath("../..")
+
+[node name="Interation Ray" type="RayCast3D" parent="CamPiviot/Camera3D"]
+target_position = Vector3(0, 0, -10)
+
+[node name="HeldItem" type="Node3D" parent="CamPiviot/Camera3D"]
+transform = Transform3D(-4.13987e-08, 0, 0.947092, 0, 0.947092, 0, -0.947092, 0, -4.13987e-08, 0, -0.394, -1.417)
+
+[node name="Gun" parent="CamPiviot/Camera3D/HeldItem" instance=ExtResource("2_r5m3b")]
+freeze = true
+
+[node name="Components" type="Node3D" parent="."]
+
+[node name="mouseCaptureComponent" type="Node" parent="Components"]
+script = ExtResource("3_r5va5")
+metadata/_custom_type_script = "uid://bm04r57d3em0p"
+
+[node name="healthComponent" type="Node" parent="Components" node_paths=PackedStringArray("Entity", "StateMachine")]
+script = ExtResource("4_irnrt")
+Entity = NodePath("../..")
+StateMachine = NodePath("../../LimboHSM")
+metadata/_custom_type_script = "uid://lnmket0am38i"
+
+[node name="hurtboxComponent" type="Area3D" parent="Components" node_paths=PackedStringArray("healthComponent_reference")]
+script = ExtResource("2_kk05o")
+healthComponent_reference = NodePath("../healthComponent")
+metadata/_custom_type_script = "uid://dtr2p1f3xhiav"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Components/hurtboxComponent"]
+shape = SubResource("CapsuleShape3D_irnrt")
+debug_color = Color(1, 0, 0.0903349, 0.42)
+
+[node name="LimboHSM" type="LimboHSM" parent="." node_paths=PackedStringArray("player_reference")]
+script = ExtResource("4_mphk7")
+player_reference = NodePath("..")
+
+[node name="Base" type="LimboState" parent="LimboHSM"]
+script = ExtResource("5_8hdke")
+
+[node name="Idle" type="LimboState" parent="LimboHSM"]
+script = ExtResource("6_3tjkw")
+
+[node name="Standing" type="LimboState" parent="LimboHSM"]
+script = ExtResource("7_kk05o")
+
+[node name="WallRunning" type="LimboState" parent="LimboHSM"]
+script = ExtResource("8_3tjkw")
+
+[node name="Sprinting" type="LimboState" parent="LimboHSM"]
+script = ExtResource("9_r5m3b")
+
+[node name="Crouching" type="LimboState" parent="LimboHSM"]
+script = ExtResource("10_0otme")
+
+[node name="Sliding" type="LimboState" parent="LimboHSM"]
+script = ExtResource("11_3tjkw")
+
+[node name="Walking" type="LimboState" parent="LimboHSM"]
+script = ExtResource("11_sy2hw")
+
+[node name="Moving" type="LimboState" parent="LimboHSM"]
+script = ExtResource("12_cba8u")
+
+[node name="Airborne" type="LimboState" parent="LimboHSM"]
+script = ExtResource("13_0h34x")
+
+[node name="Control" parent="." node_paths=PackedStringArray("playerRef") instance=ExtResource("2_jnk8a")]
+mouse_filter = 2
+playerRef = NodePath("..")
+
+[node name="cursor" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("19_0otme")
+color = Color(0, 1, 1, 1)
+
+[node name="speedLine" type="Control" parent="Control" node_paths=PackedStringArray("playerRefrence")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("21_cba8u")
+playerRefrence = NodePath("../..")
+
+[connection signal="UseItem" from="." to="." method="_on_use_item"]

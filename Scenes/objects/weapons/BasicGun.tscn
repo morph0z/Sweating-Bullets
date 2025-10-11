@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://dv3buqoodu2"]
+
+[ext_resource type="Script" uid="uid://4uprog75f8wj" path="res://Scripts/classes/gunClass.gd" id="1_mdqoc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_70teg"]
+size = Vector3(1.34863, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hubyf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mdqoc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mdqoc"]
+radius = 0.369477
+height = 1.38377
+
+[node name="Gun" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 3
+mass = 0.1
+script = ExtResource("1_mdqoc")
+
+[node name="pickUpBox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pickUpBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174316, 0, 0)
+shape = SubResource("BoxShape3D_70teg")
+
+[node name="Mesh" type="Node3D" parent="."]
+transform = Transform3D(0.535666, 0, 0, 0, 0.341049, 0, 0, 0, 0.461993, 0.163043, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(0.0451712, 0.998979, 0, -0.998979, 0.0451712, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_hubyf")
+skeleton = NodePath("../../root/@EditorNode@21803/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11479/@VSplitContainer@11131/@HSplitContainer@11133/@HSplitContainer@11135/@Control@11136/@SubViewportContainer@11137/@SubViewport@11138/Gun")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(-0.0497916, 0.648636, 0, -0.938794, -0.0344023, 0, 0, 0, 0.741299, -0.697478, -0.75133, 0)
+mesh = SubResource("BoxMesh_mdqoc")
+skeleton = NodePath("../../root/@EditorNode@21803/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11479/@VSplitContainer@11131/@HSplitContainer@11133/@HSplitContainer@11135/@Control@11136/@SubViewportContainer@11137/@SubViewport@11138/Gun")
+
+[node name="shootPoint" type="Marker3D" parent="."]
+transform = Transform3D(0.535666, 0, 0, 0, 0.341049, 0, 0, 0, 0.461993, 0.704404, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.123211, -0.0557556, -0.00726318)
+shape = SubResource("CapsuleShape3D_mdqoc")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="pickUpBox" to="." method="_on_pick_up_box_area_entered"]

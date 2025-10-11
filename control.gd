@@ -1,6 +1,7 @@
 extends Control
 @onready var label: Label = $Label
-@export var player: CharacterBody3D
+@export var playerRef: player
+@export var debug: bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -9,4 +10,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	label.text = str(player.state_machine.get_active_state())
+	if debug:
+		label.text = str(playerRef.state_machine.get_active_state()) +" <Health = "+str(playerRef.health_component.HEALTH)+">  <Fps: "+str(Engine.get_frames_per_second())+">"
+	elif !debug:
+		label.text = ""

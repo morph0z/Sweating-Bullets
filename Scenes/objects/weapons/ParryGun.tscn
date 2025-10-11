@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://cq4nss3luvr4"]
+
+[ext_resource type="Script" uid="uid://5vj2o7357cpp" path="res://Scripts/objects/items/weapons/guns/parry_gun.gd" id="1_82hbd"]
+[ext_resource type="Script" uid="uid://brpwbeykols0s" path="res://Scripts/componets/hitboxComponent.gd" id="2_ggsnn"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dgfc2"]
+radius = 0.724372
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_70teg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_82hbd"]
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hubyf"]
+material = SubResource("StandardMaterial3D_82hbd")
+
+[sub_resource type="BoxMesh" id="BoxMesh_mdqoc"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mdqoc"]
+radius = 0.369477
+height = 1.38377
+
+[node name="ParryGun" type="RigidBody3D" node_paths=PackedStringArray("hitboxComponentReference") groups=["BulletCanBounce"]]
+collision_layer = 2
+collision_mask = 3
+mass = 0.1
+script = ExtResource("1_82hbd")
+hitboxComponentReference = NodePath("hitboxComponent")
+
+[node name="hitboxComponent" type="Area3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.123211, -0.0557556, -0.00726318)
+script = ExtResource("2_ggsnn")
+damage_dealt = 5
+metadata/_custom_type_script = "uid://brpwbeykols0s"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hitboxComponent"]
+shape = SubResource("SphereShape3D_dgfc2")
+debug_color = Color(0, 0.641613, 0.331479, 0.42)
+
+[node name="pickUpBox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="pickUpBox"]
+shape = SubResource("BoxShape3D_70teg")
+
+[node name="Mesh" type="Node3D" parent="."]
+transform = Transform3D(0.535666, 0, 0, 0, 0.341049, 0, 0, 0, 0.461993, 0.163043, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(0.0451712, 0.998979, 0, -0.998979, 0.0451712, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_hubyf")
+skeleton = NodePath("../../root/@EditorNode@21803/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11479/@VSplitContainer@11131/@HSplitContainer@11133/@HSplitContainer@11135/@Control@11136/@SubViewportContainer@11137/@SubViewport@11138/Gun")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(-0.0497916, 0.648636, 0, -0.938794, -0.0344023, 0, 0, 0, 0.741299, -0.697478, -0.75133, 0)
+mesh = SubResource("BoxMesh_mdqoc")
+skeleton = NodePath("../../root/@EditorNode@21803/@Panel@14/@VBoxContainer@15/DockHSplitLeftL/DockHSplitLeftR/DockHSplitMain/@VBoxContainer@26/DockVSplitCenter/@VSplitContainer@54/@VBoxContainer@55/@EditorMainScreen@102/MainScreen/@CanvasItemEditor@11479/@VSplitContainer@11131/@HSplitContainer@11133/@HSplitContainer@11135/@Control@11136/@SubViewportContainer@11137/@SubViewport@11138/Gun")
+
+[node name="shootPoint" type="Marker3D" parent="."]
+transform = Transform3D(0.535666, 0, 0, 0, 0.341049, 0, 0, 0, 0.461993, 0.704404, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0.123211, -0.0557556, -0.00726318)
+shape = SubResource("CapsuleShape3D_mdqoc")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="hitboxComponent" to="hitboxComponent" method="_on_area_entered"]
+[connection signal="area_entered" from="pickUpBox" to="." method="_on_pick_up_box_area_entered"]
