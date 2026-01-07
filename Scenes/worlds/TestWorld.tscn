@@ -59,6 +59,12 @@ use_collision = true
 size = Vector3(0.519409, 27.042, 3.66748)
 material = SubResource("StandardMaterial3D_rbciq")
 
+[node name="CSGBox3D7" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, -20.4257, 3.20062, 17.1841)
+use_collision = true
+size = Vector3(5.7514, 27.042, 0.290283)
+material = SubResource("StandardMaterial3D_rbciq")
+
 [node name="CSGBox3D5" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
 transform = Transform3D(5.09481, 0, 0, 0, -1.19551e-08, 8.87038, 0, -0.273501, -3.87737e-07, -29.3759, 16.0464, -32.7632)
 use_collision = true

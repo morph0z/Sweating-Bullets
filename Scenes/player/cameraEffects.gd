@@ -17,9 +17,14 @@ class_name cameraEffects extends Camera3D
 @export var fov_min:float = 60
 @export var fov_max:float = 120
 
+@export_category("Wall Run")
+@export var wallrun_tilt:float = 10
+@export var wallrun_tilt_time:float = 0.2
+
 func _process(delta: float) -> void:
 	calculate_view_offset(delta)
 	calculate_fov_effect(delta)
+	calculate_wallrun_tilt(delta)
 	
 func calculate_view_offset(_delta:float):
 	if not playerReference:
@@ -51,3 +56,25 @@ func calculate_fov_effect(_delta:float):
 		var newFov = ((velocity.dot(forward))*-5)+fov_min
 		newFovClamped = clampf(newFov, fov_min, fov_max)
 	fov = newFovClamped
+
+func calculate_wallrun_tilt(_delta:float):
+	if not playerReference:
+		return
+
+	if playerReference.state_machine.get_active_state().name == "WallRunning":
+		var tiltTween:Tween = create_tween()
+		tiltTween.set_ease(Tween.EASE_IN_OUT)
+		tiltTween.set_trans(Tween.TRANS_CUBIC)
+		if playerReference.get_wall_normal().x != 0:
+			tiltTween.tween_property(self, "rotation_degrees", Vector3(0,0,wallrun_tilt)*-playerReference.get_wall_normal().x * playerReference.transform.basis, wallrun_tilt_time)
+		elif playerReference.get_wall_normal().z != 0:
+			tiltTween.tween_property(self, "rotation_degrees", Vector3(0,0,wallrun_tilt)*-playerReference.get_wall_normal().z * playerReference.transform.basis.x, wallrun_tilt_time)
+			
+	if playerReference.state_machine.get_active_state().name != "WallRunning":
+		var tiltTween:Tween = create_tween()
+		tiltTween.set_ease(Tween.EASE_IN_OUT)
+		tiltTween.set_trans(Tween.TRANS_CUBIC)
+		tiltTween.tween_property(self, "rotation_degrees", Vector3.ZERO, wallrun_tilt_time)
+		
+
+		

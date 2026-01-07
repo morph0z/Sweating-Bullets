@@ -24,7 +24,10 @@ class_name player extends CharacterBody3D
 @export_category("Jump Settings")
 @export var jump_velocity : float = 5
 @export var slide_velocity : float = 2
-@export var wall_jump_velocity : float = 120
+@export var wall_jump_velocity : float = 20
+@export_category("Side Step")
+@export var side_step_distance : float = 10
+
 
 #region states
 @onready var base: PlayerState = $LimboHSM/Base
@@ -96,8 +99,8 @@ func _physics_process(delta: float) -> void:
 		velocity.x = _movement_velocity.x * slide_velocity
 		velocity.z = _movement_velocity.z * slide_velocity
 	elif currentlyWallJumping:
-		velocity = lerp(velocity,get_wall_normal() * wall_jump_velocity, acceleration)
-		velocity.y += jump_velocity/5
+		velocity += get_wall_normal() * wall_jump_velocity
+		velocity.y += jump_velocity/8
 	if held_item.get_children().size() == 1:
 		var item = held_item.get_child(0)
 		item.freeze = true
@@ -150,7 +153,7 @@ func sideStepRight() -> void:
 	sideStepTween.set_ease(Tween.EASE_OUT)
 	sideStepTween.set_trans(Tween.TRANS_EXPO)
 	side_step_dir = 1
-	sideStepTween.tween_property(self, "position", position + ((Vector3(10,0,0) * transform.basis.inverse())), 0.2).from_current()
+	sideStepTween.tween_property(self, "position", position + ((Vector3(side_step_distance,0,0) * transform.basis.inverse())), 0.2).from_current()
 	if rightCast.is_colliding():
 		sideStepTween.stop()
 		side_step_dir = 0
@@ -162,7 +165,7 @@ func sideStepLeft() -> void:
 	sideStepTween.set_ease(Tween.EASE_OUT)
 	sideStepTween.set_trans(Tween.TRANS_EXPO)
 	side_step_dir = -1
-	sideStepTween.tween_property(self, "position", position + ((Vector3(-10,0,0) * transform.basis.inverse())), 0.2).from_current()
+	sideStepTween.tween_property(self, "position", position + ((Vector3(-side_step_distance,0,0) * transform.basis.inverse())), 0.2).from_current()
 	if leftCast.is_colliding():
 		sideStepTween.stop()
 		side_step_dir = 0

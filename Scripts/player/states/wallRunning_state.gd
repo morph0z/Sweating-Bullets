@@ -3,7 +3,7 @@ extends PlayerState
 var alreadyWallJumped:bool = false
 # Called when the node enters the scene tree for the first time.
 func _update(delta: float) -> void:
-	player_reference.velocity.y += (player_reference.get_gravity().y * delta)*0.2
+	player_reference.velocity.y += (player_reference.get_gravity().y * delta)*0.1
 	if player_reference.is_on_floor():
 		set_state(player_reference.sprinting)
 	if !player_reference.is_on_wall():
