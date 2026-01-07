@@ -10,6 +10,9 @@ class_name player extends CharacterBody3D
 @export var crouch_check : ShapeCast3D
 @export var interaction_raycast : RayCast3D
 @onready var held_item: Node3D = $CamPiviot/Camera3D/HoldingPoint/HeldItem
+@onready var leftCast: ShapeCast3D = $SideStepCasts/Left
+@onready var rightCast: ShapeCast3D = $SideStepCasts/Right
+
 @export_category("Movement Settings")
 @export_group("Easing")
 @export var acceleration : float = 0.2
@@ -19,9 +22,9 @@ class_name player extends CharacterBody3D
 @export var sprint_speed : float = 3.0
 @export var crouch_speed : float = -5.0
 @export_category("Jump Settings")
-@export var jump_velocity : float = 5.
+@export var jump_velocity : float = 5
 @export var slide_velocity : float = 2
-@export var wall_jump_velocity : float = 5
+@export var wall_jump_velocity : float = 120
 
 #region states
 @onready var base: PlayerState = $LimboHSM/Base
@@ -44,6 +47,7 @@ var _movement_velocity : Vector3 = Vector3.ZERO
 var sprint_modifier : float = 0.0
 var crouch_modifier : float = 0.0
 var speed : float = 0.0
+var side_step_dir:int = 0
 
 var feelingGravity : bool = true
 var currentlySliding : bool = false
@@ -92,13 +96,12 @@ func _physics_process(delta: float) -> void:
 		velocity.x = _movement_velocity.x * slide_velocity
 		velocity.z = _movement_velocity.z * slide_velocity
 	elif currentlyWallJumping:
-		velocity.x += (get_wall_normal().x * wall_jump_velocity)*5
-		velocity.y += wall_jump_velocity*0.2
-	
+		velocity = lerp(velocity,get_wall_normal() * wall_jump_velocity, acceleration)
+		velocity.y += jump_velocity/5
 	if held_item.get_children().size() == 1:
 		var item = held_item.get_child(0)
 		item.freeze = true
-		
+	
 	move_and_slide()
 
 func update_rotation(rotation_input) -> void:
@@ -141,6 +144,30 @@ func wallRun() -> void:
 
 func stomp(force: float) -> void:
 	velocity.y = -10*force
+
+func sideStepRight() -> void:
+	var sideStepTween:Tween = get_tree().create_tween()
+	sideStepTween.set_ease(Tween.EASE_OUT)
+	sideStepTween.set_trans(Tween.TRANS_EXPO)
+	side_step_dir = 1
+	sideStepTween.tween_property(self, "position", position + ((Vector3(10,0,0) * transform.basis.inverse())), 0.2).from_current()
+	if rightCast.is_colliding():
+		sideStepTween.stop()
+		side_step_dir = 0
+	await sideStepTween.finished
+	side_step_dir = 0
+
+func sideStepLeft() -> void:
+	var sideStepTween:Tween = get_tree().create_tween()
+	sideStepTween.set_ease(Tween.EASE_OUT)
+	sideStepTween.set_trans(Tween.TRANS_EXPO)
+	side_step_dir = -1
+	sideStepTween.tween_property(self, "position", position + ((Vector3(-10,0,0) * transform.basis.inverse())), 0.2).from_current()
+	if leftCast.is_colliding():
+		sideStepTween.stop()
+		side_step_dir = 0
+	await sideStepTween.finished
+	side_step_dir = 0
 
 func throwItem(force) -> void:
 	var item = held_item.get_child(0)

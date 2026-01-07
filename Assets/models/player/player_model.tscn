@@ -526,7 +526,7 @@ bones/10/rotation = Quaternion(8.35908e-08, -2.84948e-10, -0.707107, 0.707107)
 bones/10/scale = Vector3(1, 1, 1)
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="Torso_Legs"]
-transform = Transform3D(1, 7.99361e-15, 2.84217e-14, -7.10543e-15, 0.997578, -0.069565, -2.84217e-14, 0.069565, 0.997578, 1.01635e-14, 0.109696, 0.0884485)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.11278, 0)
 bone_name = "Torso"
 bone_idx = 1
 use_external_skeleton = true
@@ -558,7 +558,7 @@ mesh = SubResource("ArrayMesh_2j1t0")
 skin = SubResource("Skin_yw06g")
 
 [node name="Cube_001" type="BoneAttachment3D" parent="Torso_Legs"]
-transform = Transform3D(1, 7.99361e-15, 2.84217e-14, -7.10543e-15, 0.997578, -0.069565, -2.84217e-14, 0.069565, 0.997578, 2.37272e-14, 1.83254, 0.200237)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.83923, -0.00833213)
 bone_name = "Cube.001"
 bone_idx = 2
 

@@ -1,8 +1,40 @@
-[gd_scene load_steps=7 format=3 uid="uid://ncreguqrk8u3"]
+[gd_scene load_steps=15 format=3 uid="uid://ncreguqrk8u3"]
 
+[ext_resource type="Texture2D" uid="uid://dvh8sf54jdiwu" path="res://Assets/textures/prototype/Dark/texture_01.png" id="1_bds5b"]
 [ext_resource type="PackedScene" uid="uid://dxo8l5kjh7cj5" path="res://Scenes/player/Player.tscn" id="1_kgmfg"]
+[ext_resource type="Texture2D" uid="uid://b4aw3jcgmt3kd" path="res://Assets/textures/prototype/Green/texture_01.png" id="1_tlmva"]
 [ext_resource type="PackedScene" uid="uid://duey105d5fn1g" path="res://Scenes/objects/dummy.tscn" id="2_8v7lr"]
-[ext_resource type="PackedScene" uid="uid://cq4nss3luvr4" path="res://Scenes/objects/weapons/ParryGun.tscn" id="3_bds5b"]
+[ext_resource type="Texture2D" uid="uid://cbjugcyskdvc2" path="res://Assets/textures/prototype/Orange/texture_01.png" id="3_lujis"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2elpg"]
+albedo_texture = ExtResource("1_tlmva")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rbciq"]
+albedo_texture = ExtResource("1_tlmva")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bkuco"]
+albedo_texture = ExtResource("1_tlmva")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8v7lr"]
+albedo_texture = ExtResource("1_bds5b")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mqfms"]
+albedo_texture = ExtResource("3_lujis")
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_muy5d"]
+albedo_texture = ExtResource("3_lujis")
+uv1_triplanar = true
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kgmfg"]
 
@@ -19,29 +51,47 @@ sky = SubResource("Sky_8v7lr")
 transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 18.6426, 3.20062, -32.7015)
 use_collision = true
 size = Vector3(0.519409, 27.042, 3.66748)
+material = SubResource("StandardMaterial3D_2elpg")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
-transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, -7.0977, 3.20062, -32.7015)
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, -7.0977, 3.20062, -32.7632)
 use_collision = true
 size = Vector3(0.519409, 27.042, 3.66748)
+material = SubResource("StandardMaterial3D_rbciq")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, -1.19551e-08, 8.87038, 0, -0.273501, -3.87737e-07, -29.3759, 16.0464, -32.7632)
+use_collision = true
+size = Vector3(0.519409, 27.042, 3.66748)
+material = SubResource("StandardMaterial3D_rbciq")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, -1.19551e-08, 8.87038, 0, -0.273501, -3.87737e-07, -20.6219, 16.0464, -32.7632)
+use_collision = true
+size = Vector3(0.519409, 27.042, 3.66748)
+material = SubResource("StandardMaterial3D_rbciq")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="."]
 transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 18.6426, 7.76311, -66.3341)
 use_collision = true
 size = Vector3(0.519409, 27.042, 3.66748)
+material = SubResource("StandardMaterial3D_bkuco")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 1.98331, -0.21917, -38.7761)
 use_collision = true
 size = Vector3(23.0833, 1, 19.1121)
+material = SubResource("StandardMaterial3D_8v7lr")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="." groups=["BulletCanBounce"]]
 transform = Transform3D(5.09481, 0, 0, 0, 0.51824, 0, 0, 0, 8.87038, -4.35863, 0.286263, -8.67293)
 use_collision = true
+material = SubResource("StandardMaterial3D_mqfms")
 
 [node name="CSGCylinder3D2" type="CSGCylinder3D" parent="."]
 transform = Transform3D(5.09481, 0, 0, 0, 0.51824, 0, 0, 0, 8.87038, 3.79459, 2.65772, -0.0936646)
 use_collision = true
+material = SubResource("StandardMaterial3D_muy5d")
 
 [node name="Player" parent="." instance=ExtResource("1_kgmfg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3276, 0)
@@ -55,6 +105,3 @@ environment = SubResource("Environment_bds5b")
 
 [node name="Dummy" parent="." instance=ExtResource("2_8v7lr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.34315, -16.7316)
-
-[node name="ParryGun" parent="." instance=ExtResource("3_bds5b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.5472, 1.44902, -10.2716)

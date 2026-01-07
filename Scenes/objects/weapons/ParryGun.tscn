@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cq4nss3luvr4"]
+[gd_scene load_steps=9 format=3 uid="uid://cswur78gknrjk"]
 
-[ext_resource type="Script" uid="uid://5vj2o7357cpp" path="res://Scripts/objects/items/weapons/guns/parry_gun.gd" id="1_82hbd"]
 [ext_resource type="Script" uid="uid://brpwbeykols0s" path="res://Scripts/componets/hitboxComponent.gd" id="2_ggsnn"]
+
+[sub_resource type="GDScript" id="GDScript_s5gru"]
+script/source = "extends gunClass
+"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dgfc2"]
 radius = 0.724372
@@ -26,7 +29,7 @@ height = 1.38377
 collision_layer = 2
 collision_mask = 3
 mass = 0.1
-script = ExtResource("1_82hbd")
+script = SubResource("GDScript_s5gru")
 hitboxComponentReference = NodePath("hitboxComponent")
 
 [node name="hitboxComponent" type="Area3D" parent="."]

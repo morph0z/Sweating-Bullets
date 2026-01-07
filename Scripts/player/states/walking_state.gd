@@ -3,6 +3,10 @@ extends PlayerState
 
 func _update(delta: float) -> void:
 	player_reference.camera.update_camera_height(delta, false, 0)
+	if Input.is_action_just_pressed("QQuickStepLeft"):
+		player_reference.sideStepLeft()
+	if Input.is_action_just_pressed("EQuickStepRight"):
+		player_reference.sideStepRight()
 	var isMovingButNotInputing = player_reference._input_dir == Vector2.ZERO and player_reference.velocity != Vector3.ZERO
 	var isNotMoving = player_reference._input_dir == Vector2.ZERO and player_reference.velocity == Vector3.ZERO
 	if Input.is_action_pressed("ControlSprint"):

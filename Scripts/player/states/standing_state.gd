@@ -2,6 +2,10 @@ extends PlayerState
 
 
 func _update(delta: float) -> void:
+	if Input.is_action_just_pressed("QQuickStepLeft"):
+		player_reference.sideStepLeft()
+	if Input.is_action_just_pressed("EQuickStepRight"):
+		player_reference.sideStepRight()
 	player_reference.camera.update_camera_height(delta, false, 0)
 	
 	if Input.is_action_pressed("LeftShiftCrouch") and player_reference.is_on_floor():
