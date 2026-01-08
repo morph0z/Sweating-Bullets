@@ -21,10 +21,15 @@ class_name cameraEffects extends Camera3D
 @export var wallrun_tilt:float = 10
 @export var wallrun_tilt_time:float = 0.2
 
+@export_category("Slide")
+@export var slide_tilt:float = 5
+@export var slide_tilt_time:float = 0.1
+
 func _process(delta: float) -> void:
 	calculate_view_offset(delta)
 	calculate_fov_effect(delta)
 	calculate_wallrun_tilt(delta)
+	calculate_slide_tilt(delta)
 	
 func calculate_view_offset(_delta:float):
 	if not playerReference:
@@ -57,24 +62,46 @@ func calculate_fov_effect(_delta:float):
 		newFovClamped = clampf(newFov, fov_min, fov_max)
 	fov = newFovClamped
 
+var resetWallTiltOnce:bool = false
 func calculate_wallrun_tilt(_delta:float):
 	if not playerReference:
 		return
 
 	if playerReference.state_machine.get_active_state().name == "WallRunning":
-		var tiltTween:Tween = create_tween()
-		tiltTween.set_ease(Tween.EASE_IN_OUT)
-		tiltTween.set_trans(Tween.TRANS_CUBIC)
+		resetWallTiltOnce = false
+		var wallTiltTween:Tween = create_tween()
+		wallTiltTween.set_ease(Tween.EASE_IN_OUT)
+		wallTiltTween.set_trans(Tween.TRANS_CUBIC)
 		if playerReference.get_wall_normal().x != 0:
-			tiltTween.tween_property(self, "rotation_degrees", Vector3(0,0,wallrun_tilt)*-playerReference.get_wall_normal().x * playerReference.transform.basis, wallrun_tilt_time)
+			wallTiltTween.tween_property(self, "rotation_degrees", Vector3(0,0,wallrun_tilt)*-playerReference.get_wall_normal().x * playerReference.transform.basis, wallrun_tilt_time)
 		elif playerReference.get_wall_normal().z != 0:
-			tiltTween.tween_property(self, "rotation_degrees", Vector3(0,0,wallrun_tilt)*-playerReference.get_wall_normal().z * playerReference.transform.basis.x, wallrun_tilt_time)
+			wallTiltTween.tween_property(self, "rotation_degrees", Vector3(0,0,wallrun_tilt)*-playerReference.get_wall_normal().z * playerReference.transform.basis.x, wallrun_tilt_time)
 			
 	if playerReference.state_machine.get_active_state().name != "WallRunning":
-		var tiltTween:Tween = create_tween()
-		tiltTween.set_ease(Tween.EASE_IN_OUT)
-		tiltTween.set_trans(Tween.TRANS_CUBIC)
-		tiltTween.tween_property(self, "rotation_degrees", Vector3.ZERO, wallrun_tilt_time)
-		
+		if !resetWallTiltOnce:
+			var wallTiltTween:Tween = create_tween()
+			wallTiltTween.set_ease(Tween.EASE_IN_OUT)
+			wallTiltTween.set_trans(Tween.TRANS_CUBIC)
+			wallTiltTween.tween_property(self, "rotation_degrees", Vector3.ZERO, wallrun_tilt_time)
+			resetWallTiltOnce = true
 
+var resetSlideTiltOnce:bool = false
+func calculate_slide_tilt(_delta:float):
+	if not playerReference:
+		return
+
+	if playerReference.state_machine.get_active_state().name == "Sliding":
+		resetSlideTiltOnce = false
+		var slideTiltTween:Tween = create_tween()
+		slideTiltTween.set_ease(Tween.EASE_IN_OUT)
+		slideTiltTween.set_trans(Tween.TRANS_CUBIC)
+		slideTiltTween.tween_property(self, "rotation_degrees", Vector3(slide_tilt/5,0,slide_tilt), slide_tilt_time)
+			
+	if playerReference.state_machine.get_active_state().name != "Sliding":
+		if !resetSlideTiltOnce:
+			var slideTiltTween:Tween = create_tween()
+			slideTiltTween.set_ease(Tween.EASE_IN_OUT)
+			slideTiltTween.set_trans(Tween.TRANS_CUBIC)
+			slideTiltTween.tween_property(self, "rotation_degrees", Vector3.ZERO, slide_tilt_time)
+			resetSlideTiltOnce = true
 		

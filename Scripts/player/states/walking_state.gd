@@ -2,6 +2,7 @@ extends PlayerState
 
 
 func _update(delta: float) -> void:
+	player_reference.sprint_modifier = lerpf(player_reference.sprint_modifier,0, delta)
 	player_reference.camera.update_camera_height(delta, false, 0)
 	if Input.is_action_just_pressed("QQuickStepLeft"):
 		player_reference.sideStepLeft()
@@ -21,6 +22,3 @@ func _update(delta: float) -> void:
 	if Input.is_action_just_pressed("SpaceJump") and player_reference.is_on_floor():
 		player_reference.jump(1)
 		set_state(player_reference.airborne)
-
-func _enter() -> void:
-	player_reference.walk()

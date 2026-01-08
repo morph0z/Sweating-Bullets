@@ -16,7 +16,6 @@ func _update(_delta: float) -> void:
 		quickStepLeftOnce = false
 		quickStepRightOnce = false
 	if player_reference.is_on_wall():
-		#print(player_reference.wallRunning.alreadyWallJumped)
 		if !player_reference.wallRunning.alreadyWallJumped:
 			set_state(player_reference.wallRunning)
 	if Input.is_action_pressed("ZStomp"):

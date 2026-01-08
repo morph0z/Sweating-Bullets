@@ -19,6 +19,7 @@ class_name player extends CharacterBody3D
 @export var deceleration : float = 0.5
 @export_group("Speed")
 @export var default_speed : float = 7.0
+@export var max_speed : float = 20.0
 @export var sprint_speed : float = 3.0
 @export var crouch_speed : float = -5.0
 @export_category("Jump Settings")
@@ -53,7 +54,6 @@ var speed : float = 0.0
 var side_step_dir:int = 0
 
 var feelingGravity : bool = true
-var currentlySliding : bool = false
 var currentlyWallJumping : bool = false
 
 signal UseItem
@@ -93,18 +93,12 @@ func _physics_process(delta: float) -> void:
 	
 	_movement_velocity = Vector3(current_velocity.x, velocity.y, current_velocity.y)
 	
-	if !currentlySliding and !currentlyWallJumping:
+	if !state_machine.get_active_state().name == "Sliding" and !currentlyWallJumping:
 		velocity = _movement_velocity
-	elif currentlySliding:
-		velocity.x = _movement_velocity.x * slide_velocity
-		velocity.z = _movement_velocity.z * slide_velocity
-	elif currentlyWallJumping:
-		velocity += get_wall_normal() * wall_jump_velocity
-		velocity.y += jump_velocity/8
-	if held_item.get_children().size() == 1:
-		var item = held_item.get_child(0)
-		item.freeze = true
-	
+		
+	#if held_item.get_children().size() == 1:
+		#var item = held_item.get_child(0)
+		#item.freeze = true
 	move_and_slide()
 
 func update_rotation(rotation_input) -> void:
@@ -114,32 +108,12 @@ func crouchPostureCollision(active:bool) -> void:
 	standing_collision.disabled = active
 	crouching_collision.disabled = !active
 
-func sprint() -> void:
-	sprint_modifier = sprint_speed
-	crouchPostureCollision(false)
-	
-func walk() -> void:
-	sprint_modifier = 0.0
-
-func stand() -> void:
-	crouch_modifier = 0.0
-	crouchPostureCollision(false)
-	
 func crouch() -> void:
 	crouch_modifier = crouch_speed
 	crouchPostureCollision(true)
 
 func jump(force: float) -> void:
 	velocity.y += jump_velocity*force
-	
-func wallJump() -> void:
-	currentlyWallJumping = true
-	await get_tree().create_timer(0.1).timeout
-	currentlyWallJumping = false
-	
-func slide() -> void:
-	currentlySliding = true
-	crouchPostureCollision(true)
 
 func wallRun() -> void:
 	feelingGravity = false

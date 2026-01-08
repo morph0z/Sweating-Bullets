@@ -3,6 +3,10 @@ extends PlayerState
 
 func _update(delta: float) -> void:
 	player_reference.camera.update_camera_height(delta, false, 0)
+	player_reference.crouchPostureCollision(false)
+	if player_reference.is_on_wall():
+		player_reference.velocity = Vector3.ZERO
+	
 	if Input.is_action_just_pressed("QQuickStepLeft"):
 		player_reference.sideStepLeft()
 	if Input.is_action_just_pressed("EQuickStepRight"):
@@ -16,6 +20,6 @@ func _update(delta: float) -> void:
 	if Input.is_action_just_pressed("SpaceJump") and player_reference.is_on_floor():
 		player_reference.jump(1.5)
 		set_state(player_reference.airborne)
-		
+
 func _enter() -> void:
-	player_reference.sprint()
+	player_reference.sprint_modifier += player_reference.sprint_speed
