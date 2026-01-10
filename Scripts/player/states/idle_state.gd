@@ -1,6 +1,7 @@
 extends PlayerState
 
 func _update(_delta: float) -> void:
+	velocity_handling(_delta)
 	if Input.is_action_just_pressed("QQuickStepLeft"):
 		player_reference.sideStepLeft()
 	if Input.is_action_just_pressed("EQuickStepRight"):

@@ -2,6 +2,8 @@ extends PlayerState
 
 
 func _update(delta: float) -> void:
+	velocity_handling(delta)
+	
 	if Input.is_action_just_pressed("QQuickStepLeft"):
 		player_reference.sideStepLeft()
 	if Input.is_action_just_pressed("EQuickStepRight"):
@@ -14,10 +16,11 @@ func _update(delta: float) -> void:
 		set_state(player_reference.moving)
 		
 	if Input.is_action_just_pressed("SpaceJump") and player_reference.is_on_floor():
-		player_reference.jump(1)
+		jump(1)
 		set_state(player_reference.airborne)
 		
 func _enter() -> void:
+	player_reference.wallRunning.alreadyWallRan = false
 	player_reference.crouch_modifier = 0.0
 	player_reference.sprint_modifier = 0
 	player_reference.crouchPostureCollision(false)

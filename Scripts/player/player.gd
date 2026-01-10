@@ -16,15 +16,15 @@ class_name player extends CharacterBody3D
 @export_category("Movement Settings")
 @export_group("Easing")
 @export var acceleration : float = 0.2
-@export var deceleration : float = 0.5
+@export var deceleration : float = 3
 @export_group("Speed")
 @export var default_speed : float = 7.0
 @export var max_speed : float = 20.0
 @export var sprint_speed : float = 3.0
 @export var crouch_speed : float = -5.0
+@export var slide_velocity : float = 10
 @export_category("Jump Settings")
 @export var jump_velocity : float = 5
-@export var slide_velocity : float = 2
 @export var wall_jump_velocity : float = 20
 @export_category("Side Step")
 @export var side_step_distance : float = 10
@@ -47,14 +47,18 @@ class_name player extends CharacterBody3D
 @export var health_component: healthComponent
 
 var _input_dir : Vector2 = Vector2.ZERO
-var _movement_velocity : Vector3 = Vector3.ZERO
+var current_velocity:Vector2
+var direction:Vector3
+var _wanted_velocity : Vector3 = Vector3.ZERO
+
 var sprint_modifier : float = 0.0
 var crouch_modifier : float = 0.0
 var speed : float = 0.0
 var side_step_dir:int = 0
 
 var feelingGravity : bool = true
-var currentlyWallJumping : bool = false
+
+var canMove:bool = true
 
 signal UseItem
 
@@ -77,28 +81,23 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	if (not is_on_floor()) and feelingGravity:
-		velocity += get_gravity() * delta
-		
-	var speed_modifier = sprint_modifier + crouch_modifier
-	speed = default_speed + speed_modifier
+		apply_force(delta, get_gravity())
 	
-	_input_dir = Input.get_vector("ALeft", "DRight", "WForward", "SBackward")
-	var current_velocity = Vector2(_movement_velocity.x, _movement_velocity.z)
-	var direction = (transform.basis * Vector3(_input_dir.x, 0, _input_dir.y)).normalized()
-	
-	if direction:
-		current_velocity = lerp(current_velocity, Vector2(direction.x, direction.z) * speed, acceleration)
-	else:
-		current_velocity = current_velocity.move_toward(Vector2.ZERO, deceleration)
-	
-	_movement_velocity = Vector3(current_velocity.x, velocity.y, current_velocity.y)
-	
-	if !state_machine.get_active_state().name == "Sliding" and !currentlyWallJumping:
-		velocity = _movement_velocity
-		
-	#if held_item.get_children().size() == 1:
-		#var item = held_item.get_child(0)
-		#item.freeze = true
+	if canMove:
+		var speed_modifier = sprint_modifier + crouch_modifier
+		speed = default_speed + speed_modifier
+
+		_input_dir = Input.get_vector("ALeft", "DRight", "WForward", "SBackward")
+		current_velocity = Vector2(_wanted_velocity.x, _wanted_velocity.z)
+		direction = (transform.basis * Vector3(_input_dir.x, 0, _input_dir.y)).normalized()
+
+		if direction:
+			current_velocity = Vector2(direction.x, direction.z) * speed
+		else:
+			current_velocity = Vector2.ZERO
+
+		_wanted_velocity = Vector3(current_velocity.x, velocity.y, current_velocity.y)
+
 	move_and_slide()
 
 func update_rotation(rotation_input) -> void:
@@ -112,15 +111,20 @@ func crouch() -> void:
 	crouch_modifier = crouch_speed
 	crouchPostureCollision(true)
 
-func jump(force: float) -> void:
-	velocity.y += jump_velocity*force
+#region Apply Force
+func apply_force(force:float, direction_applied:Variant):
+	match typeof(direction_applied):
+		TYPE_VECTOR2:
+			_apply_force_vec2(force, direction_applied)
+		TYPE_VECTOR3:
+			_apply_force_vec3(force, direction_applied)
 
-func wallRun() -> void:
-	feelingGravity = false
-	velocity.y = 0
+func _apply_force_vec2(force: float, direction_applied:Vector2) -> void:
+	velocity += force*Vector3(direction_applied.x, 0 , direction_applied.y)
 
-func stomp(force: float) -> void:
-	velocity.y = -10*force
+func _apply_force_vec3(force: float, direction_applied:Vector3) -> void:
+	velocity += force*direction_applied
+#endregion
 
 func sideStepRight() -> void:
 	var sideStepTween:Tween = get_tree().create_tween()

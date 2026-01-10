@@ -53,16 +53,202 @@ use_collision = true
 size = Vector3(0.519409, 27.042, 3.66748)
 material = SubResource("StandardMaterial3D_2elpg")
 
+[node name="CSGBox3D18" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 97.3356, 3.20062, -32.7015)
+use_collision = true
+size = Vector3(0.519409, 27.042, 3.66748)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 105.386, 5.1193, -45.988)
+use_collision = true
+size = Vector3(0.519409, 27.042, 3.66748)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D20" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 97.2651, 9.11887, -69.1139)
+use_collision = true
+size = Vector3(0.519409, 27.042, 3.66748)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D21" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 105.386, 11.1691, -79.7988)
+use_collision = true
+size = Vector3(0.519409, 27.042, 3.66748)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D22" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 97.2651, 13.8768, -102.925)
+use_collision = true
+size = Vector3(0.519409, 27.042, 3.66748)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D25" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(-0.0280991, 0, -8.87025, 0, 0.273501, 0, 5.09473, 0, -0.0489222, 206.622, 22.8442, -252.258)
+use_collision = true
+size = Vector3(0.519409, 27.042, 1.80402)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D26" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(-0.0280991, 0, -8.87025, 0, 0.273501, 0, 5.09473, 0, -0.0489222, 219.181, 22.8442, -242.732)
+use_collision = true
+size = Vector3(0.519409, 27.042, 1.80402)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D27" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(-0.0280991, 0, -8.87025, 0, 0.273501, 0, 5.09473, 0, -0.0489222, 231.293, 22.739, -251.334)
+use_collision = true
+size = Vector3(0.519409, 27.042, 1.80402)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D28" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(-0.0280991, 0, -8.87025, 0, 0.273501, 0, 5.09473, 0, -0.0489222, 243.366, 22.8442, -242.732)
+use_collision = true
+size = Vector3(0.519409, 27.042, 1.80402)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D29" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(-0.0280991, 0, -8.87025, 0, 0.273501, 0, 5.09473, 0, -0.0489222, 255.478, 22.739, -251.334)
+use_collision = true
+size = Vector3(0.519409, 27.042, 1.80402)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D30" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(-0.0280991, 0, -8.87025, 0, 0.273501, 0, 5.09473, 0, -0.0489222, 268.014, 22.8442, -242.732)
+use_collision = true
+size = Vector3(0.519409, 27.042, 1.80402)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D31" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(-0.0280991, 0, -8.87025, 0, 0.273501, 0, 5.09473, 0, -0.0489222, 280.126, 22.739, -251.334)
+use_collision = true
+size = Vector3(0.519409, 27.042, 1.80402)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D23" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 104.419, 16.595, -216.984)
+use_collision = true
+size = Vector3(1.73053, 5.42725, 8.10522)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D32" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 282.689, 20.2997, -214.518)
+use_collision = true
+size = Vector3(1.73053, 5.42725, 7.65527)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D33" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 282.689, 21.3522, -164.528)
+use_collision = true
+size = Vector3(1.73053, 110.969, 0.998047)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D24" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 115.325, 20.2997, -243.218)
+use_collision = true
+size = Vector3(2.42798, 5.42725, 0.677826)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D35" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 127.295, 20.2997, -249.302)
+use_collision = true
+size = Vector3(2.42798, 5.42725, 0.677826)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D36" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 139.625, 20.2997, -243.218)
+use_collision = true
+size = Vector3(2.42798, 5.42725, 0.677826)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D37" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 151.595, 20.2997, -249.302)
+use_collision = true
+size = Vector3(2.42798, 5.42725, 0.677826)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D38" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 163.557, 20.2997, -243.218)
+use_collision = true
+size = Vector3(2.42798, 5.42725, 0.677826)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D39" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 175.526, 20.2997, -249.302)
+use_collision = true
+size = Vector3(2.42798, 5.42725, 0.677826)
+material = SubResource("StandardMaterial3D_2elpg")
+
+[node name="CSGBox3D34" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 194.717, 20.2997, -243.218)
+use_collision = true
+size = Vector3(2.17859, 5.42725, 0.677826)
+material = SubResource("StandardMaterial3D_2elpg")
+
 [node name="CSGBox3D3" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
 transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, -7.0977, 3.20062, -32.7632)
 use_collision = true
 size = Vector3(0.519409, 27.042, 3.66748)
 material = SubResource("StandardMaterial3D_rbciq")
 
+[node name="CSGBox3D13" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, -7.0977, 3.20062, -179.703)
+use_collision = true
+size = Vector3(0.519409, 27.042, 14.1975)
+material = SubResource("StandardMaterial3D_rbciq")
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 11.5197, 3.20062, -288.391)
+use_collision = true
+size = Vector3(0.519409, 27.042, 14.1975)
+material = SubResource("StandardMaterial3D_rbciq")
+
 [node name="CSGBox3D7" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
 transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, -20.4257, 3.20062, 17.1841)
 use_collision = true
 size = Vector3(5.7514, 27.042, 0.290283)
+material = SubResource("StandardMaterial3D_rbciq")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(4.03461, 0, -5.41664, 0, 0.273501, 0, 3.11111, 0, 7.02451, -65.0422, 3.20062, 17.1841)
+use_collision = true
+size = Vector3(5.7514, 27.042, 0.290283)
+material = SubResource("StandardMaterial3D_rbciq")
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(4.03461, 0, -5.41664, 0, 0.273501, 0, 3.11111, 0, 7.02451, -29.1186, 3.20062, -105.404)
+use_collision = true
+size = Vector3(5.7514, 27.042, 0.290283)
+material = SubResource("StandardMaterial3D_rbciq")
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(0.284312, 0, -8.85656, 0, 0.273501, 0, 5.08687, 0, 0.495003, -78.4022, 3.20062, -8.88868)
+use_collision = true
+size = Vector3(5.7514, 27.042, 0.290283)
+material = SubResource("StandardMaterial3D_rbciq")
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(-4.092, 0, -5.28451, 0, 0.273501, 0, 3.03522, 0, -7.12443, -62.4347, 3.20062, -37.8953)
+use_collision = true
+size = Vector3(7.54184, 27.042, 0.290283)
+material = SubResource("StandardMaterial3D_rbciq")
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(0.535204, 0, -8.82131, 0, 0.273501, 0, 5.06662, 0, 0.931823, -0.531593, 3.20062, -354.477)
+use_collision = true
+size = Vector3(5.7514, 27.042, 0.290283)
+material = SubResource("StandardMaterial3D_rbciq")
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(-3.48342, 0, -6.47311, 0, 0.273501, 0, 3.71791, 0, -6.06486, 9.1044, 3.20062, -382.143)
+use_collision = true
+size = Vector3(5.7514, 27.042, 0.290283)
+material = SubResource("StandardMaterial3D_rbciq")
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(-5.02094, 0, 1.50494, 0, 0.273501, 0, -0.864381, 0, -8.74178, 41.1119, 6.45337, -390.621)
+use_collision = true
+size = Vector3(7.54184, 27.042, 0.290283)
 material = SubResource("StandardMaterial3D_rbciq")
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="." groups=["BulletCanBounce"]]
@@ -90,14 +276,38 @@ size = Vector3(23.0833, 1, 19.1121)
 material = SubResource("StandardMaterial3D_8v7lr")
 
 [node name="CSGBox3D8" type="CSGBox3D" parent="."]
-transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 114.344, -0.21917, -188.791)
+transform = Transform3D(5.09481, 0, 0, 0, 0.273501, 0, 0, 0, 8.87038, 234.912, -0.21917, -120.382)
 use_collision = true
-size = Vector3(18.8982, 1, 52.9359)
+size = Vector3(66.2279, 1, 70.0465)
 material = SubResource("StandardMaterial3D_8v7lr")
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="." groups=["BulletCanBounce"]]
 transform = Transform3D(5.09481, 0, 0, 0, 0.51824, 0, 0, 0, 8.87038, -4.35863, 0.286263, -8.67293)
 use_collision = true
+material = SubResource("StandardMaterial3D_mqfms")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, -0.00541861, 0, 0.51824, 0, 0.00311224, 0, 8.87038, 103.185, 7.8642, -124.363)
+use_collision = true
+radius = 0.813965
+material = SubResource("StandardMaterial3D_mqfms")
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.51824, 0, 0, 0, 8.87038, 103.185, 11.0344, -141.612)
+use_collision = true
+radius = 0.813965
+material = SubResource("StandardMaterial3D_mqfms")
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09431, 0, 0.124469, 0, 0.51824, 0, -0.0714903, 0, 8.86951, 103.185, 14.7387, -157.123)
+use_collision = true
+radius = 0.813965
+material = SubResource("StandardMaterial3D_mqfms")
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="." groups=["BulletCanBounce"]]
+transform = Transform3D(5.09481, 0, 0, 0, 0.51824, 0, 0, 0, 8.87038, 103.185, 17.8287, -172.829)
+use_collision = true
+radius = 0.813965
 material = SubResource("StandardMaterial3D_mqfms")
 
 [node name="CSGCylinder3D2" type="CSGCylinder3D" parent="."]
@@ -116,4 +326,4 @@ shadow_enabled = true
 environment = SubResource("Environment_bds5b")
 
 [node name="Dummy" parent="." instance=ExtResource("2_8v7lr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.34315, -16.7316)
+transform = Transform3D(0.998617, 0, 0.05258, 0, 1, 0, -0.05258, 0, 0.998617, -0.629585, 15.3552, -16.0133)
