@@ -9,7 +9,6 @@ var airStrafeVelocity:float = 0.1
 @export var air_accel := 800.0
 @export var air_move_speed := 500.0
 
-
 signal touchedGround
 
 func _update(_delta: float) -> void:
@@ -34,12 +33,14 @@ func _update(_delta: float) -> void:
 			set_state(player_reference.idle)
 
 	if player_reference.is_on_wall():
-		if !player_reference.wallRunning.alreadyWallJumped and !player_reference.wallRunning.alreadyWallRan:
+		if !player_reference.wallRunning.alreadyWallJumped:
 			await get_tree().create_timer(0.2).timeout
 			set_state(player_reference.wallRunning)
 
 	if Input.is_action_just_pressed("ZStomp"):
-		stomp(5)
+		stomp(5, false)
+	if Input.is_action_just_pressed("XCancelStomp"):
+		stomp(5, true)
 
 func _exit() -> void:
 	touchedGround.emit()
@@ -57,7 +58,7 @@ func velocity_handling(_delta:float):
 		wish_dir.y = 0.0
 		wish_dir = wish_dir.normalized()
 		
-		const AIR_ACCEL := 12.0
+		const AIR_ACCEL := 3.0
 		const AIR_MAX_SPEED := 10.0
 		
 		var current_speed := hori_vel.dot(wish_dir)
@@ -76,7 +77,7 @@ func velocity_handling(_delta:float):
 		player_reference.velocity.z = hori_vel.z
 	
 
-func stomp(force: float) -> void:
+func stomp(force: float, cancelLaunch:bool) -> void:
 	var previousVel = Vector3(player_reference.velocity.x, 0, player_reference.velocity.z)
 	player_reference.velocity = Vector3.ZERO
 	player_reference._wanted_velocity = Vector3.ZERO
@@ -86,9 +87,13 @@ func stomp(force: float) -> void:
 
 	await get_tree().create_timer(1).timeout or touchedGround
 	
-	player_reference.canMove = true
-	player_reference.camera_effects.enable_effects = true
-	#player_reference.velocity = previousVel.rotated(Vector3.UP, -player_reference.transform.basis.z.angle_to(previousVel))
-	var speed := previousVel.length()
-	var forwards = -player_reference.transform.basis.z.normalized()
-	player_reference.velocity = forwards * speed
+	if !cancelLaunch:
+		player_reference.canMove = true
+		player_reference.camera_effects.enable_effects = true
+		#player_reference.velocity = previousVel.rotated(Vector3.UP, -player_reference.transform.basis.z.angle_to(previousVel))
+		var speed := previousVel.length()
+		var forwards = -player_reference.transform.basis.z.normalized()
+		player_reference.velocity = forwards * speed
+	else:
+		player_reference.canMove = true
+		player_reference.camera_effects.enable_effects = true

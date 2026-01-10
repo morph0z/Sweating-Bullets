@@ -1,7 +1,6 @@
 extends PlayerState
 
 var alreadyWallJumped:bool = false
-var alreadyWallRan:bool = false
 
 var jump_force = 7.0
 var push_force = 15.0
@@ -11,9 +10,6 @@ func _update(_delta: float) -> void:
 	player_reference.direction = -player_reference.get_wall_normal() * player_reference.speed
 	if Input.is_action_just_pressed("SpaceJump"):
 		wall_jump()
-		set_state(player_reference.airborne)
-	if player_reference._input_dir == Vector2.ZERO:
-		alreadyWallRan = true
 		set_state(player_reference.airborne)
 	if player_reference.is_on_floor():
 		set_state(player_reference.sprinting)
