@@ -26,3 +26,6 @@ func _update(delta: float) -> void:
 	if Input.is_action_just_pressed("SpaceJump") and player_reference.is_on_floor():
 		jump(1)
 		set_state(player_reference.airborne)
+
+func _enter() -> void:
+	machine.animationPlayer.play("Walk")

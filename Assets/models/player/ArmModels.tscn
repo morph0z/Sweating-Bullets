@@ -1,43 +1,9 @@
-[gd_scene load_steps=43 format=4 uid="uid://dxo8l5kjh7cj5"]
+[gd_scene load_steps=9 format=4 uid="uid://ctmn1h8p88hgc"]
 
-[ext_resource type="Script" uid="uid://ctrwyws0ih2tu" path="res://Scripts/player/player.gd" id="1_1ycki"]
-[ext_resource type="PackedScene" uid="uid://dwwc0u01bl5q1" path="res://Scenes/ui/DebugMenu.tscn" id="2_jnk8a"]
-[ext_resource type="Script" uid="uid://dtr2p1f3xhiav" path="res://Scripts/componets/hurtboxComponent.gd" id="2_kk05o"]
-[ext_resource type="Script" uid="uid://b5x2fagogswuw" path="res://Scripts/classes/camPiviotClass.gd" id="2_mphk7"]
-[ext_resource type="Script" uid="uid://bm04r57d3em0p" path="res://Scripts/componets/mouseCaptureComponent.gd" id="3_r5va5"]
-[ext_resource type="Script" uid="uid://cwtbrbe1iwid6" path="res://Scenes/player/cameraEffects.gd" id="3_sy2hw"]
-[ext_resource type="Script" uid="uid://lnmket0am38i" path="res://Scripts/componets/healthComponent.gd" id="4_irnrt"]
-[ext_resource type="Script" uid="uid://dx6viv5g35mcd" path="res://Scripts/player/state_machine.gd" id="4_mphk7"]
-[ext_resource type="Script" uid="uid://d3g3rq2vmlbm1" path="res://Scripts/player/states/base_state.gd" id="5_8hdke"]
-[ext_resource type="Script" uid="uid://bkkjc0t5wolmf" path="res://Scripts/player/states/idle_state.gd" id="6_3tjkw"]
-[ext_resource type="Script" uid="uid://delaueyfbihfn" path="res://Scripts/player/states/standing_state.gd" id="7_kk05o"]
-[ext_resource type="Script" uid="uid://npapvw3ko1h4" path="res://Scripts/player/states/wallRunning_state.gd" id="8_3tjkw"]
-[ext_resource type="Script" uid="uid://b04ksf5ctwwk8" path="res://Scripts/player/states/sprinting_state.gd" id="9_r5m3b"]
-[ext_resource type="Script" uid="uid://u3omlotxo8om" path="res://Scripts/player/states/crouching_state.gd" id="10_0otme"]
-[ext_resource type="Script" uid="uid://cvswme48fvi5e" path="res://Scripts/player/states/sliding_state.gd" id="11_3tjkw"]
-[ext_resource type="Script" uid="uid://3i7fe0kmvqhn" path="res://Scripts/player/states/walking_state.gd" id="11_sy2hw"]
-[ext_resource type="Script" uid="uid://dkjxjlfqyrc77" path="res://Scripts/player/states/moving_state.gd" id="12_cba8u"]
-[ext_resource type="Script" uid="uid://djtq2iuleu2br" path="res://Scripts/player/states/airborne_state.gd" id="13_0h34x"]
-[ext_resource type="Script" uid="uid://cbws3lma2j738" path="res://Scripts/ui/cursor_draw.gd" id="20_cba8u"]
-[ext_resource type="Shader" uid="uid://dft6baklaquwf" path="res://Shaders/speedLines.gdshader" id="21_0h34x"]
-[ext_resource type="Script" uid="uid://dxg6k2t6ocuqy" path="res://Scripts/ui/speedLines_draw.gd" id="21_cba8u"]
-[ext_resource type="Animation" uid="uid://dqv7y3si0a8tm" path="res://reasources/Jump_Inair.res" id="22_arooh"]
-[ext_resource type="Animation" uid="uid://bfihsrb60hmdo" path="res://reasources/Sprint.res" id="23_83gp5"]
-[ext_resource type="Animation" uid="uid://ch4sfalqgqq86" path="res://reasources/Idle.res" id="24_khmeo"]
-[ext_resource type="Animation" uid="uid://08whbmicteut" path="res://reasources/WallRun.res" id="25_k0nfp"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r5va5"]
-radius = 0.534691
-height = 1.4491
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_etc70"]
-radius = 0.534691
-height = 2.74166
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_mphk7"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_r5m3b"]
-size = Vector3(1, 2.5, 1)
+[ext_resource type="Animation" uid="uid://dqv7y3si0a8tm" path="res://reasources/Jump_Inair.res" id="1_dmi8v"]
+[ext_resource type="Animation" uid="uid://bfihsrb60hmdo" path="res://reasources/Sprint.res" id="2_rmcyo"]
+[ext_resource type="Animation" uid="uid://ch4sfalqgqq86" path="res://reasources/Idle.res" id="3_i41jk"]
+[ext_resource type="Animation" uid="uid://08whbmicteut" path="res://reasources/WallRun.res" id="4_jxl0p"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8yxye"]
 resource_name = "StyleShading"
@@ -45,7 +11,7 @@ cull_mode = 2
 albedo_color = Color(1, 0.431158, 0, 1)
 roughness = 0.5
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_h1ktb"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_n8exe"]
 resource_name = "ArmPLURAL_Sphere_005"
 _surfaces = [{
 "aabb": AABB(-3.65855, -0.43062, -0.431297, 7.3171, 0.871701, 0.862594),
@@ -65,7 +31,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="Skin" id="Skin_h5vdi"]
+[sub_resource type="Skin" id="Skin_ellte"]
 resource_name = "Skin"
 bind_count = 6
 bind/0/name = &"R.Arm"
@@ -89,150 +55,17 @@ bind/5/pose = Transform3D(-1.00974e-28, -1, 1.94707e-07, 1, 1.46498e-07, -4.2735
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hst03"]
 _data = {
-&"Jump_Inair": ExtResource("22_arooh"),
-&"Sprint": ExtResource("23_83gp5"),
-&"Walk": ExtResource("24_khmeo"),
-&"WallRun": ExtResource("25_k0nfp")
+&"Jump_Inair": ExtResource("1_dmi8v"),
+&"Sprint": ExtResource("2_rmcyo"),
+&"Walk": ExtResource("3_i41jk"),
+&"WallRun": ExtResource("4_jxl0p")
 }
 
-[sub_resource type="Animation" id="Animation_arooh"]
-resource_name = "WallRunL"
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Armature/Skeleton3D:R.Arm")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.804861, -0.00648791, 1.35231e-07)
-tracks/1/type = "rotation_3d"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Armature/Skeleton3D:R.Arm")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.406665, 0.0702087, 0.289696, 0.86358)
-tracks/2/type = "rotation_3d"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Armature/Skeleton3D:R.ForeArm")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = PackedFloat32Array(0, 1, 0.0699357, -0.0189073, 0.04436, 0.996385)
-tracks/3/type = "position_3d"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Armature/Skeleton3D:L.Arm")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = PackedFloat32Array(0, 1, 0.6412, -0.00648791, 1.35231e-07)
-tracks/4/type = "rotation_3d"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Armature/Skeleton3D:L.Arm")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = PackedFloat32Array(0, 1, 0.174372, -0.271499, -0.836695, 0.44252)
-tracks/5/type = "rotation_3d"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Armature/Skeleton3D:L.ForeArm")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = PackedFloat32Array(0, 1, 0.415118, 0.136012, -0.175179, 0.882321)
+[node name="ArmModels" type="Node3D"]
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_83gp5"]
-_data = {
-&"WallRunL": SubResource("Animation_arooh")
-}
+[node name="Armature" type="Node3D" parent="."]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_irnrt"]
-radius = 0.525164
-height = 2.46123
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_0h34x"]
-size = Vector3(2, 1, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_qp8bv"]
-size = Vector3(2, 1, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_cba8u"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_cba8u"]
-frequency = 0.084
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0h34x"]
-noise = SubResource("FastNoiseLite_cba8u")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qp8bv"]
-shader = ExtResource("21_0h34x")
-shader_parameter/noise = SubResource("NoiseTexture2D_0h34x")
-shader_parameter/line_count = 2.0
-shader_parameter/distortion_power = 0.059
-shader_parameter/line_falloff = 1.0
-shader_parameter/mask_size = 0.164
-shader_parameter/mask_edge = 0.195
-shader_parameter/animation_speed = 20.0
-shader_parameter/blur_strength = 0.01
-shader_parameter/effect_power = 0.5
-
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("camera", "camera_effects", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "health_component")]
-collision_layer = 2
-collision_mask = 3
-script = ExtResource("1_1ycki")
-camera = NodePath("CamPiviot")
-camera_effects = NodePath("CamPiviot/Camera3D")
-state_machine = NodePath("LimboHSM")
-standing_collision = NodePath("StandingCollision")
-crouching_collision = NodePath("CrouchingCollision")
-crouch_check = NodePath("CrouchCheck")
-interaction_raycast = NodePath("CamPiviot/Camera3D/Interation Ray")
-health_component = NodePath("Components/healthComponent")
-
-[node name="CrouchingCollision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.487195, 0)
-shape = SubResource("CapsuleShape3D_r5va5")
-
-[node name="StandingCollision" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.146865, 0)
-shape = SubResource("CapsuleShape3D_etc70")
-
-[node name="CrouchCheck" type="ShapeCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.700361, 0)
-shape = SubResource("SphereShape3D_mphk7")
-target_position = Vector3(0, 0, 0)
-
-[node name="PickUpItemBox" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpItemBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.136407, -0.0106586)
-shape = SubResource("BoxShape3D_r5m3b")
-
-[node name="CamPiviot" type="Node3D" parent="." node_paths=PackedStringArray("player_reference", "component_mouse_capture_reference")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.980359, 0)
-script = ExtResource("2_mphk7")
-player_reference = NodePath("..")
-component_mouse_capture_reference = NodePath("../Components/mouseCaptureComponent")
-
-[node name="Camera3D" type="Camera3D" parent="CamPiviot" node_paths=PackedStringArray("playerReference")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.200591, -0.452387)
-script = ExtResource("3_sy2hw")
-playerReference = NodePath("../..")
-
-[node name="Interation Ray" type="RayCast3D" parent="CamPiviot/Camera3D"]
-target_position = Vector3(0, 0, -10)
-
-[node name="HoldingPoint" type="Marker3D" parent="CamPiviot/Camera3D"]
-transform = Transform3D(1, -2.22045e-16, 0, -2.22045e-16, 1, -5.53929e-17, 7.10543e-15, -5.53928e-17, 1, 2.66454e-15, -0.613573, -1.21535)
-
-[node name="HeldItem" type="Node3D" parent="CamPiviot/Camera3D/HoldingPoint"]
-transform = Transform3D(-4.13987e-08, 6.29205e-16, 0.947092, 0.0274688, 0.946694, 1.2007e-09, -0.946694, 0.0274688, -4.13813e-08, -2.61578e-15, 0.219573, -0.201653)
-
-[node name="Arms" type="Node3D" parent="CamPiviot"]
-transform = Transform3D(-0.405479, 0, -3.54481e-08, 0, 0.405479, 0, 3.54481e-08, 0, -0.405479, 0, -0.024662, -0.64234)
-
-[node name="Armature" type="Node3D" parent="CamPiviot/Arms"]
-
-[node name="Skeleton3D" type="Skeleton3D" parent="CamPiviot/Arms/Armature"]
+[node name="Skeleton3D" type="Skeleton3D" parent="Armature"]
 bones/0/name = "R.Arm"
 bones/0/parent = -1
 bones/0/rest = Transform3D(0, -1, -9.19208e-08, 1, -1.78976e-14, 1.94707e-07, -1.94707e-07, -9.19208e-08, 1, -0.6412, -0.00648791, 1.35231e-07)
@@ -244,7 +77,7 @@ bones/1/name = "R.ForeArm"
 bones/1/parent = 0
 bones/1/rest = Transform3D(1, -1.78976e-14, -7.47776e-15, 1.78976e-14, 1, -9.19207e-08, 7.47776e-15, 9.19207e-08, 1, -3.78066e-14, 1.46168, 3.55271e-15)
 bones/1/enabled = true
-bones/1/position = Vector3(-1.89856e-07, 1.46168, 6.15024e-08)
+bones/1/position = Vector3(-3.78066e-14, 1.46168, 3.55271e-15)
 bones/1/rotation = Quaternion(0.0546721, 0.00588844, -0.0741022, 0.995734)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "R.Hand"
@@ -265,7 +98,7 @@ bones/4/name = "L.ForeArm"
 bones/4/parent = 3
 bones/4/rest = Transform3D(1, 1.78976e-14, 7.47776e-15, -1.78976e-14, 1, -9.19207e-08, -7.47776e-15, 9.19207e-08, 1, 3.78066e-14, 1.46168, 3.55271e-15)
 bones/4/enabled = true
-bones/4/position = Vector3(-0.00188647, 1.45815, 0.00259009)
+bones/4/position = Vector3(3.78066e-14, 1.46168, 3.55271e-15)
 bones/4/rotation = Quaternion(0.415118, 0.136012, -0.175179, 0.882321)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/name = "L.Hand"
@@ -276,130 +109,12 @@ bones/5/position = Vector3(1.70003e-16, 1.007, -3.13589e-17)
 bones/5/rotation = Quaternion(-3.55271e-15, -3.55271e-15, -1.81142e-21, 1)
 bones/5/scale = Vector3(1, 1, 1)
 
-[node name="Arms" type="MeshInstance3D" parent="CamPiviot/Arms/Armature/Skeleton3D"]
-mesh = SubResource("ArrayMesh_h1ktb")
-skin = SubResource("Skin_h5vdi")
+[node name="Arms" type="MeshInstance3D" parent="Armature/Skeleton3D"]
+mesh = SubResource("ArrayMesh_n8exe")
+skin = SubResource("Skin_ellte")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CamPiviot/Arms"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_hst03"),
-&"other": SubResource("AnimationLibrary_83gp5")
+&"": SubResource("AnimationLibrary_hst03")
 }
 autoplay = "Walk"
-
-[node name="Components" type="Node3D" parent="."]
-
-[node name="mouseCaptureComponent" type="Node" parent="Components"]
-script = ExtResource("3_r5va5")
-metadata/_custom_type_script = "uid://bm04r57d3em0p"
-
-[node name="healthComponent" type="Node" parent="Components" node_paths=PackedStringArray("Entity", "StateMachine")]
-script = ExtResource("4_irnrt")
-Entity = NodePath("../..")
-StateMachine = NodePath("../../LimboHSM")
-metadata/_custom_type_script = "uid://lnmket0am38i"
-
-[node name="hurtboxComponent" type="Area3D" parent="Components" node_paths=PackedStringArray("healthComponent_reference")]
-script = ExtResource("2_kk05o")
-healthComponent_reference = NodePath("../healthComponent")
-metadata/_custom_type_script = "uid://dtr2p1f3xhiav"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Components/hurtboxComponent"]
-shape = SubResource("CapsuleShape3D_irnrt")
-debug_color = Color(1, 0, 0.0903349, 0.42)
-
-[node name="SideStepCasts" type="Node3D" parent="."]
-
-[node name="Left" type="ShapeCast3D" parent="SideStepCasts"]
-transform = Transform3D(-4.46693e-08, -0.456, 0, 1.02192, -1.99324e-08, 0, 0, 0, 0.456, -0.505582, 0.0331775, 0)
-shape = SubResource("BoxShape3D_0h34x")
-target_position = Vector3(0, 15, 0)
-debug_shape_custom_color = Color(1, 0, 0, 1)
-
-[node name="Right" type="ShapeCast3D" parent="SideStepCasts"]
-transform = Transform3D(-4.46695e-08, 0.456, 0, -1.02192, -1.99324e-08, 0, 0, 0, 0.456, 0.507971, 0.0231101, 0)
-shape = SubResource("BoxShape3D_qp8bv")
-target_position = Vector3(0, 20, 0)
-debug_shape_custom_color = Color(0.247044, 0.504683, 1, 1)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21098, 0)
-visible = false
-mesh = SubResource("CapsuleMesh_cba8u")
-
-[node name="LimboHSM" type="LimboHSM" parent="." node_paths=PackedStringArray("player_reference", "animationPlayer")]
-script = ExtResource("4_mphk7")
-player_reference = NodePath("..")
-animationPlayer = NodePath("../CamPiviot/Arms/AnimationPlayer")
-
-[node name="Base" type="LimboState" parent="LimboHSM"]
-script = ExtResource("5_8hdke")
-
-[node name="Idle" type="LimboState" parent="LimboHSM"]
-script = ExtResource("6_3tjkw")
-
-[node name="Standing" type="LimboState" parent="LimboHSM"]
-script = ExtResource("7_kk05o")
-
-[node name="WallRunning" type="LimboState" parent="LimboHSM"]
-script = ExtResource("8_3tjkw")
-
-[node name="Sprinting" type="LimboState" parent="LimboHSM"]
-script = ExtResource("9_r5m3b")
-
-[node name="Crouching" type="LimboState" parent="LimboHSM"]
-script = ExtResource("10_0otme")
-
-[node name="Sliding" type="LimboState" parent="LimboHSM"]
-script = ExtResource("11_3tjkw")
-
-[node name="Sliding Cooldown" type="Timer" parent="LimboHSM/Sliding"]
-wait_time = 0.6
-
-[node name="Walking" type="LimboState" parent="LimboHSM"]
-script = ExtResource("11_sy2hw")
-
-[node name="Moving" type="LimboState" parent="LimboHSM"]
-script = ExtResource("12_cba8u")
-
-[node name="Airborne" type="LimboState" parent="LimboHSM"]
-script = ExtResource("13_0h34x")
-air_move_speed = 250.0
-
-[node name="Control" parent="." node_paths=PackedStringArray("playerRef") instance=ExtResource("2_jnk8a")]
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-playerRef = NodePath("..")
-debug = true
-
-[node name="cursor" type="Control" parent="Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("20_cba8u")
-
-[node name="speedLines" type="CanvasLayer" parent="Control" node_paths=PackedStringArray("playerRefrence", "speed_effect_color_rect")]
-script = ExtResource("21_cba8u")
-playerRefrence = NodePath("../..")
-speed_effect_color_rect = NodePath("SpeedLineShader")
-
-[node name="SpeedLineShader" type="ColorRect" parent="Control/speedLines"]
-material = SubResource("ShaderMaterial_qp8bv")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="Visuals" type="Node3D" parent="."]
-
-[connection signal="UseItem" from="." to="." method="_on_use_item"]
-[connection signal="timeout" from="LimboHSM/Sliding/Sliding Cooldown" to="LimboHSM/Sliding" method="_on_sliding_cooldown_timeout"]

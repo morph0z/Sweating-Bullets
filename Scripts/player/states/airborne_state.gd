@@ -48,6 +48,7 @@ func _exit() -> void:
 	quickStepRightOnce = false
 
 func _enter() -> void:
+	machine.animationPlayer.play("Jump_Inair")
 	player_reference.feelingGravity = true
 	
 func velocity_handling(_delta:float):
@@ -78,15 +79,15 @@ func velocity_handling(_delta:float):
 	
 
 func stomp(force: float, cancelLaunch:bool) -> void:
+	machine.animationPlayer.play("Walk")
 	var previousVel = Vector3(player_reference.velocity.x, 0, player_reference.velocity.z)
 	player_reference.velocity = Vector3.ZERO
 	player_reference._wanted_velocity = Vector3.ZERO
 	player_reference.camera_effects.enable_effects = false
-	player_reference.velocity.y = -50
+	player_reference.velocity.y = -50*force
 	player_reference.canMove = false
 
-	await get_tree().create_timer(1).timeout or touchedGround
-	
+	await get_tree().create_timer(1).timeout
 	if !cancelLaunch:
 		player_reference.canMove = true
 		player_reference.camera_effects.enable_effects = true

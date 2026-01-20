@@ -3,6 +3,7 @@ class_name PlayerState extends LimboState
 @export var debug : bool = false
 
 @onready var player_reference : player = self.get_parent().get_parent()
+@onready var machine : PlayerStateMachine = self.get_parent()
 
 
 func set_state(state: PlayerState):

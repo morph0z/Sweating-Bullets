@@ -10,3 +10,6 @@ func _update(_delta: float) -> void:
 		set_state(player_reference.moving)
 	else:
 		set_state(player_reference.standing)
+
+func _enter() -> void:
+	machine.animationPlayer.play("Walk")

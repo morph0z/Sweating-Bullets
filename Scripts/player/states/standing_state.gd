@@ -20,6 +20,7 @@ func _update(delta: float) -> void:
 		set_state(player_reference.airborne)
 		
 func _enter() -> void:
+	machine.animationPlayer.play("Walk")
 	player_reference.crouch_modifier = 0.0
 	player_reference.sprint_modifier = 0
 	player_reference.crouchPostureCollision(false)

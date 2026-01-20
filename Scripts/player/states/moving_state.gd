@@ -10,3 +10,6 @@ func _update(_delta: float) -> void:
 		set_state(player_reference.walking)
 	if not player_reference.is_on_floor():
 		set_state(player_reference.airborne)
+
+func _enter() -> void:
+	machine.animationPlayer.play("Walk")

@@ -3,7 +3,7 @@ class_name PlayerStateMachine extends LimboHSM
 @export var debug : bool = false
 @export_category("References")
 @export var player_reference: player
-
+@export var animationPlayer: AnimationPlayer
 
 #
 #func _process(delta: float) -> void:

@@ -7,6 +7,7 @@ signal doneSliding
 @onready var sliding_cooldown: Timer = $"Sliding Cooldown"
 
 func _enter() -> void:
+	machine.animationPlayer.play("WallRun")
 	player_reference.crouchPostureCollision(true)
 	player_reference.apply_force(player_reference.slide_velocity/(amountOfSlides+1), -player_reference.transform.basis.z)
 	amountOfSlides += 1
