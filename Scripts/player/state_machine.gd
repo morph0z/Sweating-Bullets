@@ -3,10 +3,7 @@ class_name PlayerStateMachine extends LimboHSM
 @export var debug : bool = false
 @export_category("References")
 @export var player_reference: player
-@export var animationPlayer: AnimationPlayer
 
-#
-#func _process(delta: float) -> void:
 	#if player_reference:
 		#player_reference.state_machine.set_expression_property("Player Velocity", player_reference.velocity)
 		#player_reference.state_machine.set_expression_property("Player Hitting Head", player_reference.crouch_check.is_colliding())

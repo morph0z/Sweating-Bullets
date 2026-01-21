@@ -21,10 +21,10 @@ func wall_jump():
 	player_reference.apply_force(jump_force, Vector3.UP)
 
 func _enter() -> void:
-	if player_reference.get_wall_normal().angle_to(player_reference.velocity.normalized()) < deg_to_rad(90):
-		machine.animationPlayer.play("WallRun")
-	else:
-		machine.animationPlayer.play("other/WallRunL")
+	#if player_reference.get_wall_normal().angle_to(player_reference.velocity.normalized()) < deg_to_rad(90):
+		#machine.animationPlayer.play("WallRun")
+	#else:
+		#machine.animationPlayer.play("other/WallRunL")
 	player_reference.feelingGravity = false
 	player_reference.velocity.y = 0
 

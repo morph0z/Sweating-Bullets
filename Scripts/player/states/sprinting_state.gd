@@ -25,7 +25,7 @@ func _update(delta: float) -> void:
 		set_state(player_reference.airborne)
 
 func _enter() -> void:
-	machine.animationPlayer.play("Sprint")
+	#machine.animationPlayer.play("Sprint")
 	player_reference.sprint_modifier = player_reference.sprint_speed
 
 func _exit() -> void:

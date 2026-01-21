@@ -48,7 +48,7 @@ func _exit() -> void:
 	quickStepRightOnce = false
 
 func _enter() -> void:
-	machine.animationPlayer.play("Jump_Inair")
+	#machine.animationPlayer.play("Jump_Inair")
 	player_reference.feelingGravity = true
 	
 func velocity_handling(_delta:float):
@@ -79,7 +79,7 @@ func velocity_handling(_delta:float):
 	
 
 func stomp(force: float, cancelLaunch:bool) -> void:
-	machine.animationPlayer.play("Walk")
+	#machine.animationPlayer.play("Walk")
 	var previousVel = Vector3(player_reference.velocity.x, 0, player_reference.velocity.z)
 	player_reference.velocity = Vector3.ZERO
 	player_reference._wanted_velocity = Vector3.ZERO

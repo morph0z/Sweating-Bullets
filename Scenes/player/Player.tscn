@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://dxo8l5kjh7cj5"]
+[gd_scene load_steps=54 format=4 uid="uid://dxo8l5kjh7cj5"]
 
 [ext_resource type="Script" uid="uid://ctrwyws0ih2tu" path="res://Scripts/player/player.gd" id="1_1ycki"]
 [ext_resource type="PackedScene" uid="uid://dwwc0u01bl5q1" path="res://Scenes/ui/DebugMenu.tscn" id="2_jnk8a"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://bkkjc0t5wolmf" path="res://Scripts/player/states/idle_state.gd" id="6_3tjkw"]
 [ext_resource type="Script" uid="uid://delaueyfbihfn" path="res://Scripts/player/states/standing_state.gd" id="7_kk05o"]
 [ext_resource type="Script" uid="uid://npapvw3ko1h4" path="res://Scripts/player/states/wallRunning_state.gd" id="8_3tjkw"]
+[ext_resource type="Script" uid="uid://q2ta3qdc87as" path="res://Scripts/componets/animationComponent.gd" id="9_83gp5"]
 [ext_resource type="Script" uid="uid://b04ksf5ctwwk8" path="res://Scripts/player/states/sprinting_state.gd" id="9_r5m3b"]
 [ext_resource type="Script" uid="uid://u3omlotxo8om" path="res://Scripts/player/states/crouching_state.gd" id="10_0otme"]
 [ext_resource type="Script" uid="uid://cvswme48fvi5e" path="res://Scripts/player/states/sliding_state.gd" id="11_3tjkw"]
@@ -145,6 +146,52 @@ _data = {
 &"WallRunL": SubResource("Animation_arooh")
 }
 
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_arooh"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_83gp5"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_khmeo"]
+animation = &"Jump_Inair"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_k0nfp"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h1ktb"]
+animation = &"Sprint"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h5vdi"]
+animation = &"other/WallRunL"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_6m1lw"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3wtu8"]
+animation = &"WallRun"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_d43aw"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_0ix20"]
+graph_offset = Vector2(-401.157, 40.7547)
+nodes/Airbourn/node = SubResource("AnimationNodeBlend2_arooh")
+nodes/Airbourn/position = Vector2(120, 120)
+nodes/Idle/node = SubResource("AnimationNodeAnimation_83gp5")
+nodes/Idle/position = Vector2(-380, 80)
+nodes/InAir/node = SubResource("AnimationNodeAnimation_khmeo")
+nodes/InAir/position = Vector2(-240, 400)
+nodes/Sprint/node = SubResource("AnimationNodeBlend2_k0nfp")
+nodes/Sprint/position = Vector2(-79.4484, 119.065)
+nodes/Sprinting/node = SubResource("AnimationNodeAnimation_h1ktb")
+nodes/Sprinting/position = Vector2(-380, 280)
+nodes/WallRunL/node = SubResource("AnimationNodeAnimation_h5vdi")
+nodes/WallRunL/position = Vector2(180, 500)
+nodes/WallRunLeft/node = SubResource("AnimationNodeBlend2_6m1lw")
+nodes/WallRunLeft/position = Vector2(541.094, 172.038)
+nodes/WallRunR/node = SubResource("AnimationNodeAnimation_3wtu8")
+nodes/WallRunR/position = Vector2(-40, 460)
+nodes/WallRunRight/node = SubResource("AnimationNodeBlend2_d43aw")
+nodes/WallRunRight/position = Vector2(300, 180)
+nodes/output/position = Vector2(740, 140)
+node_connections = [&"Airbourn", 0, &"Sprint", &"Airbourn", 1, &"InAir", &"Sprint", 0, &"Idle", &"Sprint", 1, &"Sprinting", &"WallRunLeft", 0, &"WallRunRight", &"WallRunLeft", 1, &"WallRunL", &"WallRunRight", 0, &"Airbourn", &"WallRunRight", 1, &"WallRunR", &"output", 0, &"WallRunLeft"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_irnrt"]
 radius = 0.525164
 height = 2.46123
@@ -237,15 +284,15 @@ bones/0/name = "R.Arm"
 bones/0/parent = -1
 bones/0/rest = Transform3D(0, -1, -9.19208e-08, 1, -1.78976e-14, 1.94707e-07, -1.94707e-07, -9.19208e-08, 1, -0.6412, -0.00648791, 1.35231e-07)
 bones/0/enabled = true
-bones/0/position = Vector3(-0.804861, -0.00648791, 1.35231e-07)
-bones/0/rotation = Quaternion(0.441383, 0.185825, 0.149156, 0.865103)
+bones/0/position = Vector3(-0.6412, -0.00648791, 1.35231e-07)
+bones/0/rotation = Quaternion(0.0116744, -0.161988, 0.984171, 0.0709294)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "R.ForeArm"
 bones/1/parent = 0
 bones/1/rest = Transform3D(1, -1.78976e-14, -7.47776e-15, 1.78976e-14, 1, -9.19207e-08, 7.47776e-15, 9.19207e-08, 1, -3.78066e-14, 1.46168, 3.55271e-15)
 bones/1/enabled = true
 bones/1/position = Vector3(-1.89856e-07, 1.46168, 6.15024e-08)
-bones/1/rotation = Quaternion(0.0546721, 0.00588844, -0.0741022, 0.995734)
+bones/1/rotation = Quaternion(0.244167, 0.0353781, 4.08438e-08, 0.969088)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "R.Hand"
 bones/2/parent = 1
@@ -259,14 +306,14 @@ bones/3/parent = -1
 bones/3/rest = Transform3D(0, 1, 9.19208e-08, -1, -1.78976e-14, 1.94707e-07, 1.94707e-07, -9.19208e-08, 1, 0.6412, -0.00648791, 1.35231e-07)
 bones/3/enabled = true
 bones/3/position = Vector3(0.6412, -0.00648791, 1.35231e-07)
-bones/3/rotation = Quaternion(-0.174434, 0.361503, -0.855393, 0.327401)
+bones/3/rotation = Quaternion(-0.00368169, -0.0510833, -0.996104, 0.0717894)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/name = "L.ForeArm"
 bones/4/parent = 3
 bones/4/rest = Transform3D(1, 1.78976e-14, 7.47776e-15, -1.78976e-14, 1, -9.19207e-08, -7.47776e-15, 9.19207e-08, 1, 3.78066e-14, 1.46168, 3.55271e-15)
 bones/4/enabled = true
 bones/4/position = Vector3(-0.00188647, 1.45815, 0.00259009)
-bones/4/rotation = Quaternion(0.415118, 0.136012, -0.175179, 0.882321)
+bones/4/rotation = Quaternion(4.49616e-08, 1.41345e-10, -3.55068e-09, 1)
 bones/4/scale = Vector3(1, 1, 1)
 bones/5/name = "L.Hand"
 bones/5/parent = 4
@@ -287,11 +334,25 @@ libraries = {
 }
 autoplay = "Walk"
 
+[node name="AnimationTree" type="AnimationTree" parent="CamPiviot/Arms"]
+tree_root = SubResource("AnimationNodeBlendTree_0ix20")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Airbourn/blend_amount = 0
+parameters/Sprint/blend_amount = 0
+parameters/WallRunLeft/blend_amount = 0
+parameters/WallRunRight/blend_amount = 0
+
 [node name="Components" type="Node3D" parent="."]
 
 [node name="mouseCaptureComponent" type="Node" parent="Components"]
 script = ExtResource("3_r5va5")
 metadata/_custom_type_script = "uid://bm04r57d3em0p"
+
+[node name="animationComponent" type="Node" parent="Components" node_paths=PackedStringArray("player_reference", "animationTree")]
+script = ExtResource("9_83gp5")
+player_reference = NodePath("../..")
+animationTree = NodePath("../../CamPiviot/Arms/AnimationTree")
+metadata/_custom_type_script = "uid://q2ta3qdc87as"
 
 [node name="healthComponent" type="Node" parent="Components" node_paths=PackedStringArray("Entity", "StateMachine")]
 script = ExtResource("4_irnrt")
@@ -327,10 +388,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21098, 0)
 visible = false
 mesh = SubResource("CapsuleMesh_cba8u")
 
-[node name="LimboHSM" type="LimboHSM" parent="." node_paths=PackedStringArray("player_reference", "animationPlayer")]
+[node name="LimboHSM" type="LimboHSM" parent="." node_paths=PackedStringArray("player_reference")]
 script = ExtResource("4_mphk7")
 player_reference = NodePath("..")
-animationPlayer = NodePath("../CamPiviot/Arms/AnimationPlayer")
 
 [node name="Base" type="LimboState" parent="LimboHSM"]
 script = ExtResource("5_8hdke")

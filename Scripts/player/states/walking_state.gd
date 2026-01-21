@@ -27,5 +27,5 @@ func _update(delta: float) -> void:
 		jump(1)
 		set_state(player_reference.airborne)
 
-func _enter() -> void:
-	machine.animationPlayer.play("Walk")
+#func _enter() -> void:
+	#machine.animationPlayer.play("Walk")
