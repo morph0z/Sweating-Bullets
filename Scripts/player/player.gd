@@ -9,7 +9,7 @@ class_name player extends CharacterBody3D
 @export var crouching_collision : CollisionShape3D
 @export var crouch_check : ShapeCast3D
 @export var interaction_raycast : RayCast3D
-@onready var held_item: Node3D = $CamPiviot/Camera3D/HoldingPoint/HeldItem
+@onready var held_item: Node3D = $CamPiviot/HoldingPoint/HeldItem
 @onready var leftCast: ShapeCast3D = $SideStepCasts/Left
 @onready var rightCast: ShapeCast3D = $SideStepCasts/Right
 
@@ -71,13 +71,13 @@ func _initialize_state_machine():
 	state_machine.set_active(true)
 
 func _input(event: InputEvent) -> void:
-	var canUseItem = (event.is_action("LeftClickSelect") and held_item.get_children().size() == 1)
+	var canUseItem = (event.is_action_pressed("LeftClickSelect") and held_item.get_children().size() == 1)
 	if canUseItem:
 		UseItem.emit()
 		
 	var canThrow = (event.is_action_pressed("EnterThrow") and held_item.get_children().size() == 1)
 	if canThrow:
-		throwItem(1)
+		throwItem(5*velocity.length())
 
 func _physics_process(delta: float) -> void:
 	if (not is_on_floor()) and feelingGravity:
@@ -151,8 +151,9 @@ func sideStepLeft() -> void:
 	side_step_dir = 0
 
 func throwItem(force) -> void:
-	var item = held_item.get_child(0)
-	item.freeze = false
-	item.apply_impulse(transform.basis*Vector3(0,0.5*force,-force))
-	item.apply_torque(transform.basis*Vector3(-20,0,0))
-	item.reparent(get_tree().get_root().get_child(1))
+	var itemThrown:RigidBody3D = held_item.get_child(0)
+	itemThrown.freeze = false
+	itemThrown.sleeping = false
+	itemThrown.apply_impulse(transform.basis*Vector3(0,0.5*force,-force))
+	itemThrown.apply_torque_impulse(transform.basis*Vector3(-20,0,0))
+	itemThrown.reparent(get_tree().get_root().get_child(1))

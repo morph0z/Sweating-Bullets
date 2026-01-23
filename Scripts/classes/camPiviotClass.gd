@@ -12,6 +12,8 @@ class_name camPivotClass extends Node3D
 @export var crouch_offset : float = 0.0
 @export var crouch_speed : float = 10
 
+@onready var arms: Node3D = $Arms
+
 var _rotation : Vector3
 var incDelta: float
 const DEFAULT_HEIGHT : float = 0.5

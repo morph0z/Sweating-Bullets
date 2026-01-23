@@ -2,6 +2,9 @@ class_name animationComponent
 extends Node
 @export var player_reference: player
 @export var animationTree: AnimationTree
+@export var animationPlayer: AnimationPlayer
+
+@export var armAnimationActive:bool = true
 
 @export var sprintAniValue:float
 @export var airbornAniValue:float
@@ -11,6 +14,10 @@ extends Node
 @export var animationBlendSpeed:float = 15
 
 @onready var activeState:PlayerState = player_reference.state_machine.get_active_state()
+
+func holdItem(itemType:item):
+	if itemType is gun:
+		animationPlayer.play("holdGun")
 
 func update_animTree():
 	animationTree["parameters/Sprint/blend_amount"] = sprintAniValue
@@ -39,6 +46,15 @@ func handle_animation(delta:float):
 		airbornAniValue = lerpf(airbornAniValue, 0, animationBlendSpeed*delta)
 		
 func _process(delta: float) -> void:
+	match player_reference.held_item.get_child_count():
+		1:
+			armAnimationActive = false
+			player_reference.camera.arms.hide()
+		0:
+			armAnimationActive = true
+			player_reference.camera.arms.show()
+		
 	activeState = player_reference.state_machine.get_active_state()
-	update_animTree()
-	handle_animation(delta)
+	if armAnimationActive:
+		update_animTree()
+		handle_animation(delta)
