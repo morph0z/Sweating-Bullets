@@ -22,9 +22,6 @@ func _update(_delta: float) -> void:
 			quickStepRightOnce = true
 	
 	velocity_handling(_delta)
-	
-	if player_reference.is_on_wall():
-		cancel_velocity()
 
 	if player_reference.is_on_floor():
 		if Input.is_action_pressed("LeftShiftCrouch"):
@@ -36,6 +33,7 @@ func _update(_delta: float) -> void:
 		if !player_reference.wallRunning.alreadyWallJumped:
 			await get_tree().create_timer(0.2).timeout
 			set_state(player_reference.wallRunning)
+			cancel_velocity()
 
 	if Input.is_action_just_pressed("ZStomp"):
 		stomp(5, false)
@@ -77,7 +75,6 @@ func velocity_handling(_delta:float):
 		player_reference.velocity.x = hori_vel.x
 		player_reference.velocity.z = hori_vel.z
 	
-
 func stomp(force: float, cancelLaunch:bool) -> void:
 	#machine.animationPlayer.play("Walk")
 	var previousVel = Vector3(player_reference.velocity.x, 0, player_reference.velocity.z)

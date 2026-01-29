@@ -77,7 +77,7 @@ func _input(event: InputEvent) -> void:
 		
 	var canThrow = (event.is_action_pressed("EnterThrow") and held_item.get_children().size() == 1)
 	if canThrow:
-		throwItem(5*velocity.length())
+		throwItem(5*((velocity.length()/10)+1))
 
 func _physics_process(delta: float) -> void:
 	if (not is_on_floor()) and feelingGravity:
@@ -154,6 +154,6 @@ func throwItem(force) -> void:
 	var itemThrown:RigidBody3D = held_item.get_child(0)
 	itemThrown.freeze = false
 	itemThrown.sleeping = false
-	itemThrown.apply_impulse(transform.basis*Vector3(0,0.5*force,-force))
-	itemThrown.apply_torque_impulse(transform.basis*Vector3(-20,0,0))
 	itemThrown.reparent(get_tree().get_root().get_child(1))
+	itemThrown.apply_impulse(transform.basis*Vector3(0,force,-force))
+	itemThrown.angular_velocity = -transform.basis.x*Vector3(30,0,0)

@@ -7,6 +7,7 @@ var push_force = 15.0
 # Called when the node enters the scene tree for the first time.
 func _update(_delta: float) -> void:
 	#velocity_handling(_delta)
+	player_reference.feelingGravity = false
 	player_reference.direction = -player_reference.get_wall_normal() * player_reference.speed
 	if Input.is_action_just_pressed("SpaceJump"):
 		wall_jump()

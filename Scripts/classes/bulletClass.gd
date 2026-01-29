@@ -12,10 +12,3 @@ func _physics_process(delta: float) -> void:
 	distanceTraveled += 1
 	if distanceTraveled > RANGE:
 		queue_free()
-
-func _on_body_entered(body: Node3D) -> void:
-	if body is CSGBox3D:
-		if !body.is_in_group("BulletCanBounce"):
-			queue_free()
-		elif body.is_in_group("BulletCanBounce"):
-			direction = direction.bounce(direction)
