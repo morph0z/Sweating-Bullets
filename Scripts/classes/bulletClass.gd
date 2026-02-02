@@ -12,3 +12,6 @@ func _physics_process(delta: float) -> void:
 	distanceTraveled += 1
 	if distanceTraveled > RANGE:
 		queue_free()
+
+func _on_body_entered(_body: Node3D) -> void:
+	queue_free()

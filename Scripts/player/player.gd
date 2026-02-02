@@ -9,7 +9,7 @@ class_name player extends CharacterBody3D
 @export var crouching_collision : CollisionShape3D
 @export var crouch_check : ShapeCast3D
 @export var interaction_raycast : RayCast3D
-@onready var held_item: Node3D = $CamPiviot/HoldingPoint/HeldItem
+@onready var held_item: Node3D = %HeldItem
 @onready var leftCast: ShapeCast3D = $SideStepCasts/Left
 @onready var rightCast: ShapeCast3D = $SideStepCasts/Right
 
@@ -155,5 +155,11 @@ func throwItem(force) -> void:
 	itemThrown.freeze = false
 	itemThrown.sleeping = false
 	itemThrown.reparent(get_tree().get_root().get_child(1))
+	itemThrown.set_collision_layer_value(2, true)
 	itemThrown.apply_impulse(transform.basis*Vector3(0,force,-force))
 	itemThrown.angular_velocity = -transform.basis.x*Vector3(30,0,0)
+
+func _on_interation_ray_item_in_sight(itemSeen: item) -> void:
+	if Input.is_action_just_pressed("EnterThrow"):
+		itemSeen.pick_item_up(self)
+		print(itemSeen)

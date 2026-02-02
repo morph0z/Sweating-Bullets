@@ -15,6 +15,6 @@ func damage(attack: Attack):
 func dead():
 	HEALTH = 0
 	if Entity is player and !isDead:
-		isDead = true		
+		isDead = true
 	elif Entity is not player:
 		pass

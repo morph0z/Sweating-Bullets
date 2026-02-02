@@ -1,22 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://ba2om0p2jq4u"]
+[gd_scene format=3 uid="uid://ba2om0p2jq4u"]
 
 [ext_resource type="Script" uid="uid://cjj02m8pxvp6r" path="res://Scripts/classes/bulletClass.gd" id="1_hdiks"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_w5r1a"]
-radius = 0.1
-height = 0.2
+radius = 0.05
+height = 0.1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hdiks"]
-radius = 0.215885
+radius = 0.09415765
 
-[node name="BasicBullet" type="Area3D"]
+[node name="BasicBullet" type="Area3D" unique_id=1380257050]
 script = ExtResource("1_hdiks")
+SPEED = 100
 damage_dealt = 10
 metadata/_custom_type_script = "uid://cjj02m8pxvp6r"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1607431103]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_w5r1a")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=428086021]
 shape = SubResource("SphereShape3D_hdiks")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
