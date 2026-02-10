@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://ddqcle8nu2bx8" path="res://Scenes/objects/weapons/BasicGun.tscn" id="4_khmeo"]
 [ext_resource type="Script" uid="uid://dx6viv5g35mcd" path="res://Scripts/player/state_machine.gd" id="4_mphk7"]
 [ext_resource type="Script" uid="uid://d3g3rq2vmlbm1" path="res://Scripts/player/states/base_state.gd" id="5_8hdke"]
-[ext_resource type="Script" uid="uid://dlt52ukd3vo7" path="res://Scripts/compositor/gun_camera.gd" id="5_h1ktb"]
 [ext_resource type="Script" uid="uid://bkkjc0t5wolmf" path="res://Scripts/player/states/idle_state.gd" id="6_3tjkw"]
 [ext_resource type="Script" uid="uid://delaueyfbihfn" path="res://Scripts/player/states/standing_state.gd" id="7_kk05o"]
 [ext_resource type="Script" uid="uid://npapvw3ko1h4" path="res://Scripts/player/states/wallRunning_state.gd" id="8_3tjkw"]
@@ -42,6 +41,9 @@ height = 2.74166
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r5m3b"]
 size = Vector3(1, 2.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k0nfp"]
+size = Vector3(1.5, 1.5, 1.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8yxye"]
 resource_name = "StyleShading"
@@ -292,9 +294,8 @@ shader_parameter/animation_speed = 20.0
 shader_parameter/blur_strength = 0.01
 shader_parameter/effect_power = 0.5
 
-[node name="Player" type="CharacterBody3D" unique_id=1286935134 node_paths=PackedStringArray("camera", "camera_effects", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "health_component")]
+[node name="Player" type="CharacterBody3D" unique_id=1286935134 node_paths=PackedStringArray("camera", "camera_effects", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "health_component")]
 collision_layer = 2
-collision_mask = 3
 script = ExtResource("1_1ycki")
 camera = NodePath("CamPiviot")
 camera_effects = NodePath("CamPiviot/MainCamera")
@@ -302,7 +303,6 @@ state_machine = NodePath("LimboHSM")
 standing_collision = NodePath("StandingCollision")
 crouching_collision = NodePath("CrouchingCollision")
 crouch_check = NodePath("CrouchCheck")
-interaction_raycast = NodePath("CamPiviot/MainCamera/Interation Ray")
 health_component = NodePath("Components/healthComponent")
 
 [node name="CrouchingCollision" type="CollisionShape3D" parent="." unique_id=522687100]
@@ -338,7 +338,8 @@ fov = 37.849285
 script = ExtResource("3_sy2hw")
 playerReference = NodePath("../..")
 
-[node name="Interation Ray" type="RayCast3D" parent="CamPiviot/MainCamera" unique_id=573716544]
+[node name="Interation Ray" type="ShapeCast3D" parent="CamPiviot/MainCamera" unique_id=1668211664]
+shape = SubResource("BoxShape3D_k0nfp")
 target_position = Vector3(0, 0, -10)
 collision_mask = 2
 script = ExtResource("4_k0nfp")
@@ -346,24 +347,14 @@ script = ExtResource("4_k0nfp")
 [node name="CheckTimer" type="Timer" parent="CamPiviot/MainCamera/Interation Ray" unique_id=326583751]
 autostart = true
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="CamPiviot/MainCamera" unique_id=1126361569]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="HoldingPoint" type="Marker3D" parent="CamPiviot/MainCamera" unique_id=919940559]
+transform = Transform3D(1, -2.22045e-16, 0, -2.22045e-16, 1, -5.53929e-17, 7.10543e-15, -5.53928e-17, 1, 0.499094, -0.09633434, -1.215353)
 
-[node name="SubViewport" type="SubViewport" parent="CamPiviot/MainCamera/SubViewportContainer" unique_id=825826774]
-
-[node name="GunCamera" type="Camera3D" parent="CamPiviot/MainCamera/SubViewportContainer/SubViewport" unique_id=66914401]
-script = ExtResource("5_h1ktb")
-
-[node name="HoldingPoint" type="Marker3D" parent="CamPiviot/MainCamera/SubViewportContainer/SubViewport/GunCamera" unique_id=919940559]
-transform = Transform3D(1, -2.22045e-16, 0, -2.22045e-16, 1, -5.53929e-17, 7.10543e-15, -5.53928e-17, 1, 0.499094, 0.56737703, -1.66774)
-
-[node name="HeldItem" type="Node3D" parent="CamPiviot/MainCamera/SubViewportContainer/SubViewport/GunCamera/HoldingPoint" unique_id=445114105]
+[node name="HeldItem" type="Node3D" parent="CamPiviot/MainCamera/HoldingPoint" unique_id=445114105]
 unique_name_in_owner = true
-transform = Transform3D(-4.3692136e-08, 1.2967524e-09, -1, 0.029666236, 0.9995596, -2.421301e-24, 0.9995596, -0.029666236, -4.371139e-08, -0.09871, 0.5099531, 0.20350301)
+transform = Transform3D(0.9999997, 0, 0, 0, 0.9999997, 0, 0, 0, 1, -0.09871, -0.1900469, 0.20350301)
 
-[node name="BasicGun" parent="CamPiviot/MainCamera/SubViewportContainer/SubViewport/GunCamera/HoldingPoint/HeldItem" unique_id=1196750810 instance=ExtResource("4_khmeo")]
-transform = Transform3D(1, 0, 0, 0, 1.0000001, 0, 0, 0, 1.0000001, 0, 0, 0)
+[node name="BasicGun" parent="CamPiviot/MainCamera/HoldingPoint/HeldItem" unique_id=1101744858 instance=ExtResource("4_khmeo")]
 
 [node name="Arms" type="Node3D" parent="CamPiviot" unique_id=1014746392]
 transform = Transform3D(-0.405479, 0, -3.54481e-08, 0, 0.405479, 0, 3.54481e-08, 0, -0.405479, 0, -0.024662, -0.64234)
@@ -552,7 +543,5 @@ mouse_filter = 2
 [node name="Visuals" type="Node3D" parent="." unique_id=471362143]
 
 [connection signal="UseItem" from="." to="." method="_on_use_item"]
-[connection signal="UseItem" from="." to="CamPiviot/MainCamera/SubViewportContainer/SubViewport/GunCamera/HoldingPoint/HeldItem/BasicGun" method="_on_player_use_item"]
 [connection signal="ItemInSight" from="CamPiviot/MainCamera/Interation Ray" to="." method="_on_interation_ray_item_in_sight"]
-[connection signal="timeout" from="CamPiviot/MainCamera/Interation Ray/CheckTimer" to="CamPiviot/MainCamera/Interation Ray" method="_on_check_timer_timeout"]
 [connection signal="timeout" from="LimboHSM/Sliding/Sliding Cooldown" to="LimboHSM/Sliding" method="_on_sliding_cooldown_timeout"]

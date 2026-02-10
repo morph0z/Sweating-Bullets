@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://jc3bl2svtqsh" path="res://Scripts/objects/items/weapons/guns/basic_gun.gd" id="1_mdqoc"]
 [ext_resource type="Script" uid="uid://brpwbeykols0s" path="res://Scripts/componets/hitboxComponent.gd" id="2_70teg"]
-[ext_resource type="Script" uid="uid://dddfk8fqmgr83" path="res://Scenes/player/lazer_sight_ray.gd" id="3_dgfc2"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mdqoc"]
 absorbent = true
@@ -58,17 +57,13 @@ _surfaces = [{
 }]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dgfc2"]
-size = Vector3(0.72476196, 0.50109863, 0.20532227)
+size = Vector3(0.6524658, 0.50109863, 1)
 
-[node name="BasicGun" type="RigidBody3D" unique_id=1101744858 node_paths=PackedStringArray("shoot_point", "lazer_sight")]
-transform = Transform3D(-4.369215e-08, 1.2967527e-09, -1, 0.029666245, 0.9995599, -2.421301e-24, 0.9995599, -0.029666245, -4.371139e-08, 0, 0, 0)
+[node name="BasicGun" type="RigidBody3D" unique_id=1101744858]
 collision_layer = 0
 physics_material_override = SubResource("PhysicsMaterial_mdqoc")
 freeze = true
 script = ExtResource("1_mdqoc")
-shoot_point = NodePath("ShootPoint")
-lazer_sight = NodePath("LazerSightRay")
-hold_rotation = Vector3(0, 90, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1771147029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19927979, 0.0045858026, -0.0005493164)
@@ -111,12 +106,8 @@ script = ExtResource("2_70teg")
 metadata/_custom_type_script = "uid://brpwbeykols0s"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="hitboxComponent" unique_id=598850379]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18644714, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19573975, 0.014221191, 0)
 shape = SubResource("BoxShape3D_dgfc2")
 debug_color = Color(0.91842127, 0.28512478, 0, 0.41960785)
 
 [node name="LazerSightRay" type="RayCast3D" parent="." unique_id=1759396954]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4312575, 0.1355381, 0)
-target_position = Vector3(-10, 0, 0)
-debug_shape_custom_color = Color(1, 0, 0, 1)
-script = ExtResource("3_dgfc2")

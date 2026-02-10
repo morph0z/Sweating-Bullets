@@ -9,23 +9,17 @@ func _update(_delta: float) -> void:
 	#velocity_handling(_delta)
 	player_reference.feelingGravity = false
 	player_reference.direction = -player_reference.get_wall_normal() * player_reference.speed
-	if Input.is_action_just_pressed("SpaceJump"):
-		wall_jump()
-		set_state(player_reference.airborne)
-	if player_reference.is_on_floor():
-		set_state(player_reference.sprinting)
-	if !player_reference.is_on_wall():
-		set_state(player_reference.airborne)
+	if player_reference.is_on_floor(): set_state(player_reference.sprinting)
+	if !player_reference.is_on_wall(): set_state(player_reference.airborne)
+	if !Input.is_action_just_pressed("SpaceJump"): return
+	wall_jump()
+	set_state(player_reference.airborne)
 
 func wall_jump():
 	player_reference.apply_force(push_force, player_reference.get_wall_normal())
 	player_reference.apply_force(jump_force, Vector3.UP)
 
 func _enter() -> void:
-	#if player_reference.get_wall_normal().angle_to(player_reference.velocity.normalized()) < deg_to_rad(90):
-		#machine.animationPlayer.play("WallRun")
-	#else:
-		#machine.animationPlayer.play("other/WallRunL")
 	player_reference.feelingGravity = false
 	player_reference.velocity.y = 0
 

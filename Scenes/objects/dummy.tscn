@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dtr2p1f3xhiav" path="res://Scripts/componets/hurtboxComponent.gd" id="1_abjsq"]
 [ext_resource type="Script" uid="uid://lnmket0am38i" path="res://Scripts/componets/healthComponent.gd" id="1_pds21"]
+[ext_resource type="Script" uid="uid://m8bf2c3enna" path="res://Scripts/classes/enemyClass.gd" id="1_pk5ci"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_pds21"]
 
@@ -11,7 +12,9 @@
 height = 2.16162
 radius = 0.562988
 
-[node name="Dummy" type="CharacterBody3D" unique_id=1317878510]
+[node name="Dummy" type="CharacterBody3D" unique_id=1317878510 node_paths=PackedStringArray("hurtbox")]
+script = ExtResource("1_pk5ci")
+hurtbox = NodePath("hurtboxComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2108301664]
 shape = SubResource("CylinderShape3D_pds21")

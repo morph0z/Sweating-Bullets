@@ -1,0 +1,1 @@
+class_name entityClass extends CharacterBody3D

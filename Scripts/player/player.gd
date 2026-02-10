@@ -1,4 +1,4 @@
-class_name player extends CharacterBody3D
+class_name player extends entityClass
 
 @export var debug : bool = false
 @export_category("References")
@@ -8,7 +8,7 @@ class_name player extends CharacterBody3D
 @export var standing_collision : CollisionShape3D
 @export var crouching_collision : CollisionShape3D
 @export var crouch_check : ShapeCast3D
-@export var interaction_raycast : RayCast3D
+@export var interaction_raycast : ShapeCast3D
 @onready var held_item: Node3D = %HeldItem
 @onready var leftCast: ShapeCast3D = $SideStepCasts/Left
 @onready var rightCast: ShapeCast3D = $SideStepCasts/Right
@@ -72,18 +72,15 @@ func _initialize_state_machine():
 
 func _input(event: InputEvent) -> void:
 	var canUseItem = (event.is_action_pressed("LeftClickSelect") and held_item.get_children().size() == 1)
-	if canUseItem:
-		UseItem.emit()
+	if canUseItem: UseItem.emit()
 		
 	var canThrow = (event.is_action_pressed("EnterThrow") and held_item.get_children().size() == 1)
-	if canThrow:
-		throwItem(5*((velocity.length()/10)+1))
+	if canThrow: throwItem(5*((velocity.length()/10)+1))
 
 func _physics_process(delta: float) -> void:
-	if (not is_on_floor()) and feelingGravity:
-		apply_force(delta, get_gravity())
+	if (not is_on_floor()) and feelingGravity: apply_force(delta, get_gravity())
 	
-	if canMove:
+	if canMove: 
 		var speed_modifier = sprint_modifier + crouch_modifier
 		speed = default_speed + speed_modifier
 
@@ -91,17 +88,14 @@ func _physics_process(delta: float) -> void:
 		current_velocity = Vector2(_wanted_velocity.x, _wanted_velocity.z)
 		direction = (transform.basis * Vector3(_input_dir.x, 0, _input_dir.y)).normalized()
 
-		if direction:
-			current_velocity = Vector2(direction.x, direction.z) * speed
-		else:
-			current_velocity = Vector2.ZERO
+		if direction: current_velocity = Vector2(direction.x, direction.z) * speed
+		else: current_velocity = Vector2.ZERO
 
 		_wanted_velocity = Vector3(current_velocity.x, velocity.y, current_velocity.y)
 
 	move_and_slide()
 
-func update_rotation(rotation_input) -> void:
-	global_transform.basis = Basis.from_euler(rotation_input)
+func update_rotation(rotation_input) -> void: global_transform.basis = Basis.from_euler(rotation_input)
 
 func crouchPostureCollision(active:bool) -> void:
 	standing_collision.disabled = active
@@ -114,10 +108,8 @@ func crouch() -> void:
 #region Apply Force
 func apply_force(force:float, direction_applied:Variant):
 	match typeof(direction_applied):
-		TYPE_VECTOR2:
-			_apply_force_vec2(force, direction_applied)
-		TYPE_VECTOR3:
-			_apply_force_vec3(force, direction_applied)
+		TYPE_VECTOR2: _apply_force_vec2(force, direction_applied)
+		TYPE_VECTOR3: _apply_force_vec3(force, direction_applied)
 
 func _apply_force_vec2(force: float, direction_applied:Vector2) -> void:
 	velocity += force*Vector3(direction_applied.x, 0 , direction_applied.y)
@@ -157,9 +149,7 @@ func throwItem(force) -> void:
 	itemThrown.reparent(get_tree().get_root().get_child(1))
 	itemThrown.set_collision_layer_value(2, true)
 	itemThrown.apply_impulse(transform.basis*Vector3(0,force,-force))
-	itemThrown.angular_velocity = -transform.basis.x*Vector3(30,0,0)
+	itemThrown.angular_velocity = transform.basis * Vector3(-10*force,0,0)
 
 func _on_interation_ray_item_in_sight(itemSeen: item) -> void:
-	if Input.is_action_just_pressed("EnterThrow"):
-		itemSeen.pick_item_up(self)
-		print(itemSeen)
+	if Input.is_action_just_pressed("EnterThrow"): itemSeen.pick_item_up(self)
