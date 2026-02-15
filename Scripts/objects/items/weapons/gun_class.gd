@@ -14,18 +14,19 @@ func throwHit(bullet:PackedScene, thing_hit)
 func create_bullet(scene:PackedScene, damage:int):
 	var newBullet:bulletClass = scene.instantiate()
 	newBullet.damage_dealt = damage
-	newBullet.position = shoot_point.global_position
-	newBullet.rotation = shoot_point.global_rotation
-	get_tree().get_root().add_child(newBullet)
+	newBullet.position = self.shoot_point.global_position
+	newBullet.rotation = self.shoot_point.global_rotation
+	self.get_tree().get_root().add_child(newBullet)
 
 @abstract
 func override_bullet()
 
 func _ready() -> void:
+	super()
 	override_bullet()
 	for i in get_children():
 		if i is not hitboxComponent: continue
 		i.connect("body_entered", body_entered)
 
 func body_entered(body:Node3D) -> void:
-	throwHit(BASIC_BULLET, body)
+	self.throwHit(BASIC_BULLET, body)

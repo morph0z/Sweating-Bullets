@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ddqcle8nu2bx8" path="res://Scenes/objects/weapons/BasicGun.tscn" id="4_khmeo"]
 [ext_resource type="Script" uid="uid://dx6viv5g35mcd" path="res://Scripts/player/state_machine.gd" id="4_mphk7"]
 [ext_resource type="Script" uid="uid://d3g3rq2vmlbm1" path="res://Scripts/player/states/base_state.gd" id="5_8hdke"]
+[ext_resource type="Script" uid="uid://claptrnmi8gft" path="res://Scripts/componets/heldItemComponent.gd" id="5_h1ktb"]
 [ext_resource type="Script" uid="uid://bkkjc0t5wolmf" path="res://Scripts/player/states/idle_state.gd" id="6_3tjkw"]
 [ext_resource type="Script" uid="uid://delaueyfbihfn" path="res://Scripts/player/states/standing_state.gd" id="7_kk05o"]
 [ext_resource type="Script" uid="uid://npapvw3ko1h4" path="res://Scripts/player/states/wallRunning_state.gd" id="8_3tjkw"]
@@ -340,7 +341,7 @@ playerReference = NodePath("../..")
 
 [node name="Interation Ray" type="ShapeCast3D" parent="CamPiviot/MainCamera" unique_id=1668211664]
 shape = SubResource("BoxShape3D_k0nfp")
-target_position = Vector3(0, 0, -10)
+target_position = Vector3(0, 0, -5)
 collision_mask = 2
 script = ExtResource("4_k0nfp")
 
@@ -350,9 +351,11 @@ autostart = true
 [node name="HoldingPoint" type="Marker3D" parent="CamPiviot/MainCamera" unique_id=919940559]
 transform = Transform3D(1, -2.22045e-16, 0, -2.22045e-16, 1, -5.53929e-17, 7.10543e-15, -5.53928e-17, 1, 0.499094, -0.09633434, -1.215353)
 
-[node name="HeldItem" type="Node3D" parent="CamPiviot/MainCamera/HoldingPoint" unique_id=445114105]
+[node name="HeldItem" type="Node3D" parent="CamPiviot/MainCamera/HoldingPoint" unique_id=445114105 node_paths=PackedStringArray("player_ref")]
 unique_name_in_owner = true
 transform = Transform3D(0.9999997, 0, 0, 0, 0.9999997, 0, 0, 0, 1, -0.09871, -0.1900469, 0.20350301)
+script = ExtResource("5_h1ktb")
+player_ref = NodePath("../../../..")
 
 [node name="BasicGun" parent="CamPiviot/MainCamera/HoldingPoint/HeldItem" unique_id=1101744858 instance=ExtResource("4_khmeo")]
 
@@ -426,6 +429,7 @@ parameters/WallRunRight/blend_amount = 0.0
 
 [node name="mouseCaptureComponent" type="Node" parent="Components" unique_id=1319684918]
 script = ExtResource("3_r5va5")
+mouse_sensitivity = 0.003
 metadata/_custom_type_script = "uid://bm04r57d3em0p"
 
 [node name="animationComponent" type="Node" parent="Components" unique_id=2129387237 node_paths=PackedStringArray("player_reference", "animationTree", "animationPlayer")]

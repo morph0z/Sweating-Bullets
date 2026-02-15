@@ -68,8 +68,7 @@ func calculate_fov_effect(_delta:float):
 
 var resetWallTiltOnce:bool = false
 func calculate_wallrun_tilt(_delta:float):
-	if not playerReference:
-		return
+	if not playerReference: return
 
 	if playerReference.state_machine.get_active_state().name == "WallRunning":
 		resetWallTiltOnce = false
