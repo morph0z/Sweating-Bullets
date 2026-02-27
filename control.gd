@@ -11,6 +11,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if debug:
-		label.text = str(playerRef.state_machine.get_active_state()) +" <Health = "+str(playerRef.health_component.HEALTH)+">  <Fps: "+str(Engine.get_frames_per_second())+">" + " " +"<Velocity:"+str(round(playerRef.velocity.length()))+">" + " " +"<Wanted Velocity:"+str(round(playerRef._wanted_velocity.length()))+">"+ " " +"<Amount Of Slides:"+str(round(playerRef.sliding.amountOfSlides))+">"
+		label.text = str(playerRef.state_machine.get_active_state()) +" <Health = "+str(playerRef.health_component.HEALTH)+">  <Fps: "+str(Engine.get_frames_per_second())+">" + " " +"<Velocity:"+str(round(playerRef.velocity.length()))+">" + " " +"<Wanted Velocity:"+str(round(playerRef._wanted_velocity.length()))+">"+ " " +"<Amount Of Slides:"+str(round(playerRef.sliding.amountOfSlides))+">"+ " " +"<Current Item Id:"+str(playerRef.held_item.current_selected_item)+">"
 	elif !debug:
 		label.text = ""

@@ -9,7 +9,7 @@ class_name player extends entityClass
 @export var crouching_collision : CollisionShape3D
 @export var crouch_check : ShapeCast3D
 @export var interaction_raycast : ShapeCast3D
-@onready var held_item: Node3D = %HeldItem
+@onready var held_item:heldItemComponent = %HeldItem
 @onready var leftCast: ShapeCast3D = $SideStepCasts/Left
 @onready var rightCast: ShapeCast3D = $SideStepCasts/Right
 
@@ -61,6 +61,7 @@ var feelingGravity : bool = true
 var canMove:bool = true
 
 signal UseItem
+signal ItemThrown(thrownItem:item)
 
 func _ready() -> void:
 	_initialize_state_machine()
@@ -74,7 +75,7 @@ func _input(event: InputEvent) -> void:
 	var canUseItem = (event.is_action_pressed("LeftClickSelect") and held_item.get_children().size() == 1)
 	if canUseItem: UseItem.emit()
 		
-	var canThrow = (event.is_action_pressed("EnterThrow") and held_item.get_children().size() == 1)
+	var canThrow = (event.is_action_pressed("EnterThrow") and !held_item.get_children().is_empty() and !interaction_raycast.is_colliding())
 	if canThrow: throwItem(5*((velocity.length()/10)+1))
 
 func _physics_process(delta: float) -> void:
@@ -143,13 +144,27 @@ func sideStepLeft() -> void:
 	side_step_dir = 0
 
 func throwItem(force) -> void:
-	var itemThrown:RigidBody3D = held_item.get_child(0)
-	itemThrown.freeze = false
-	itemThrown.sleeping = false
-	itemThrown.reparent(get_tree().get_root().get_child(1))
-	itemThrown.set_collision_layer_value(2, true)
+	var itemThrown:item
+	var itemThrownIndex:int
+	for itemHeld:item in held_item.get_children(): if itemHeld.is_selected(): 
+		itemThrownIndex = held_item.get_children().find(itemHeld)
+		itemThrown = itemHeld
+	if (!(itemThrown is item) or !(itemThrown.is_selected())): return
+	itemThrown.initilize_dropped(true)
+	for node in get_tree().get_root().get_children(): if node is level: itemThrown.reparent(node)
 	itemThrown.apply_impulse(transform.basis*Vector3(0,force,-force))
 	itemThrown.angular_velocity = transform.basis * Vector3(-10*force,0,0)
+	
+	var nextItem:item
+	if !held_item.get_children().is_empty():
+		for itemHeld in held_item.get_children(): nextItem = held_item.get_children()[itemThrownIndex-1]
+		nextItem.select()
+	
+	set_collision_layer_value(3, true)
+	await get_tree().create_timer(0.1).timeout
+	set_collision_layer_value(3, false)
+	
+	ItemThrown.emit(itemThrown)
 
 func _on_interation_ray_item_in_sight(itemSeen: item) -> void:
 	if Input.is_action_just_pressed("EnterThrow"): itemSeen.pick_item_up(self)

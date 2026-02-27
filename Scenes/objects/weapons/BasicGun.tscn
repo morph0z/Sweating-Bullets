@@ -64,11 +64,9 @@ size = Vector3(0.72476196, 0.50109863, 0.20532227)
 transform = Transform3D(-4.369215e-08, 1.2967527e-09, -1, 0.029666245, 0.9995599, -2.421301e-24, 0.9995599, -0.029666245, -4.371139e-08, 0, 0, 0)
 collision_layer = 0
 physics_material_override = SubResource("PhysicsMaterial_mdqoc")
-freeze = true
 script = ExtResource("1_mdqoc")
 shoot_point = NodePath("ShootPoint")
 lazer_sight = NodePath("LazerSightRay")
-hold_rotation = Vector3(0, 90, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1771147029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19927979, 0.0045858026, -0.0005493164)

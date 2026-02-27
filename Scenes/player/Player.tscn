@@ -295,7 +295,7 @@ shader_parameter/animation_speed = 20.0
 shader_parameter/blur_strength = 0.01
 shader_parameter/effect_power = 0.5
 
-[node name="Player" type="CharacterBody3D" unique_id=1286935134 node_paths=PackedStringArray("camera", "camera_effects", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "health_component")]
+[node name="Player" type="CharacterBody3D" unique_id=1286935134 node_paths=PackedStringArray("camera", "camera_effects", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "health_component")]
 collision_layer = 2
 script = ExtResource("1_1ycki")
 camera = NodePath("CamPiviot")
@@ -304,6 +304,7 @@ state_machine = NodePath("LimboHSM")
 standing_collision = NodePath("StandingCollision")
 crouching_collision = NodePath("CrouchingCollision")
 crouch_check = NodePath("CrouchCheck")
+interaction_raycast = NodePath("CamPiviot/MainCamera/Interation Ray")
 health_component = NodePath("Components/healthComponent")
 
 [node name="CrouchingCollision" type="CollisionShape3D" parent="." unique_id=522687100]
@@ -342,7 +343,7 @@ playerReference = NodePath("../..")
 [node name="Interation Ray" type="ShapeCast3D" parent="CamPiviot/MainCamera" unique_id=1668211664]
 shape = SubResource("BoxShape3D_k0nfp")
 target_position = Vector3(0, 0, -5)
-collision_mask = 2
+collision_mask = 4
 script = ExtResource("4_k0nfp")
 
 [node name="CheckTimer" type="Timer" parent="CamPiviot/MainCamera/Interation Ray" unique_id=326583751]
@@ -356,8 +357,11 @@ unique_name_in_owner = true
 transform = Transform3D(0.9999997, 0, 0, 0, 0.9999997, 0, 0, 0, 1, -0.09871, -0.1900469, 0.20350301)
 script = ExtResource("5_h1ktb")
 player_ref = NodePath("../../../..")
+current_selected_item = 1
 
 [node name="BasicGun" parent="CamPiviot/MainCamera/HoldingPoint/HeldItem" unique_id=1101744858 instance=ExtResource("4_khmeo")]
+freeze = true
+selected = true
 
 [node name="Arms" type="Node3D" parent="CamPiviot" unique_id=1014746392]
 transform = Transform3D(-0.405479, 0, -3.54481e-08, 0, 0.405479, 0, 3.54481e-08, 0, -0.405479, 0, -0.024662, -0.64234)
@@ -546,6 +550,7 @@ mouse_filter = 2
 
 [node name="Visuals" type="Node3D" parent="." unique_id=471362143]
 
+[connection signal="ItemThrown" from="." to="CamPiviot/MainCamera/HoldingPoint/HeldItem" method="_on_player_item_thrown"]
 [connection signal="UseItem" from="." to="." method="_on_use_item"]
 [connection signal="ItemInSight" from="CamPiviot/MainCamera/Interation Ray" to="." method="_on_interation_ray_item_in_sight"]
 [connection signal="timeout" from="LimboHSM/Sliding/Sliding Cooldown" to="LimboHSM/Sliding" method="_on_sliding_cooldown_timeout"]
