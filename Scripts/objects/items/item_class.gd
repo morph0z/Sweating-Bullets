@@ -4,6 +4,7 @@ class_name item extends RigidBody3D
 var connectedToPlayer:bool = false
 
 @export var selected:bool = false
+var held:bool = false
 
 signal pickedUp(selfItem:item)
 signal dropped(selfItem:item)
@@ -34,10 +35,10 @@ func pick_item_up(player_ref:player) -> void:
 	connect_on_use_item(player_ref)
 	initilize_holding()
 	pickedUp.emit(self)
- 
 	
 @export var item_collison_layer:int = 3
 func initilize_dropped(should_emit_signal:bool) -> void:
+	held = false
 	set_collision_layer_value(item_collison_layer, true)
 	freeze = false
 	sleeping = false
@@ -45,6 +46,7 @@ func initilize_dropped(should_emit_signal:bool) -> void:
 	if should_emit_signal: dropped.emit(self)
 
 func initilize_holding() -> void:
+	held = true
 	set_collision_layer_value(item_collison_layer, false)
 	freeze = true
 	position = Vector3.ZERO
@@ -59,3 +61,5 @@ func select() -> void:
 func deselect() -> void:
 	selected = false
 	hide()
+	
+func is_held() -> bool: return held

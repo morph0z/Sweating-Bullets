@@ -73,7 +73,7 @@ func _initialize_state_machine():
 	state_machine.set_active(true)
 
 func _input(event: InputEvent) -> void:
-	var canUseItem = (event.is_action_pressed("LeftClickSelect") and held_item.get_children().size() == 1)
+	var canUseItem = (event.is_action_pressed("LeftClickSelect") and held_item.get_children().size() != 0)
 	if canUseItem: UseItem.emit()
 		
 	var canThrow = (event.is_action_pressed("EnterThrow") and !held_item.get_children().is_empty() and !interaction_raycast.is_colliding())

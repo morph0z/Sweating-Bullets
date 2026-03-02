@@ -281,8 +281,6 @@ size = Vector3(2, 1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_qp8bv"]
 size = Vector3(2, 1, 1)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_cba8u"]
-
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_cba8u"]
 frequency = 0.084
 
@@ -480,11 +478,6 @@ transform = Transform3D(-4.46695e-08, 0.456, 0, -1.02192, -1.99324e-08, 0, 0, 0,
 shape = SubResource("BoxShape3D_qp8bv")
 target_position = Vector3(0, 20, 0)
 debug_shape_custom_color = Color(0.247044, 0.504683, 1, 1)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=337637455]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.21098, 0)
-visible = false
-mesh = SubResource("CapsuleMesh_cba8u")
 
 [node name="LimboHSM" type="LimboHSM" parent="." unique_id=270486214 node_paths=PackedStringArray("player_reference")]
 script = ExtResource("4_mphk7")

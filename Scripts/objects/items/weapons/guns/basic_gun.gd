@@ -3,8 +3,6 @@ extends gun
 
 func override_bullet() -> void: BASIC_BULLET = preload("res://Scenes/objects/weapons/Ammo/BasicBullet.tscn")
 
-func shoot(bullet:PackedScene) -> void: create_bullet(bullet, 10)
-
 func use_item() -> void: shoot(BASIC_BULLET)
 
 func throwHit(bullet:PackedScene, thing_hit:Node3D):

@@ -107,7 +107,7 @@ animations = [{
 "speed": 24.0
 }]
 
-[node name="BasicGun" type="RigidBody3D" unique_id=1101744858 node_paths=PackedStringArray("shoot_point", "lazer_sight", "sparks", "ammo_fall_effect", "shoot_sound")]
+[node name="BasicGun" type="RigidBody3D" unique_id=1101744858 node_paths=PackedStringArray("shoot_point", "lazer_sight", "sparks", "ammo_fall_effect", "shoot_sound", "shoot_timer")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 collision_layer = 0
 physics_material_override = SubResource("PhysicsMaterial_mdqoc")
@@ -117,6 +117,8 @@ lazer_sight = NodePath("LazerSightRay")
 sparks = NodePath("Sparks")
 ammo_fall_effect = NodePath("BulletFalling")
 shoot_sound = NodePath("AudioStreamPlayer3D")
+automatic = true
+shoot_timer = NodePath("CoolDown")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1771147029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19927979, 0.0045858026, -0.0005493164)
@@ -193,3 +195,7 @@ frame_progress = 1.0
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1766918639]
 stream = ExtResource("5_igefx")
+
+[node name="CoolDown" type="Timer" parent="." unique_id=552003678]
+wait_time = 0.8
+one_shot = true
