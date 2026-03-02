@@ -36,3 +36,7 @@ func _exit() -> void:
 
 func _reset_sprint_modifier():
 	player_reference.sprint_modifier -= player_reference.sprint_speed
+
+
+func _on_sprint_sound_timeout() -> void:
+	if self.is_active(): player_reference.sound_component.footstep()

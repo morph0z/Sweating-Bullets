@@ -29,3 +29,7 @@ func _update(delta: float) -> void:
 
 #func _enter() -> void:
 	#machine.animationPlayer.play("Walk")
+
+
+func _on_walk_sound_timeout() -> void:
+	if self.is_active(): player_reference.sound_component.footstep()

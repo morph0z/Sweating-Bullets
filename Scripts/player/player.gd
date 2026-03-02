@@ -9,6 +9,7 @@ class_name player extends entityClass
 @export var crouching_collision : CollisionShape3D
 @export var crouch_check : ShapeCast3D
 @export var interaction_raycast : ShapeCast3D
+@export var sound_component : playerSoundComponent
 @onready var held_item:heldItemComponent = %HeldItem
 @onready var leftCast: ShapeCast3D = $SideStepCasts/Left
 @onready var rightCast: ShapeCast3D = $SideStepCasts/Right

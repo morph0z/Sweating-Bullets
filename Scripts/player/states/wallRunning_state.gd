@@ -16,6 +16,7 @@ func _update(_delta: float) -> void:
 	set_state(player_reference.airborne)
 
 func wall_jump():
+	player_reference.sound_component.jump()
 	player_reference.apply_force(push_force, player_reference.get_wall_normal())
 	player_reference.apply_force(jump_force, Vector3.UP)
 
