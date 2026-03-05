@@ -117,7 +117,6 @@ lazer_sight = NodePath("LazerSightRay")
 sparks = NodePath("Sparks")
 ammo_fall_effect = NodePath("BulletFalling")
 shoot_sound = NodePath("AudioStreamPlayer3D")
-automatic = true
 shoot_timer = NodePath("CoolDown")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1771147029]

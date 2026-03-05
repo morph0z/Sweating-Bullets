@@ -1,7 +1,6 @@
 class_name healthComponent extends Node
 
-@export var Entity: Node3D
-@export var StateMachine: LimboHSM
+@export var Entity: entityClass
 @export var HEALTH: int = 100
 
 var isDead = false

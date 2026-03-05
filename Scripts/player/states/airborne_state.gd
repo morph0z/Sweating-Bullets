@@ -26,6 +26,9 @@ func _update(_delta: float) -> void:
 	if player_reference.is_on_floor():
 		if Input.is_action_pressed("LeftShiftCrouch"):
 			set_state(player_reference.sliding)
+		#OP Bunny hopping
+		#elif Input.is_action_pressed("SpaceJump"):
+			#jump(1)
 		else:
 			set_state(player_reference.idle)
 

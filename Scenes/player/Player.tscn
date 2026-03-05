@@ -368,7 +368,9 @@ current_selected_item = 1
 
 [node name="BasicGun" parent="CamPiviot/MainCamera/HoldingPoint/HeldItem" unique_id=1101744858 instance=ExtResource("4_khmeo")]
 freeze = true
+automatic = null
 selected = true
+item_collison_layer = null
 
 [node name="Arms" type="Node3D" parent="CamPiviot" unique_id=1014746392]
 transform = Transform3D(-0.405479, 0, -3.54481e-08, 0, 0.405479, 0, 3.54481e-08, 0, -0.405479, 0, -0.024662, -0.64234)
@@ -450,10 +452,9 @@ animationTree = NodePath("../../CamPiviot/Arms/AnimationTree")
 animationPlayer = NodePath("../../CamPiviot/Arms/AnimationPlayer")
 metadata/_custom_type_script = "uid://q2ta3qdc87as"
 
-[node name="healthComponent" type="Node" parent="Components" unique_id=1361080999 node_paths=PackedStringArray("Entity", "StateMachine")]
+[node name="healthComponent" type="Node" parent="Components" unique_id=1361080999 node_paths=PackedStringArray("Entity")]
 script = ExtResource("4_irnrt")
 Entity = NodePath("../..")
-StateMachine = NodePath("../../LimboHSM")
 metadata/_custom_type_script = "uid://lnmket0am38i"
 
 [node name="hurtboxComponent" type="Area3D" parent="Components" unique_id=1676178527 node_paths=PackedStringArray("healthComponent_reference")]
@@ -580,7 +581,6 @@ wall_jump = ExtResource("35_53txx")
 metadata/_custom_type_script = "uid://bk3ikkbfjnvx4"
 
 [connection signal="ItemThrown" from="." to="CamPiviot/MainCamera/HoldingPoint/HeldItem" method="_on_player_item_thrown"]
-[connection signal="UseItem" from="." to="." method="_on_use_item"]
 [connection signal="ItemInSight" from="CamPiviot/MainCamera/Interation Ray" to="." method="_on_interation_ray_item_in_sight"]
 [connection signal="timeout" from="LimboHSM/Sprinting/Sprint Sound" to="LimboHSM/Sprinting" method="_on_sprint_sound_timeout"]
 [connection signal="timeout" from="LimboHSM/Sliding/Sliding Cooldown" to="LimboHSM/Sliding" method="_on_sliding_cooldown_timeout"]

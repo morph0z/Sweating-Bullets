@@ -62,6 +62,7 @@ var feelingGravity : bool = true
 var canMove:bool = true
 
 signal UseItem
+signal UseItemSecondary
 signal ItemThrown(thrownItem:item)
 
 func _ready() -> void:
@@ -75,6 +76,8 @@ func _initialize_state_machine():
 func _input(event: InputEvent) -> void:
 	var canUseItem = (event.is_action_pressed("LeftClickSelect") and held_item.get_children().size() != 0)
 	if canUseItem: UseItem.emit()
+	var canUseItemSecondary = (event.is_action_pressed("RightClickSelect") and held_item.get_children().size() != 0)
+	if canUseItemSecondary: UseItemSecondary.emit()
 		
 	var canThrow = (event.is_action_pressed("EnterThrow") and !held_item.get_children().is_empty() and !interaction_raycast.is_colliding())
 	if canThrow: throwItem(5*((velocity.length()/10)+1))

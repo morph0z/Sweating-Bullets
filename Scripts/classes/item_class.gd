@@ -13,12 +13,18 @@ func _on_player_use_item() -> void:
 	if !is_selected(): return
 	use_item()
 
-@abstract
-func use_item()
+func _on_player_use_item_secondary() -> void: 
+	if !is_selected(): return
+	use_item_secondary()
+
+@abstract func use_item()
+
+@abstract func use_item_secondary()
 
 func connect_on_use_item(player_ref:player):
 	if (connectedToPlayer): return
 	player_ref.connect("UseItem", _on_player_use_item)
+	player_ref.connect("UseItemSecondary", _on_player_use_item_secondary)
 	connectedToPlayer = true
 
 func _ready() -> void:

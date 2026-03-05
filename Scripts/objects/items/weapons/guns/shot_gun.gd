@@ -3,7 +3,7 @@ extends gun
 
 func override_bullet() -> void: BASIC_BULLET = preload("res://Scenes/objects/weapons/Ammo/BasicBullet.tscn")
 
-func use_item() -> void: shoot(BASIC_BULLET)
+func use_item() -> void: buck_shot(BASIC_BULLET, 5, 0.1, automatic, "LeftClickSelect")
 
 func use_item_secondary() -> void: print("TODO: add a synergetic secondary")
 

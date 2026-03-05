@@ -133,3 +133,8 @@ ScrollWeaponDown={
 
 3d_physics/layer_2="Player Ray Layer"
 3d_physics/layer_3="Item layer"
+
+[limbo_ai]
+
+behavior_tree/behavior_tree_default_dir="res://Scripts/AI/trees"
+behavior_tree/user_task_dirs=PackedStringArray("res://Scripts/AI/tasks")
