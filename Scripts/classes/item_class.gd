@@ -21,25 +21,25 @@ func _on_player_use_item_secondary() -> void:
 
 @abstract func use_item_secondary()
 
-func connect_on_use_item(player_ref:player):
+func connect_on_use_item(player_inp:player):
 	if (connectedToPlayer): return
-	player_ref.connect("UseItem", _on_player_use_item)
-	player_ref.connect("UseItemSecondary", _on_player_use_item_secondary)
+	player_inp.connect("UseItem", _on_player_use_item)
+	player_inp.connect("UseItemSecondary", _on_player_use_item_secondary)
 	connectedToPlayer = true
 
 func _ready() -> void:
 	if (get_parent() is heldItemComponent):
 		var heldItem:heldItemComponent = get_parent()
 		connect_on_use_item(heldItem.player_ref)
-		initilize_holding()
+		initilize_holding(heldItem.player_ref)
 		
 	if (get_parent() is not heldItemComponent):
 		initilize_dropped(false)
 
-func pick_item_up(player_ref:player) -> void:
-	self.reparent(player_ref.held_item)
-	connect_on_use_item(player_ref)
-	initilize_holding()
+func pick_item_up(player_inp:player) -> void:
+	self.reparent(player_inp.held_items)
+	connect_on_use_item(player_inp)
+	initilize_holding(player_inp)
 	pickedUp.emit(self)
 	
 @export var item_collison_layer:int = 3
@@ -51,7 +51,9 @@ func initilize_dropped(should_emit_signal:bool) -> void:
 	select()
 	if should_emit_signal: dropped.emit(self)
 
-func initilize_holding() -> void:
+var player_ref:player
+func initilize_holding(player_inp:player) -> void:
+	player_ref = player_inp
 	held = true
 	set_collision_layer_value(item_collison_layer, false)
 	freeze = true

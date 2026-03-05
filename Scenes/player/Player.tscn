@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://3i7fe0kmvqhn" path="res://Scripts/player/states/walking_state.gd" id="11_sy2hw"]
 [ext_resource type="Script" uid="uid://dkjxjlfqyrc77" path="res://Scripts/player/states/moving_state.gd" id="12_cba8u"]
 [ext_resource type="Script" uid="uid://djtq2iuleu2br" path="res://Scripts/player/states/airborne_state.gd" id="13_0h34x"]
+[ext_resource type="Script" uid="uid://dlhps6b0eo25m" path="res://Scripts/componets/ammoHandlerComponent.gd" id="15_trtan"]
 [ext_resource type="Script" uid="uid://cbws3lma2j738" path="res://Scripts/ui/cursor_draw.gd" id="20_cba8u"]
 [ext_resource type="Shader" uid="uid://dft6baklaquwf" path="res://Shaders/speedLines.gdshader" id="21_0h34x"]
 [ext_resource type="Script" uid="uid://dxg6k2t6ocuqy" path="res://Scripts/ui/speedLines_draw.gd" id="21_cba8u"]
@@ -299,7 +300,7 @@ shader_parameter/animation_speed = 20.0
 shader_parameter/blur_strength = 0.01
 shader_parameter/effect_power = 0.5
 
-[node name="Player" type="CharacterBody3D" unique_id=1286935134 node_paths=PackedStringArray("camera", "camera_effects", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "sound_component", "health_component")]
+[node name="Player" type="CharacterBody3D" unique_id=1286935134 node_paths=PackedStringArray("camera", "camera_effects", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "sound_component", "held_items", "leftCast", "rightCast", "ammo_handler", "health_component")]
 collision_layer = 2
 script = ExtResource("1_1ycki")
 camera = NodePath("CamPiviot")
@@ -310,6 +311,10 @@ crouching_collision = NodePath("CrouchingCollision")
 crouch_check = NodePath("CrouchCheck")
 interaction_raycast = NodePath("CamPiviot/MainCamera/Interation Ray")
 sound_component = NodePath("playerSoundComponent")
+held_items = NodePath("CamPiviot/MainCamera/HoldingPoint/HeldItems")
+leftCast = NodePath("SideStepCasts/Left")
+rightCast = NodePath("SideStepCasts/Right")
+ammo_handler = NodePath("Components/ammoHandlerComponent")
 acceleration = 10.0
 deceleration = 1.0
 health_component = NodePath("Components/healthComponent")
@@ -359,18 +364,16 @@ autostart = true
 [node name="HoldingPoint" type="Marker3D" parent="CamPiviot/MainCamera" unique_id=919940559]
 transform = Transform3D(1, -2.22045e-16, 0, -2.22045e-16, 1, -5.53929e-17, 7.10543e-15, -5.53928e-17, 1, 0.499094, -0.09633434, -1.215353)
 
-[node name="HeldItem" type="Node3D" parent="CamPiviot/MainCamera/HoldingPoint" unique_id=445114105 node_paths=PackedStringArray("player_ref")]
+[node name="HeldItems" type="Node3D" parent="CamPiviot/MainCamera/HoldingPoint" unique_id=445114105 node_paths=PackedStringArray("player_ref")]
 unique_name_in_owner = true
 transform = Transform3D(0.9999997, 0, 0, 0, 0.9999997, 0, 0, 0, 1, -0.09871, -0.1900469, 0.20350301)
 script = ExtResource("5_h1ktb")
 player_ref = NodePath("../../../..")
 current_selected_item = 1
 
-[node name="BasicGun" parent="CamPiviot/MainCamera/HoldingPoint/HeldItem" unique_id=1101744858 instance=ExtResource("4_khmeo")]
+[node name="BasicGun" parent="CamPiviot/MainCamera/HoldingPoint/HeldItems" unique_id=1101744858 instance=ExtResource("4_khmeo")]
 freeze = true
-automatic = null
 selected = true
-item_collison_layer = null
 
 [node name="Arms" type="Node3D" parent="CamPiviot" unique_id=1014746392]
 transform = Transform3D(-0.405479, 0, -3.54481e-08, 0, 0.405479, 0, 3.54481e-08, 0, -0.405479, 0, -0.024662, -0.64234)
@@ -465,6 +468,12 @@ metadata/_custom_type_script = "uid://dtr2p1f3xhiav"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Components/hurtboxComponent" unique_id=1589749814]
 shape = SubResource("CapsuleShape3D_irnrt")
 debug_color = Color(1, 0, 0.0903349, 0.42)
+
+[node name="ammoHandlerComponent" type="Node" parent="Components" unique_id=1933469337]
+script = ExtResource("15_trtan")
+max_ammo_amount = 20
+ammo_amount = 10
+metadata/_custom_type_script = "uid://dlhps6b0eo25m"
 
 [node name="SideStepCasts" type="Node3D" parent="." unique_id=1999536261]
 
@@ -580,7 +589,6 @@ footstep_4 = ExtResource("34_gl7pf")
 wall_jump = ExtResource("35_53txx")
 metadata/_custom_type_script = "uid://bk3ikkbfjnvx4"
 
-[connection signal="ItemThrown" from="." to="CamPiviot/MainCamera/HoldingPoint/HeldItem" method="_on_player_item_thrown"]
 [connection signal="ItemInSight" from="CamPiviot/MainCamera/Interation Ray" to="." method="_on_interation_ray_item_in_sight"]
 [connection signal="timeout" from="LimboHSM/Sprinting/Sprint Sound" to="LimboHSM/Sprinting" method="_on_sprint_sound_timeout"]
 [connection signal="timeout" from="LimboHSM/Sliding/Sliding Cooldown" to="LimboHSM/Sliding" method="_on_sliding_cooldown_timeout"]

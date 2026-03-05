@@ -10,9 +10,13 @@ class_name player extends entityClass
 @export var crouch_check : ShapeCast3D
 @export var interaction_raycast : ShapeCast3D
 @export var sound_component : playerSoundComponent
-@onready var held_item:heldItemComponent = %HeldItem
-@onready var leftCast: ShapeCast3D = $SideStepCasts/Left
-@onready var rightCast: ShapeCast3D = $SideStepCasts/Right
+@export var held_items:heldItemComponent
+@export var leftCast: ShapeCast3D
+@export var rightCast: ShapeCast3D
+
+@export_category("Components")
+@export var ammo_handler:ammoHandlerComponent
+
 
 @export_category("Movement Settings")
 @export_group("Easing")
@@ -74,12 +78,12 @@ func _initialize_state_machine():
 	state_machine.set_active(true)
 
 func _input(event: InputEvent) -> void:
-	var canUseItem = (event.is_action_pressed("LeftClickSelect") and held_item.get_children().size() != 0)
+	var canUseItem = (event.is_action_pressed("LeftClickSelect") and held_items.get_children().size() != 0)
 	if canUseItem: UseItem.emit()
-	var canUseItemSecondary = (event.is_action_pressed("RightClickSelect") and held_item.get_children().size() != 0)
+	var canUseItemSecondary = (event.is_action_pressed("RightClickSelect") and held_items.get_children().size() != 0)
 	if canUseItemSecondary: UseItemSecondary.emit()
 		
-	var canThrow = (event.is_action_pressed("EnterThrow") and !held_item.get_children().is_empty() and !interaction_raycast.is_colliding())
+	var canThrow = (event.is_action_pressed("EnterThrow") and !held_items.get_children().is_empty() and !interaction_raycast.is_colliding())
 	if canThrow: throwItem(5*((velocity.length()/10)+1))
 
 func _physics_process(delta: float) -> void:
@@ -150,8 +154,8 @@ func sideStepLeft() -> void:
 func throwItem(force) -> void:
 	var itemThrown:item
 	var itemThrownIndex:int
-	for itemHeld:item in held_item.get_children(): if itemHeld.is_selected(): 
-		itemThrownIndex = held_item.get_children().find(itemHeld)
+	for itemHeld:item in held_items.get_children(): if itemHeld.is_selected(): 
+		itemThrownIndex = held_items.get_children().find(itemHeld)
 		itemThrown = itemHeld
 	if (!(itemThrown is item) or !(itemThrown.is_selected())): return
 	itemThrown.initilize_dropped(true)
@@ -160,8 +164,8 @@ func throwItem(force) -> void:
 	itemThrown.angular_velocity = transform.basis * Vector3(-10*force,0,0)
 	
 	var nextItem:item
-	if !held_item.get_children().is_empty():
-		for itemHeld in held_item.get_children(): nextItem = held_item.get_children()[itemThrownIndex-1]
+	if !held_items.get_children().is_empty():
+		for itemHeld in held_items.get_children(): nextItem = held_items.get_children()[itemThrownIndex-1]
 		nextItem.select()
 	
 	set_collision_layer_value(3, true)

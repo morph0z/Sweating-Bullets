@@ -46,7 +46,7 @@ func handle_animation(delta:float):
 		airbornAniValue = lerpf(airbornAniValue, 0, animationBlendSpeed*delta)
 		
 func _process(delta: float) -> void:
-	match player_reference.held_item.get_child_count():
+	match player_reference.held_items.get_child_count():
 		1:
 			armAnimationActive = false
 			player_reference.camera.arms.hide()

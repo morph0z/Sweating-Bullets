@@ -9,18 +9,18 @@ var BASIC_BULLET:PackedScene
 @export var ammo_fall_effect:CPUParticles3D
 @export_group("gun settings")
 @export var shoot_sound:AudioStreamPlayer3D
+@export var empty_sound:AudioStreamPlayer3D
 @export var automatic:bool
 @export var shoot_timer:Timer
 @export var gun_damage:int = 10
 
 func shoot(bullet:PackedScene):
+	if player_ref.ammo_handler.get_ammo_amount() <= 0: return
 	match automatic:
 		true:
 			if !shoot_timer.time_left == 0: return
 			while automatic && Input.is_action_pressed("LeftClickSelect") && is_selected() && is_held():
 				create_bullet(bullet, gun_damage)
-				print(-global_transform.basis.z)
-				
 				shoot_timer.start()
 				play_effects()
 				await shoot_timer.timeout
@@ -32,6 +32,7 @@ func shoot(bullet:PackedScene):
 	play_effects()
 
 func buck_shot(bullet:PackedScene, bullet_amount:int, spread:float, is_automatic:bool = false, input:StringName = "LeftClickSelect"):
+	if player_ref.ammo_handler.get_ammo_amount() <= 0: return
 	var spread_amount:float = 10 * spread
 	match is_automatic:
 		true:
@@ -64,6 +65,7 @@ func play_effects() -> void:
 	sparks.play()
 
 func create_bullet(scene:PackedScene, damage:int) -> bulletClass:
+	if player_ref is player: player_ref.ammo_handler.reduce_ammo(1)
 	var newBullet:bulletClass = scene.instantiate()
 	newBullet.damage_dealt = damage
 	newBullet.position = self.shoot_point.global_position

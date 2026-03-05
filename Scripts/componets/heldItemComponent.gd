@@ -53,3 +53,7 @@ func _on_item_dropped(itemDropped:item) -> void:
 func connect_item(connected: item):
 	connected.connect("pickedUp", _on_item_picked_up)
 	connected.connect("dropped", _on_item_dropped)
+
+func get_selected_item() -> item:
+	for item_held in items_held: if item_held.is_selected(): return item_held
+	return null

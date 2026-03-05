@@ -32,6 +32,7 @@ target_var = &"player_ref"
 
 [sub_resource type="BBVariant" id="BBVariant_n27ci"]
 saved_value = null
+resource_name = "<null>"
 
 [sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_n27ci"]
 property = &"player_ref"
