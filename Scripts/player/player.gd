@@ -16,7 +16,7 @@ class_name player extends entityClass
 
 @export_category("Components")
 @export var ammo_handler:ammoHandlerComponent
-
+@export var fear_handler:fearComponent
 
 @export_category("Movement Settings")
 @export_group("Easing")

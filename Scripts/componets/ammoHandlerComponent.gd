@@ -8,8 +8,8 @@ func reduce_ammo(amount):
 	ammo_amount -= amount
 
 func increase_ammo(amount):
-	cap_ammo() 
 	ammo_amount += amount
+	cap_ammo() 
 
 func get_ammo_amount() -> int: return ammo_amount
 

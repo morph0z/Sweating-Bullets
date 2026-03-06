@@ -24,13 +24,11 @@ func _update(_delta: float) -> void:
 	velocity_handling(_delta)
 
 	if player_reference.is_on_floor():
-		if Input.is_action_pressed("LeftShiftCrouch"):
-			set_state(player_reference.sliding)
-		#OP Bunny hopping
+		if Input.is_action_pressed("LeftShiftCrouch"): set_state(player_reference.sliding)
+		#OP Bunny hopping DO NOT ENABLE
 		#elif Input.is_action_pressed("SpaceJump"):
 			#jump(1)
-		else:
-			set_state(player_reference.idle)
+		else: set_state(player_reference.idle)
 
 	if player_reference.is_on_wall():
 		if !player_reference.wallRunning.alreadyWallJumped:
@@ -38,10 +36,8 @@ func _update(_delta: float) -> void:
 			set_state(player_reference.wallRunning)
 			cancel_velocity()
 
-	if Input.is_action_just_pressed("ZStomp"):
-		stomp(5, false)
-	if Input.is_action_just_pressed("XCancelStomp"):
-		stomp(5, true)
+	if Input.is_action_just_pressed("ZStomp"): stomp(5, false)
+	if Input.is_action_just_pressed("XCancelStomp"): stomp(5, true)
 
 func _exit() -> void:
 	touchedGround.emit()
@@ -66,8 +62,7 @@ func velocity_handling(_delta:float):
 		var current_speed := hori_vel.dot(wish_dir)
 		var add_speed := AIR_MAX_SPEED - current_speed
 
-		if add_speed <= 0.0:
-			return
+		if add_speed <= 0.0: return
 
 		var accel_speed := AIR_ACCEL * AIR_MAX_SPEED * _delta
 		accel_speed = min(accel_speed, add_speed)

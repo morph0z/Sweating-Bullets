@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://dkjxjlfqyrc77" path="res://Scripts/player/states/moving_state.gd" id="12_cba8u"]
 [ext_resource type="Script" uid="uid://djtq2iuleu2br" path="res://Scripts/player/states/airborne_state.gd" id="13_0h34x"]
 [ext_resource type="Script" uid="uid://dlhps6b0eo25m" path="res://Scripts/componets/ammoHandlerComponent.gd" id="15_trtan"]
+[ext_resource type="Script" uid="uid://dw71ubyl70v5p" path="res://Scripts/componets/fearComponent.gd" id="16_oxyqu"]
 [ext_resource type="Script" uid="uid://cbws3lma2j738" path="res://Scripts/ui/cursor_draw.gd" id="20_cba8u"]
 [ext_resource type="Shader" uid="uid://dft6baklaquwf" path="res://Shaders/speedLines.gdshader" id="21_0h34x"]
 [ext_resource type="Script" uid="uid://dxg6k2t6ocuqy" path="res://Scripts/ui/speedLines_draw.gd" id="21_cba8u"]
@@ -300,7 +301,7 @@ shader_parameter/animation_speed = 20.0
 shader_parameter/blur_strength = 0.01
 shader_parameter/effect_power = 0.5
 
-[node name="Player" type="CharacterBody3D" unique_id=1286935134 node_paths=PackedStringArray("camera", "camera_effects", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "sound_component", "held_items", "leftCast", "rightCast", "ammo_handler", "health_component")]
+[node name="Player" type="CharacterBody3D" unique_id=1286935134 node_paths=PackedStringArray("camera", "camera_effects", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "sound_component", "held_items", "leftCast", "rightCast", "ammo_handler", "fear_handler", "health_component")]
 collision_layer = 2
 script = ExtResource("1_1ycki")
 camera = NodePath("CamPiviot")
@@ -315,6 +316,7 @@ held_items = NodePath("CamPiviot/MainCamera/HoldingPoint/HeldItems")
 leftCast = NodePath("SideStepCasts/Left")
 rightCast = NodePath("SideStepCasts/Right")
 ammo_handler = NodePath("Components/ammoHandlerComponent")
+fear_handler = NodePath("Components/fearComponent")
 acceleration = 10.0
 deceleration = 1.0
 health_component = NodePath("Components/healthComponent")
@@ -474,6 +476,15 @@ script = ExtResource("15_trtan")
 max_ammo_amount = 20
 ammo_amount = 10
 metadata/_custom_type_script = "uid://dlhps6b0eo25m"
+
+[node name="fearComponent" type="Node" parent="Components" unique_id=2109233898 node_paths=PackedStringArray("player_ref")]
+script = ExtResource("16_oxyqu")
+player_ref = NodePath("../..")
+max_fear = 100.0
+fear_value = 20.0
+ammo_increase = 2
+ammo_give_cost = 5
+metadata/_custom_type_script = "uid://dw71ubyl70v5p"
 
 [node name="SideStepCasts" type="Node3D" parent="." unique_id=1999536261]
 
