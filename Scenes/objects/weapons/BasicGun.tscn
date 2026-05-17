@@ -187,6 +187,7 @@ scale_amount_max = 0.02
 
 [node name="Sparks" type="AnimatedSprite3D" parent="." unique_id=100435208]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.48049903, 0.17832953, -0.0024767905)
+texture_filter = 0
 sprite_frames = SubResource("SpriteFrames_sfvkl")
 animation = &"Sparks"
 frame = 5

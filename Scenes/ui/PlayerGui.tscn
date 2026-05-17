@@ -1,0 +1,118 @@
+[gd_scene format=3 uid="uid://t4ko1hteuohu"]
+
+[ext_resource type="Script" uid="uid://becwo1vr7tldl" path="res://Scripts/ui/playerUI/player_ui.gd" id="1_ekxjb"]
+[ext_resource type="Theme" uid="uid://cf2uxvcacch58" path="res://Assets/themes/BaseTheme.tres" id="1_suspg"]
+[ext_resource type="Script" uid="uid://chufukpqp4un8" path="res://Scripts/ui/playerUI/bar.gd" id="2_0s0ib"]
+[ext_resource type="Shader" uid="uid://dvbcou6kkxp22" path="res://Shaders/cropPart.gdshader" id="2_0yknl"]
+[ext_resource type="Texture2D" uid="uid://dn6nicjbnkuup" path="res://Assets/UI/Health Bar.png" id="3_6jnv6"]
+[ext_resource type="Texture2D" uid="uid://dxog45y20un0b" path="res://Assets/UI/Empty Health Bar.png" id="4_wyadc"]
+[ext_resource type="Texture2D" uid="uid://c6586v4stobd8" path="res://Assets/UI/Fear Bar.png" id="6_ekxjb"]
+[ext_resource type="Texture2D" uid="uid://du1buxiolpjw2" path="res://Assets/UI/Empty Fear Bar.png" id="7_g4iqu"]
+[ext_resource type="Texture2D" uid="uid://cvrqfvqpltsrc" path="res://Assets/UI/drop-1.png" id="8_k1bgi"]
+[ext_resource type="Texture2D" uid="uid://congf2lba31rd" path="res://Assets/UI/drop-2.png" id="9_c7vxa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_47od8"]
+line_spacing = 0.0
+font_size = 32
+font_color = Color(0.6, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0s0ib"]
+shader = ExtResource("2_0yknl")
+shader_parameter/percentage = 0.999999977648
+shader_parameter/masked_alpha = 1.0
+shader_parameter/unmasked_alpha = 0.0
+shader_parameter/horizontal = true
+shader_parameter/invert = true
+
+[sub_resource type="LabelSettings" id="LabelSettings_1dqe0"]
+font_size = 32
+font_color = Color(0.72573435, 0.5979332, 0.002996813, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fx2cf"]
+shader = ExtResource("2_0yknl")
+shader_parameter/percentage = 0.999999977648
+shader_parameter/masked_alpha = 1.0
+shader_parameter/unmasked_alpha = 0.0
+shader_parameter/horizontal = false
+shader_parameter/invert = true
+
+[node name="PlayerGui" type="Control" unique_id=1310431471 node_paths=PackedStringArray("healthBar", "fearBar")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ekxjb")
+healthBar = NodePath("Health")
+fearBar = NodePath("Fear")
+
+[node name="Health" type="Label" parent="." unique_id=598464983 node_paths=PackedStringArray("filledImage")]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.80200005
+anchor_right = 0.30800003
+anchor_bottom = 0.84000003
+offset_left = 32.0
+offset_top = -7.696045
+offset_right = -137.81604
+offset_bottom = 33.679993
+theme = ExtResource("1_suspg")
+text = "HEALTH
+"
+label_settings = SubResource("LabelSettings_47od8")
+uppercase = true
+script = ExtResource("2_0s0ib")
+filledImage = NodePath("HealthBar")
+
+[node name="HealthBar" type="Sprite2D" parent="Health" unique_id=430376166]
+z_index = -1
+material = SubResource("ShaderMaterial_0s0ib")
+position = Vector2(150, 4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_6jnv6")
+
+[node name="EmptyHealthBar" type="Sprite2D" parent="Health" unique_id=237279202]
+position = Vector2(150, 4)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_wyadc")
+
+[node name="Fear" type="Label" parent="." unique_id=530335829 node_paths=PackedStringArray("filledImage")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.021000002
+anchor_top = 0.87700003
+anchor_right = 0.25
+anchor_bottom = 0.91400003
+offset_left = 7.8079987
+offset_top = -0.2960205
+offset_right = -32.0
+offset_bottom = 8.727966
+theme = ExtResource("1_suspg")
+text = "FEAR"
+label_settings = SubResource("LabelSettings_1dqe0")
+script = ExtResource("2_0s0ib")
+filledImage = NodePath("FearBar")
+
+[node name="FearBar" type="Sprite2D" parent="Fear" unique_id=1288266073]
+z_index = -1
+material = SubResource("ShaderMaterial_fx2cf")
+position = Vector2(128, 40)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("6_ekxjb")
+
+[node name="EmptyFearBar" type="Sprite2D" parent="Fear" unique_id=1720479336]
+z_index = -1
+position = Vector2(128, 40)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("7_g4iqu")
+
+[node name="Drop1" type="Sprite2D" parent="Fear" unique_id=2107519716]
+position = Vector2(256, 40)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("8_k1bgi")
+
+[node name="Drop2" type="Sprite2D" parent="Fear" unique_id=1764761698]
+position = Vector2(219, 78)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("9_c7vxa")

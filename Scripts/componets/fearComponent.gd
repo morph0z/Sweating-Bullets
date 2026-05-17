@@ -9,12 +9,19 @@ class_name fearComponent extends Node
 @export_category("Use Values")
 @export var ammo_give_cost:int
 
+signal fearChanged(amount: int)
+
 func get_fear_amount() -> float: return fear_value
 
-func give_ammo() -> void: player_ref.ammo_handler.increase_ammo(ammo_increase)
+func give_ammo() -> void: 
+	player_ref.ammo_handler.increase_ammo(ammo_increase)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("CAmmoInc"): 
 		if (fear_value < ammo_give_cost): return
-		fear_value -= ammo_give_cost
+		changeFear(ammo_give_cost)
 		give_ammo()
+
+func changeFear(amount:int):
+	fearChanged.emit(-amount)
+	fear_value -= amount
