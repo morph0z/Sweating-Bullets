@@ -107,7 +107,7 @@ animations = [{
 "speed": 24.0
 }]
 
-[node name="BasicGun" type="RigidBody3D" unique_id=1101744858 node_paths=PackedStringArray("shoot_point", "lazer_sight", "sparks", "ammo_fall_effect", "shoot_sound", "shoot_timer")]
+[node name="BasicGun" type="RigidBody3D" unique_id=1101744858 node_paths=PackedStringArray("shoot_point", "lazer_sight", "sparks", "ammo_fall_effect", "shoot_sound", "shoot_timer", "mesh")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 collision_layer = 0
 physics_material_override = SubResource("PhysicsMaterial_mdqoc")
@@ -118,6 +118,7 @@ sparks = NodePath("Sparks")
 ammo_fall_effect = NodePath("BulletFalling")
 shoot_sound = NodePath("AudioStreamPlayer3D")
 shoot_timer = NodePath("CoolDown")
+mesh = NodePath("Skeleton3D/gun/gun")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1771147029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.19927979, 0.0045858026, -0.0005493164)

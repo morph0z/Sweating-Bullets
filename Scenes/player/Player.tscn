@@ -558,19 +558,23 @@ air_move_speed = 250.0
 machine = NodePath("..")
 
 [node name="DebugMenu" parent="." unique_id=355638386 node_paths=PackedStringArray("playerRef") instance=ExtResource("2_jnk8a")]
+visible = false
+z_index = 3
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 playerRef = NodePath("..")
 debug = true
 
-[node name="PlayerGui" parent="." unique_id=1310431471 node_paths=PackedStringArray("health_component", "fear_component") instance=ExtResource("31_gl7pf")]
+[node name="PlayerGui" parent="." unique_id=1310431471 node_paths=PackedStringArray("player_ref", "ammo_component", "health_component", "fear_component") instance=ExtResource("31_gl7pf")]
 mouse_filter = 2
+player_ref = NodePath("..")
+ammo_component = NodePath("../Components/ammoHandlerComponent")
 health_component = NodePath("../Components/healthComponent")
 fear_component = NodePath("../Components/fearComponent")
 
 [node name="cursor" type="Control" parent="PlayerGui" unique_id=607409039]
-z_index = -3
+z_index = 3
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

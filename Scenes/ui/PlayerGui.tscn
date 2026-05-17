@@ -3,21 +3,44 @@
 [ext_resource type="Script" uid="uid://becwo1vr7tldl" path="res://Scripts/ui/playerUI/player_ui.gd" id="1_ekxjb"]
 [ext_resource type="Theme" uid="uid://cf2uxvcacch58" path="res://Assets/themes/BaseTheme.tres" id="1_suspg"]
 [ext_resource type="Script" uid="uid://chufukpqp4un8" path="res://Scripts/ui/playerUI/bar.gd" id="2_0s0ib"]
-[ext_resource type="Shader" uid="uid://dvbcou6kkxp22" path="res://Shaders/cropPart.gdshader" id="2_0yknl"]
 [ext_resource type="Texture2D" uid="uid://dn6nicjbnkuup" path="res://Assets/UI/Health Bar.png" id="3_6jnv6"]
 [ext_resource type="Texture2D" uid="uid://dxog45y20un0b" path="res://Assets/UI/Empty Health Bar.png" id="4_wyadc"]
 [ext_resource type="Texture2D" uid="uid://c6586v4stobd8" path="res://Assets/UI/Fear Bar.png" id="6_ekxjb"]
 [ext_resource type="Texture2D" uid="uid://du1buxiolpjw2" path="res://Assets/UI/Empty Fear Bar.png" id="7_g4iqu"]
 [ext_resource type="Texture2D" uid="uid://cvrqfvqpltsrc" path="res://Assets/UI/drop-1.png" id="8_k1bgi"]
 [ext_resource type="Texture2D" uid="uid://congf2lba31rd" path="res://Assets/UI/drop-2.png" id="9_c7vxa"]
+[ext_resource type="Texture2D" uid="uid://bmrtnklpi8u8v" path="res://Assets/UI/TopLeft Info.png" id="10_ekxjb"]
+[ext_resource type="Texture2D" uid="uid://dxmyjmqeshkal" path="res://Assets/UI/Gun Info.png" id="11_g4iqu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_47od8"]
 line_spacing = 0.0
 font_size = 32
 font_color = Color(0.6, 0, 0, 1)
 
+[sub_resource type="Shader" id="Shader_0s0ib"]
+code = "shader_type canvas_item;
+
+uniform float percentage:hint_range(0.0,1,.01);
+uniform float masked_alpha:hint_range(0,1,.01)=1;
+uniform float unmasked_alpha:hint_range(0,1,.01);
+
+uniform bool horizontal=false;
+uniform bool invert=true;
+
+
+
+void fragment() {
+	vec4 main_tex=texture(TEXTURE,UV);
+	COLOR.a=main_tex.a;
+	
+	float uvPOS=UV.x;
+	float step_value=unmasked_alpha+step(uvPOS,percentage);
+
+	COLOR.a=(main_tex.a)*step_value*masked_alpha;
+}"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0s0ib"]
-shader = ExtResource("2_0yknl")
+shader = SubResource("Shader_0s0ib")
 shader_parameter/percentage = 0.999999977648
 shader_parameter/masked_alpha = 1.0
 shader_parameter/unmasked_alpha = 0.0
@@ -28,15 +51,44 @@ shader_parameter/invert = true
 font_size = 32
 font_color = Color(0.72573435, 0.5979332, 0.002996813, 1)
 
+[sub_resource type="Shader" id="Shader_ekxjb"]
+code = "shader_type canvas_item;
+
+uniform float percentage:hint_range(0.0,1,.01);
+uniform float masked_alpha:hint_range(0,1,.01)=1;
+uniform float unmasked_alpha:hint_range(0,1,.01);
+
+uniform bool horizontal=false;
+uniform bool invert=true;
+
+
+
+void fragment() {
+	vec4 main_tex=texture(TEXTURE,UV);
+	COLOR.a=main_tex.a;
+	
+	float uvPOS=UV.x;
+	float step_value=unmasked_alpha+step(uvPOS,percentage);
+
+	COLOR.a=(main_tex.a)*step_value*masked_alpha;
+}"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fx2cf"]
-shader = ExtResource("2_0yknl")
-shader_parameter/percentage = 0.999999977648
+shader = SubResource("Shader_ekxjb")
+shader_parameter/percentage = 1.0
 shader_parameter/masked_alpha = 1.0
 shader_parameter/unmasked_alpha = 0.0
 shader_parameter/horizontal = false
 shader_parameter/invert = true
 
-[node name="PlayerGui" type="Control" unique_id=1310431471 node_paths=PackedStringArray("healthBar", "fearBar")]
+[sub_resource type="LabelSettings" id="LabelSettings_g4iqu"]
+line_spacing = -13.07
+font_size = 48
+font_color = Color(0.1319241, 0.40672785, 0.11944289, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4iqu"]
+
+[node name="PlayerGui" type="Control" unique_id=1310431471 node_paths=PackedStringArray("healthBar", "fearBar", "topLeftInfo", "gunInfo")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -46,8 +98,10 @@ grow_vertical = 2
 script = ExtResource("1_ekxjb")
 healthBar = NodePath("Health")
 fearBar = NodePath("Fear")
+topLeftInfo = NodePath("TopLeftInfo/Info")
+gunInfo = NodePath("GunInfo")
 
-[node name="Health" type="Label" parent="." unique_id=598464983 node_paths=PackedStringArray("filledImage")]
+[node name="Health" type="Label" parent="." unique_id=2000286962 node_paths=PackedStringArray("filledImage")]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.80200005
@@ -64,6 +118,7 @@ label_settings = SubResource("LabelSettings_47od8")
 uppercase = true
 script = ExtResource("2_0s0ib")
 filledImage = NodePath("HealthBar")
+metadata/_custom_type_script = "uid://chufukpqp4un8"
 
 [node name="HealthBar" type="Sprite2D" parent="Health" unique_id=430376166]
 z_index = -1
@@ -77,22 +132,23 @@ position = Vector2(150, 4)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_wyadc")
 
-[node name="Fear" type="Label" parent="." unique_id=530335829 node_paths=PackedStringArray("filledImage")]
+[node name="Fear" type="Label" parent="." unique_id=1153494975 node_paths=PackedStringArray("filledImage")]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.021000002
 anchor_top = 0.87700003
 anchor_right = 0.25
 anchor_bottom = 0.91400003
-offset_left = 7.8079987
+offset_left = 28.0
 offset_top = -0.2960205
-offset_right = -32.0
+offset_right = -36.0
 offset_bottom = 8.727966
+grow_vertical = 2
 theme = ExtResource("1_suspg")
 text = "FEAR"
 label_settings = SubResource("LabelSettings_1dqe0")
 script = ExtResource("2_0s0ib")
 filledImage = NodePath("FearBar")
+metadata/_custom_type_script = "uid://chufukpqp4un8"
 
 [node name="FearBar" type="Sprite2D" parent="Fear" unique_id=1288266073]
 z_index = -1
@@ -116,3 +172,45 @@ texture = ExtResource("8_k1bgi")
 position = Vector2(219, 78)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("9_c7vxa")
+
+[node name="TopLeftInfo" type="Sprite2D" parent="." unique_id=432109379]
+position = Vector2(160, 104)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("10_ekxjb")
+
+[node name="Info" type="Label" parent="TopLeftInfo" unique_id=926920839]
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.259
+anchor_right = 0.587
+anchor_bottom = 0.5
+offset_left = -396.14288
+offset_top = -259.90884
+offset_right = -580.0469
+offset_bottom = -265.14285
+theme = ExtResource("1_suspg")
+text = "Speed ~
+Ammo ~"
+label_settings = SubResource("LabelSettings_g4iqu")
+uppercase = true
+
+[node name="GunInfo" type="Control" parent="." unique_id=72723542]
+layout_mode = 1
+anchor_left = 0.84000003
+anchor_top = 0.63000005
+anchor_right = 1.0
+anchor_bottom = 0.98800004
+offset_left = 80.31995
+offset_top = 119.75998
+offset_right = 80.0
+offset_bottom = 119.776
+
+[node name="GunInfo" type="Sprite2D" parent="GunInfo" unique_id=1177485093]
+position = Vector2(64, 96)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("11_g4iqu")
+
+[node name="GunMesh" type="MeshInstance2D" parent="GunInfo" unique_id=1133686878]
+position = Vector2(64, 96)
+scale = Vector2(100, 100)
+mesh = SubResource("BoxMesh_g4iqu")

@@ -3,6 +3,8 @@ class_name item extends RigidBody3D
 
 var connectedToPlayer:bool = false
 
+@export var mesh:MeshInstance3D
+
 @export var selected:bool = false
 var held:bool = false
 

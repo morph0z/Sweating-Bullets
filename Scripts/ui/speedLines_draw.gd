@@ -1,5 +1,4 @@
 extends CanvasLayer
-@export var debug:bool = false
 @export var playerRefrence:player
 
 @export var speed_effect_color_rect:ColorRect
