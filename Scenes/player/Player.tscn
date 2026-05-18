@@ -567,7 +567,6 @@ playerRef = NodePath("..")
 debug = true
 
 [node name="PlayerGui" parent="." unique_id=1310431471 node_paths=PackedStringArray("player_ref", "ammo_component", "health_component", "fear_component") instance=ExtResource("31_gl7pf")]
-mouse_filter = 2
 player_ref = NodePath("..")
 ammo_component = NodePath("../Components/ammoHandlerComponent")
 health_component = NodePath("../Components/healthComponent")

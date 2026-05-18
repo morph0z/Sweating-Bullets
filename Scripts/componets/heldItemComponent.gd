@@ -4,22 +4,35 @@ class_name heldItemComponent extends Node3D
 @export var current_selected_item:int
 @export var items_held:Array[item]
 
+signal anyItemDropped(itemDropped:item)
+signal anyItemPickedUp(itemPickedUp:item)
+signal itemSwitched()
+
 func update_selection() -> void:
 	for held_item in items_held:
 		if items_held.find(held_item) == current_selected_item-1: held_item.select() 
 		if items_held.find(held_item) != current_selected_item-1: held_item.deselect() 
 
 var back_one_item:int = 2
+#TODO: Fix crashes when switching item.
 func _input(event: InputEvent) -> void:
 	update_selection()
 	
 	if event.is_action_pressed("ScrollWeaponUp"):
+		
 		if Global.does_element_exist_at_index(items_held, current_selected_item):
 			current_selected_item += 1
-	if event.is_action_pressed("ScrollWeaponDown"): 
+		
+		itemSwitched.emit()
+		
+			
+	if event.is_action_pressed("ScrollWeaponDown"):
+		 
 		if Global.does_element_exist_at_index(items_held, current_selected_item-back_one_item):
 			current_selected_item -= 1
-	
+		
+		itemSwitched.emit()
+		
 	update_selection()
 
 func _ready() -> void:
@@ -38,6 +51,7 @@ func _on_item_picked_up(itemPicked:item) -> void:
 	for itemHeld:item in get_children():
 		if itemHeld != itemPicked:
 			itemHeld.deselect()
+	anyItemPickedUp.emit(itemPicked)
 
 func _on_item_dropped(itemDropped:item) -> void:
 	update_selection()
@@ -46,6 +60,7 @@ func _on_item_dropped(itemDropped:item) -> void:
 	if Global.does_element_exist_at_index(items_held, last_item_held_id + 1): current_selected_item = last_item_held_id + 2
 	elif Global.does_element_exist_at_index(items_held, last_item_held_id): current_selected_item = last_item_held_id + 1
 	elif Global.does_element_exist_at_index(items_held, last_item_held_id - 1): current_selected_item = last_item_held_id
+	anyItemDropped.emit(itemDropped)
 	update_selection()
 
 #func _on_player_item_thrown(thrownItem: item) -> void: _on_item_dropped(thrownItem)
@@ -57,3 +72,4 @@ func connect_item(connected: item):
 func get_selected_item() -> item:
 	for item_held in items_held: if item_held.is_selected(): return item_held
 	return null
+	

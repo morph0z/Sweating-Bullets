@@ -84,22 +84,31 @@ shader_parameter/invert = true
 [sub_resource type="LabelSettings" id="LabelSettings_g4iqu"]
 line_spacing = -13.07
 font_size = 48
-font_color = Color(0.1319241, 0.40672785, 0.11944289, 1)
+font_color = Color(0.13333334, 0.40784314, 0.11764706, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_g4iqu"]
+[sub_resource type="World3D" id="World3D_g4iqu"]
 
-[node name="PlayerGui" type="Control" unique_id=1310431471 node_paths=PackedStringArray("healthBar", "fearBar", "topLeftInfo", "gunInfo")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4iqu"]
+metallic = 0.53
+metallic_specular = 0.94
+roughness = 0.35
+
+[sub_resource type="PlaceholderMesh" id="PlaceholderMesh_g4iqu"]
+
+[node name="PlayerGui" type="Control" unique_id=1310431471 node_paths=PackedStringArray("healthBar", "fearBar", "topLeftInfo", "gunInfo", "gunInfoViewPort")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_ekxjb")
 healthBar = NodePath("Health")
 fearBar = NodePath("Fear")
 topLeftInfo = NodePath("TopLeftInfo/Info")
 gunInfo = NodePath("GunInfo")
+gunInfoViewPort = NodePath("GunInfo/SubViewportContainer/ModelView")
 
 [node name="Health" type="Label" parent="." unique_id=2000286962 node_paths=PackedStringArray("filledImage")]
 layout_mode = 1
@@ -210,7 +219,40 @@ position = Vector2(64, 96)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("11_g4iqu")
 
-[node name="GunMesh" type="MeshInstance2D" parent="GunInfo" unique_id=1133686878]
-position = Vector2(64, 96)
-scale = Vector2(100, 100)
-mesh = SubResource("BoxMesh_g4iqu")
+[node name="SubViewportContainer" type="SubViewportContainer" parent="GunInfo" unique_id=520613039]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.47800002
+anchor_bottom = 0.41400003
+offset_left = -144.0
+offset_top = -80.0
+offset_right = 280.048
+offset_bottom = 335.952
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6821773, 0.6821773)
+
+[node name="ModelView" type="SubViewport" parent="GunInfo/SubViewportContainer" unique_id=2051487114]
+world_3d = SubResource("World3D_g4iqu")
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="GunInfo/SubViewportContainer/ModelView" unique_id=442711726]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+fov = 122.4
+
+[node name="GunMesh" type="MeshInstance3D" parent="GunInfo/SubViewportContainer/ModelView" unique_id=786005439]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.482884)
+material_override = SubResource("StandardMaterial3D_g4iqu")
+mesh = SubResource("PlaceholderMesh_g4iqu")
+skeleton = NodePath("../../../..")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="GunInfo/SubViewportContainer/ModelView" unique_id=1903539039]
+transform = Transform3D(0.7438101, 0.51812816, 0.42224374, -3.6078543e-08, 0.6317317, -0.7751871, -0.66839105, 0.57659197, 0.46988842, 1.5745304, -2.0328631, -8.907376)
+light_color = Color(0.41064897, 0.00010891989, 0.40699697, 1)
+light_energy = 8.272
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="GunInfo/SubViewportContainer/ModelView" unique_id=624234687]
+transform = Transform3D(1, 0, 0, 0, 0.92551404, 0.37871322, 0, -0.37871322, 0.92551404, 0, 1.8322895, -8.446828)
+light_color = Color(0.019607844, 0.90588236, 0.22352941, 1)

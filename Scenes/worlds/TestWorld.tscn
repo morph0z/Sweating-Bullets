@@ -404,7 +404,7 @@ size = Vector3(67.2879, 1, 70.0465)
 material = SubResource("StandardMaterial3D_8v7lr")
 
 [node name="Player" parent="." unique_id=1863119559 instance=ExtResource("1_kgmfg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3276, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001581192, 1.3241358, -0.00022232533)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2038316304]
 transform = Transform3D(1, 0, 0, 0, -0.962071, 0.272801, 0, -0.272801, -0.962071, 0, 5.78106, 0)
