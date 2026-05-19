@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://ncreguqrk8u3"]
 
 [ext_resource type="Script" uid="uid://c42ctoi3d4noq" path="res://Scenes/worlds/world.gd" id="1_2elpg"]
-[ext_resource type="Texture2D" uid="uid://dvh8sf54jdiwu" path="res://Assets/textures/prototype/Dark/texture_01.png" id="1_bds5b"]
+[ext_resource type="Texture2D" uid="uid://dvh8sf54jdiwu" path="res://assets/textures/prototype/Dark/texture_01.png" id="1_bds5b"]
 [ext_resource type="PackedScene" uid="uid://dxo8l5kjh7cj5" path="res://Scenes/player/Player.tscn" id="1_kgmfg"]
-[ext_resource type="Texture2D" uid="uid://b4aw3jcgmt3kd" path="res://Assets/textures/prototype/Green/texture_01.png" id="1_tlmva"]
-[ext_resource type="Texture2D" uid="uid://cbjugcyskdvc2" path="res://Assets/textures/prototype/Orange/texture_01.png" id="3_lujis"]
+[ext_resource type="Texture2D" uid="uid://b4aw3jcgmt3kd" path="res://assets/textures/prototype/Green/texture_01.png" id="1_tlmva"]
+[ext_resource type="Texture2D" uid="uid://cbjugcyskdvc2" path="res://assets/textures/prototype/Orange/texture_01.png" id="3_lujis"]
 [ext_resource type="PackedScene" uid="uid://ddqcle8nu2bx8" path="res://Scenes/objects/weapons/BasicGun.tscn" id="6_lujis"]
 [ext_resource type="PackedScene" uid="uid://dl7kv7rwtbabg" path="res://Scenes/placeholders/basic_enemy.tscn" id="8_bkuco"]
 [ext_resource type="PackedScene" uid="uid://d24cb8h1wqnb6" path="res://Scenes/objects/weapons/ShotGun.tscn" id="8_rbciq"]

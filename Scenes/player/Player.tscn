@@ -32,12 +32,12 @@
 [ext_resource type="Animation" uid="uid://ch4sfalqgqq86" path="res://resources/Idle.res" id="24_khmeo"]
 [ext_resource type="Animation" uid="uid://08whbmicteut" path="res://resources/WallRun.res" id="25_k0nfp"]
 [ext_resource type="Script" uid="uid://bk3ikkbfjnvx4" path="res://Scripts/componets/playerSoundComponent.gd" id="30_h5vdi"]
-[ext_resource type="AudioStream" uid="uid://djf2skr5pwykc" path="res://Assets/sounds/footsteps/foley_footstep_concrete_1.wav" id="31_bqivf"]
+[ext_resource type="AudioStream" uid="uid://djf2skr5pwykc" path="res://assets/sounds/footsteps/foley_footstep_concrete_1.wav" id="31_bqivf"]
 [ext_resource type="PackedScene" uid="uid://t4ko1hteuohu" path="res://Scenes/ui/PlayerGui.tscn" id="31_gl7pf"]
-[ext_resource type="AudioStream" uid="uid://wr3l8yp85pst" path="res://Assets/sounds/footsteps/foley_footstep_concrete_2.wav" id="32_trtan"]
-[ext_resource type="AudioStream" uid="uid://277hi12dlhd8" path="res://Assets/sounds/footsteps/foley_footstep_concrete_3.wav" id="33_oxyqu"]
-[ext_resource type="AudioStream" uid="uid://nu2tk5j1upkc" path="res://Assets/sounds/footsteps/foley_footstep_concrete_4.wav" id="34_gl7pf"]
-[ext_resource type="AudioStream" uid="uid://bdafd5yfwi25p" path="res://Assets/sounds/footsteps/kick.wav" id="35_53txx"]
+[ext_resource type="AudioStream" uid="uid://wr3l8yp85pst" path="res://assets/sounds/footsteps/foley_footstep_concrete_2.wav" id="32_trtan"]
+[ext_resource type="AudioStream" uid="uid://277hi12dlhd8" path="res://assets/sounds/footsteps/foley_footstep_concrete_3.wav" id="33_oxyqu"]
+[ext_resource type="AudioStream" uid="uid://nu2tk5j1upkc" path="res://assets/sounds/footsteps/foley_footstep_concrete_4.wav" id="34_gl7pf"]
+[ext_resource type="AudioStream" uid="uid://bdafd5yfwi25p" path="res://assets/sounds/footsteps/kick.wav" id="35_53txx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r5va5"]
 radius = 0.534691
@@ -557,22 +557,25 @@ script = ExtResource("13_0h34x")
 air_move_speed = 250.0
 machine = NodePath("..")
 
-[node name="DebugMenu" parent="." unique_id=355638386 node_paths=PackedStringArray("playerRef") instance=ExtResource("2_jnk8a")]
+[node name="GUI" type="CanvasLayer" parent="." unique_id=117846459]
+follow_viewport_scale = 7.452
+
+[node name="DebugMenu" parent="GUI" unique_id=355638386 node_paths=PackedStringArray("playerRef") instance=ExtResource("2_jnk8a")]
 visible = false
 z_index = 3
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
-playerRef = NodePath("..")
+playerRef = NodePath("../..")
 debug = true
 
-[node name="PlayerGui" parent="." unique_id=1310431471 node_paths=PackedStringArray("player_ref", "ammo_component", "health_component", "fear_component") instance=ExtResource("31_gl7pf")]
-player_ref = NodePath("..")
-ammo_component = NodePath("../Components/ammoHandlerComponent")
-health_component = NodePath("../Components/healthComponent")
-fear_component = NodePath("../Components/fearComponent")
+[node name="PlayerGui" parent="GUI" unique_id=1310431471 node_paths=PackedStringArray("player_ref", "ammo_component", "health_component", "fear_component") instance=ExtResource("31_gl7pf")]
+player_ref = NodePath("../..")
+ammo_component = NodePath("../../Components/ammoHandlerComponent")
+health_component = NodePath("../../Components/healthComponent")
+fear_component = NodePath("../../Components/fearComponent")
 
-[node name="cursor" type="Control" parent="PlayerGui" unique_id=607409039]
+[node name="cursor" type="Control" parent="GUI/PlayerGui" unique_id=607409039]
 z_index = 3
 layout_mode = 1
 anchors_preset = 8
@@ -585,12 +588,13 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("20_cba8u")
 
-[node name="speedLines" type="CanvasLayer" parent="PlayerGui" unique_id=1692883011 node_paths=PackedStringArray("playerRefrence", "speed_effect_color_rect")]
+[node name="speedLines" type="CanvasLayer" parent="." unique_id=1692883011 node_paths=PackedStringArray("playerRefrence", "speed_effect_color_rect")]
+layer = 0
 script = ExtResource("21_cba8u")
-playerRefrence = NodePath("../..")
+playerRefrence = NodePath("..")
 speed_effect_color_rect = NodePath("SpeedLineShader")
 
-[node name="SpeedLineShader" type="ColorRect" parent="PlayerGui/speedLines" unique_id=767588282]
+[node name="SpeedLineShader" type="ColorRect" parent="speedLines" unique_id=767588282]
 material = SubResource("ShaderMaterial_qp8bv")
 anchors_preset = 15
 anchor_right = 1.0

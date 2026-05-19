@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://jc3bl2svtqsh" path="res://Scripts/objects/items/weapons/guns/basic_gun.gd" id="1_mdqoc"]
 [ext_resource type="Script" uid="uid://brpwbeykols0s" path="res://Scripts/componets/hitboxComponent.gd" id="2_70teg"]
 [ext_resource type="Script" uid="uid://dddfk8fqmgr83" path="res://Scenes/player/lazer_sight_ray.gd" id="3_dgfc2"]
-[ext_resource type="Texture2D" uid="uid://c2rgt3qq36des" path="res://Assets/textures/shooting sparks/shoot_sparks_front.png" id="4_0kyec"]
-[ext_resource type="AudioStream" uid="uid://bcwu3rjxk0m1k" path="res://Assets/sounds/shoot.mp3" id="5_igefx"]
+[ext_resource type="Texture2D" uid="uid://c2rgt3qq36des" path="res://assets/textures/shooting sparks/shoot_sparks_front.png" id="4_0kyec"]
+[ext_resource type="AudioStream" uid="uid://bcwu3rjxk0m1k" path="res://assets/sounds/shoot.mp3" id="5_igefx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mdqoc"]
 absorbent = true
@@ -196,6 +196,7 @@ frame_progress = 1.0
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1766918639]
 stream = ExtResource("5_igefx")
+volume_db = -14.473
 
 [node name="CoolDown" type="Timer" parent="." unique_id=552003678]
 wait_time = 0.8

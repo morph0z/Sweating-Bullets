@@ -19,20 +19,15 @@ func _input(event: InputEvent) -> void:
 	update_selection()
 	
 	if event.is_action_pressed("ScrollWeaponUp"):
-		
 		if Global.does_element_exist_at_index(items_held, current_selected_item):
 			current_selected_item += 1
-		
 		itemSwitched.emit()
-		
 			
 	if event.is_action_pressed("ScrollWeaponDown"):
-		 
 		if Global.does_element_exist_at_index(items_held, current_selected_item-back_one_item):
 			current_selected_item -= 1
-		
 		itemSwitched.emit()
-		
+
 	update_selection()
 
 func _ready() -> void:
@@ -70,6 +65,10 @@ func connect_item(connected: item):
 	connected.connect("dropped", _on_item_dropped)
 
 func get_selected_item() -> item:
-	for item_held in items_held: if item_held.is_selected(): return item_held
+	for held_item in items_held:
+		if items_held.find(held_item) == current_selected_item-1: return held_item
 	return null
+
+	#for item_held in items_held: if item_held.is_selected(): return item_held
+	#return null
 	

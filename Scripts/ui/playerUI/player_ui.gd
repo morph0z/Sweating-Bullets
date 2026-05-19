@@ -17,7 +17,7 @@ func _ready() -> void:
 	player_ref.held_items.connect("anyItemPickedUp", on_item_picked_up)
 	player_ref.held_items.connect("itemSwitched", on_item_switched)
 	
-	on_item_dropped()
+	on_item_dropped(null)
 	
 	health_component.connect("healthChanged", on_health_changed)
 	fear_component.connect("fearChanged", on_fear_changed)
@@ -43,7 +43,7 @@ func _process(_delta: float) -> void:
 	topLeftInfo.text = infoText
 
 @onready var gunMesh:MeshInstance3D = gunInfoViewPort.get_node("GunMesh")
-func on_item_dropped() -> void:
+func on_item_dropped(_itemDropped:item) -> void:
 	if (player_ref.held_items.get_selected_item() == null): 
 		gunMesh.mesh = PlaceholderMesh.new()
 		return
@@ -56,5 +56,4 @@ func on_item_picked_up(pickedUpItem:item) -> void:
 
 func on_item_switched() -> void:
 	var modelMesh:Mesh = player_ref.held_items.get_selected_item().mesh.mesh
-	print(player_ref.held_items.get_selected_item())
 	gunMesh.mesh = modelMesh

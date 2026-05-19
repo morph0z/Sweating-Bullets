@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dp0irce7hvxtr" path="res://Scripts/objects/items/weapons/guns/shot_gun.gd" id="1_ke854"]
 [ext_resource type="Script" uid="uid://brpwbeykols0s" path="res://Scripts/componets/hitboxComponent.gd" id="2_obbtt"]
 [ext_resource type="Script" uid="uid://dddfk8fqmgr83" path="res://Scenes/player/lazer_sight_ray.gd" id="3_jmrag"]
-[ext_resource type="Texture2D" uid="uid://c2rgt3qq36des" path="res://Assets/textures/shooting sparks/shoot_sparks_front.png" id="4_o7scn"]
+[ext_resource type="Texture2D" uid="uid://c2rgt3qq36des" path="res://assets/textures/shooting sparks/shoot_sparks_front.png" id="4_o7scn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mdqoc"]
 absorbent = true

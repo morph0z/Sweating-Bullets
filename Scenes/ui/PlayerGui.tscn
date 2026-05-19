@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://t4ko1hteuohu"]
 
 [ext_resource type="Script" uid="uid://becwo1vr7tldl" path="res://Scripts/ui/playerUI/player_ui.gd" id="1_ekxjb"]
-[ext_resource type="Theme" uid="uid://cf2uxvcacch58" path="res://Assets/themes/BaseTheme.tres" id="1_suspg"]
+[ext_resource type="Theme" uid="uid://cf2uxvcacch58" path="res://assets/themes/BaseTheme.tres" id="1_suspg"]
 [ext_resource type="Script" uid="uid://chufukpqp4un8" path="res://Scripts/ui/playerUI/bar.gd" id="2_0s0ib"]
-[ext_resource type="Texture2D" uid="uid://dn6nicjbnkuup" path="res://Assets/UI/Health Bar.png" id="3_6jnv6"]
-[ext_resource type="Texture2D" uid="uid://dxog45y20un0b" path="res://Assets/UI/Empty Health Bar.png" id="4_wyadc"]
-[ext_resource type="Texture2D" uid="uid://c6586v4stobd8" path="res://Assets/UI/Fear Bar.png" id="6_ekxjb"]
-[ext_resource type="Texture2D" uid="uid://du1buxiolpjw2" path="res://Assets/UI/Empty Fear Bar.png" id="7_g4iqu"]
-[ext_resource type="Texture2D" uid="uid://cvrqfvqpltsrc" path="res://Assets/UI/drop-1.png" id="8_k1bgi"]
-[ext_resource type="Texture2D" uid="uid://congf2lba31rd" path="res://Assets/UI/drop-2.png" id="9_c7vxa"]
-[ext_resource type="Texture2D" uid="uid://bmrtnklpi8u8v" path="res://Assets/UI/TopLeft Info.png" id="10_ekxjb"]
-[ext_resource type="Texture2D" uid="uid://dxmyjmqeshkal" path="res://Assets/UI/Gun Info.png" id="11_g4iqu"]
+[ext_resource type="Texture2D" uid="uid://dn6nicjbnkuup" path="res://assets/UI/Health Bar.png" id="3_6jnv6"]
+[ext_resource type="Texture2D" uid="uid://dxog45y20un0b" path="res://assets/UI/Empty Health Bar.png" id="4_wyadc"]
+[ext_resource type="Texture2D" uid="uid://c6586v4stobd8" path="res://assets/UI/Fear Bar.png" id="6_ekxjb"]
+[ext_resource type="Texture2D" uid="uid://du1buxiolpjw2" path="res://assets/UI/Empty Fear Bar.png" id="7_g4iqu"]
+[ext_resource type="Texture2D" uid="uid://cvrqfvqpltsrc" path="res://assets/UI/drop-1.png" id="8_k1bgi"]
+[ext_resource type="Texture2D" uid="uid://congf2lba31rd" path="res://assets/UI/drop-2.png" id="9_c7vxa"]
+[ext_resource type="Texture2D" uid="uid://bmrtnklpi8u8v" path="res://assets/UI/TopLeft Info.png" id="10_ekxjb"]
+[ext_resource type="Texture2D" uid="uid://dxmyjmqeshkal" path="res://assets/UI/Gun Info.png" id="11_g4iqu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_47od8"]
 line_spacing = 0.0
@@ -81,11 +81,6 @@ shader_parameter/unmasked_alpha = 0.0
 shader_parameter/horizontal = false
 shader_parameter/invert = true
 
-[sub_resource type="LabelSettings" id="LabelSettings_g4iqu"]
-line_spacing = -13.07
-font_size = 48
-font_color = Color(0.13333334, 0.40784314, 0.11764706, 1)
-
 [sub_resource type="World3D" id="World3D_g4iqu"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4iqu"]
@@ -93,7 +88,12 @@ metallic = 0.53
 metallic_specular = 0.94
 roughness = 0.35
 
-[sub_resource type="PlaceholderMesh" id="PlaceholderMesh_g4iqu"]
+[sub_resource type="PlaceholderMesh" id="PlaceholderMesh_k1bgi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g4iqu"]
+line_spacing = -13.07
+font_size = 48
+font_color = Color(0.13333334, 0.40784314, 0.11764706, 1)
 
 [node name="PlayerGui" type="Control" unique_id=1310431471 node_paths=PackedStringArray("healthBar", "fearBar", "topLeftInfo", "gunInfo", "gunInfoViewPort")]
 layout_mode = 3
@@ -106,7 +106,7 @@ mouse_filter = 2
 script = ExtResource("1_ekxjb")
 healthBar = NodePath("Health")
 fearBar = NodePath("Fear")
-topLeftInfo = NodePath("TopLeftInfo/Info")
+topLeftInfo = NodePath("scalePoint/TopLeftInfo/Info")
 gunInfo = NodePath("GunInfo")
 gunInfoViewPort = NodePath("GunInfo/SubViewportContainer/ModelView")
 
@@ -120,6 +120,7 @@ offset_left = 32.0
 offset_top = -7.696045
 offset_right = -137.81604
 offset_bottom = 33.679993
+pivot_offset = Vector2(-32, 136)
 theme = ExtResource("1_suspg")
 text = "HEALTH
 "
@@ -152,6 +153,7 @@ offset_top = -0.2960205
 offset_right = -36.0
 offset_bottom = 8.727966
 grow_vertical = 2
+pivot_offset = Vector2(-28, 80)
 theme = ExtResource("1_suspg")
 text = "FEAR"
 label_settings = SubResource("LabelSettings_1dqe0")
@@ -182,27 +184,6 @@ position = Vector2(219, 78)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("9_c7vxa")
 
-[node name="TopLeftInfo" type="Sprite2D" parent="." unique_id=432109379]
-position = Vector2(160, 104)
-scale = Vector2(0.35, 0.35)
-texture = ExtResource("10_ekxjb")
-
-[node name="Info" type="Label" parent="TopLeftInfo" unique_id=926920839]
-anchors_preset = -1
-anchor_left = 0.125
-anchor_top = 0.259
-anchor_right = 0.587
-anchor_bottom = 0.5
-offset_left = -396.14288
-offset_top = -259.90884
-offset_right = -580.0469
-offset_bottom = -265.14285
-theme = ExtResource("1_suspg")
-text = "Speed ~
-Ammo ~"
-label_settings = SubResource("LabelSettings_g4iqu")
-uppercase = true
-
 [node name="GunInfo" type="Control" parent="." unique_id=72723542]
 layout_mode = 1
 anchor_left = 0.84000003
@@ -213,6 +194,7 @@ offset_left = 80.31995
 offset_top = 119.75998
 offset_right = 80.0
 offset_bottom = 119.776
+pivot_offset = Vector2(184, 232)
 
 [node name="GunInfo" type="Sprite2D" parent="GunInfo" unique_id=1177485093]
 position = Vector2(64, 96)
@@ -243,16 +225,42 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 fov = 122.4
 
 [node name="GunMesh" type="MeshInstance3D" parent="GunInfo/SubViewportContainer/ModelView" unique_id=786005439]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.482884)
+transform = Transform3D(0.83530873, 0, -0.54978114, 0.10822616, 0.980433, 0.16443317, 0.5390236, -0.19685316, 0.81896424, 0, 0, -14.865671)
 material_override = SubResource("StandardMaterial3D_g4iqu")
-mesh = SubResource("PlaceholderMesh_g4iqu")
+mesh = SubResource("PlaceholderMesh_k1bgi")
 skeleton = NodePath("../../../..")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="GunInfo/SubViewportContainer/ModelView" unique_id=1903539039]
-transform = Transform3D(0.7438101, 0.51812816, 0.42224374, -3.6078543e-08, 0.6317317, -0.7751871, -0.66839105, 0.57659197, 0.46988842, 1.5745304, -2.0328631, -8.907376)
+transform = Transform3D(0.7438101, 0.51812816, 0.42224374, -3.6078543e-08, 0.6317317, -0.77518713, -0.66839105, 0.57659197, 0.46988842, 1.5745304, -2.0328631, -13.290163)
 light_color = Color(0.41064897, 0.00010891989, 0.40699697, 1)
 light_energy = 8.272
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="GunInfo/SubViewportContainer/ModelView" unique_id=624234687]
-transform = Transform3D(1, 0, 0, 0, 0.92551404, 0.37871322, 0, -0.37871322, 0.92551404, 0, 1.8322895, -8.446828)
+transform = Transform3D(1, 0, 0, 0, 0.92551404, 0.37871322, 0, -0.37871322, 0.92551404, 0, 1.8322895, -12.829615)
 light_color = Color(0.019607844, 0.90588236, 0.22352941, 1)
+
+[node name="scalePoint" type="Control" parent="." unique_id=1200774920]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TopLeftInfo" type="Sprite2D" parent="scalePoint" unique_id=432109379]
+position = Vector2(160, 104)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("10_ekxjb")
+
+[node name="Info" type="Label" parent="scalePoint/TopLeftInfo" unique_id=926920839]
+anchors_preset = -1
+anchor_left = 0.125
+anchor_top = 0.259
+anchor_right = 0.587
+anchor_bottom = 0.5
+offset_left = -396.14288
+offset_top = -259.90884
+offset_right = -580.0469
+offset_bottom = -265.14285
+theme = ExtResource("1_suspg")
+text = "Speed ~
+Ammo ~"
+label_settings = SubResource("LabelSettings_g4iqu")
+uppercase = true
