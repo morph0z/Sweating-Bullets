@@ -16,5 +16,12 @@ func _physics_process(delta: float) -> void:
 	if distanceTraveled > RANGE:
 		queue_free()
 
-func _on_body_entered(_body: Node3D) -> void:
+func _on_body_entered(body: Node3D) -> void:
+	if ((body is entityClass) and (body != null)):
+		var attack = Attack.new()
+		attack.attack_damage = damage_dealt
+		print("yo " + str(damage_dealt))
+		attack.attack_position = self.position
+		body.hurtBox.healthComponent_reference.damage(attack)
+
 	queue_free()

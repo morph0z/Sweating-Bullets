@@ -19,5 +19,7 @@ func damage(attack: Attack):
 
 func dead():
 	HEALTH = 0
-	if Entity is not player: return
+	if Entity is not player:
+		Entity.queue_free()
+		return
 	isDead = true

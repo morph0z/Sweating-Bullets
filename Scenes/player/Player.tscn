@@ -302,7 +302,7 @@ shader_parameter/animation_speed = 20.0
 shader_parameter/blur_strength = 0.01
 shader_parameter/effect_power = 0.5
 
-[node name="Player" type="CharacterBody3D" unique_id=1286935134 node_paths=PackedStringArray("camera", "camera_effects", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "sound_component", "held_items", "leftCast", "rightCast", "ammo_handler", "fear_handler", "health_component")]
+[node name="Player" type="CharacterBody3D" unique_id=1286935134 node_paths=PackedStringArray("camera", "camera_effects", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "sound_component", "held_items", "leftCast", "rightCast", "ammo_handler", "fear_handler", "health_component", "hurtBox")]
 collision_layer = 2
 script = ExtResource("1_1ycki")
 camera = NodePath("CamPiviot")
@@ -321,6 +321,7 @@ fear_handler = NodePath("Components/fearComponent")
 acceleration = 10.0
 deceleration = 1.0
 health_component = NodePath("Components/healthComponent")
+hurtBox = NodePath("Components/hurtboxComponent")
 
 [node name="CrouchingCollision" type="CollisionShape3D" parent="." unique_id=522687100]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.487195, 0)

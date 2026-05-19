@@ -1,5 +1,4 @@
 class_name enemy extends entityClass
-@export var hurtbox:hurtboxComponent
 @export var view_range:Area3D
 @export var Be_Tree_Player:BTPlayer
 

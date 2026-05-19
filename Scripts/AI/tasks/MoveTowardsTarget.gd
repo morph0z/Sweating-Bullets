@@ -31,10 +31,10 @@ func _exit() -> void:
 func _tick(delta: float) -> Status:
 	var target: Node3D = blackboard.get_var(target_var)
 	if not is_instance_valid(target): return FAILURE
-	
-	
-	move_toward(agent.global_position.x, target.global_position.x, delta)
-	move_toward(agent.global_position.z, target.global_position.z, delta)
+
+	if (agent is enemy):
+		agent.global_position.x = move_toward(agent.global_position.x, target.global_position.x, delta*5)
+		agent.global_position.z = move_toward(agent.global_position.z, target.global_position.z, delta*5)
 	
 	return SUCCESS
 
