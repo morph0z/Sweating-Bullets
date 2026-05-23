@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://jc3bl2svtqsh" path="res://Scripts/objects/items/weapons/guns/pistol.gd" id="1_mdqoc"]
 [ext_resource type="Script" uid="uid://brpwbeykols0s" path="res://Scripts/componets/hitboxComponent.gd" id="2_70teg"]
-[ext_resource type="Texture2D" uid="uid://c2rgt3qq36des" path="res://assets/textures/shooting sparks/shoot_sparks_front.png" id="4_0kyec"]
 [ext_resource type="AudioStream" uid="uid://bcwu3rjxk0m1k" path="res://assets/sounds/shoot.mp3" id="5_igefx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mdqoc"]
@@ -64,47 +63,22 @@ size = Vector3(0.72476196, 0.50109863, 0.20532227)
 [sub_resource type="BoxMesh" id="BoxMesh_dgfc2"]
 size = Vector3(4, 1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_igefx"]
-atlas = ExtResource("4_0kyec")
-region = Rect2(0, 0, 128, 128)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2b0ms"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h2gd2"]
-atlas = ExtResource("4_0kyec")
-region = Rect2(128, 0, 128, 128)
+[sub_resource type="SphereMesh" id="SphereMesh_0t0po"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0kyec"]
-atlas = ExtResource("4_0kyec")
-region = Rect2(256, 0, 128, 128)
+[sub_resource type="Curve" id="Curve_cugfh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -0.8242627, 0.0, 0, 0]
+point_count = 2
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_u3axk"]
-atlas = ExtResource("4_0kyec")
-region = Rect2(384, 0, 128, 128)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_sfvkl"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": null
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_igefx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h2gd2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0kyec")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u3axk")
-}, {
-"duration": 1.0,
-"texture": null
-}],
-"loop": false,
-"name": &"Sparks",
-"speed": 24.0
-}]
+[sub_resource type="Gradient" id="Gradient_kxlir"]
+colors = PackedColorArray(1, 0.7058824, 0, 1, 1, 1, 1, 0)
 
 [node name="Pistol" type="RigidBody3D" unique_id=1101744858 node_paths=PackedStringArray("shoot_point", "sparks", "ammo_fall_effect", "shoot_sound", "mesh")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
@@ -177,13 +151,26 @@ initial_velocity_max = 1.0
 scale_amount_min = 0.02
 scale_amount_max = 0.02
 
-[node name="Sparks" type="AnimatedSprite3D" parent="." unique_id=100435208]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.48049903, 0.17832953, -0.0024767905)
-texture_filter = 0
-sprite_frames = SubResource("SpriteFrames_sfvkl")
-animation = &"Sparks"
-frame = 5
-frame_progress = 1.0
+[node name="Sparks" type="CPUParticles3D" parent="." unique_id=1396450423]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.48049903, 0.14081037, -0.0024767905)
+material_override = SubResource("StandardMaterial3D_2b0ms")
+emitting = false
+amount = 32
+lifetime = 0.09999999999999999
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+mesh = SubResource("SphereMesh_0t0po")
+direction = Vector3(0, 0, -1)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 10.0
+scale_amount_min = 0.05
+scale_amount_max = 0.05
+scale_amount_curve = SubResource("Curve_cugfh")
+color_ramp = SubResource("Gradient_kxlir")
+hue_variation_min = -0.15
+hue_variation_max = 0.15
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1766918639]
 stream = ExtResource("5_igefx")

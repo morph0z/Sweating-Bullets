@@ -2,8 +2,5 @@
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_2qu66"]
 
-[sub_resource type="BTSequence" id="BTSequence_2qu66"]
-
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_2qu66")
-root_task = SubResource("BTSequence_2qu66")

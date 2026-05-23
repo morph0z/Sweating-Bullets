@@ -65,8 +65,6 @@ var feelingGravity : bool = true
 
 var canMove:bool = true
 
-signal UseItem
-signal UseItemSecondary
 signal ItemThrown(thrownItem:item)
 
 func _ready() -> void:

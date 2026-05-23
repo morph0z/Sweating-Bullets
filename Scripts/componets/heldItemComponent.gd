@@ -1,5 +1,5 @@
 class_name heldItemComponent extends Node3D
-@export var player_ref:player
+@export var entity_ref:entityClass
 
 @export var current_selected_item:int
 @export var items_held:Array[item]

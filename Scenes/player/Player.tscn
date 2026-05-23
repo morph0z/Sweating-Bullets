@@ -342,11 +342,12 @@ target_position = Vector3(0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.136407, -0.0106586)
 shape = SubResource("BoxShape3D_r5m3b")
 
-[node name="CamPiviot" type="Node3D" parent="." unique_id=486720291 node_paths=PackedStringArray("player_reference", "component_mouse_capture_reference")]
+[node name="CamPiviot" type="Node3D" parent="." unique_id=486720291 node_paths=PackedStringArray("player_reference", "component_mouse_capture_reference", "arms")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.980359, 0)
 script = ExtResource("2_mphk7")
 player_reference = NodePath("..")
 component_mouse_capture_reference = NodePath("../Components/mouseCaptureComponent")
+arms = NodePath("Arms")
 
 [node name="MainCamera" type="Camera3D" parent="CamPiviot" unique_id=202057472 node_paths=PackedStringArray("playerReference")]
 unique_name_in_owner = true
@@ -368,11 +369,10 @@ autostart = true
 [node name="HoldingPoint" type="Marker3D" parent="CamPiviot/MainCamera" unique_id=919940559]
 transform = Transform3D(1, -2.22045e-16, 0, -2.22045e-16, 1, -5.53929e-17, 7.10543e-15, -5.53928e-17, 1, 0.499094, -0.09633434, -1.215353)
 
-[node name="HeldItems" type="Node3D" parent="CamPiviot/MainCamera/HoldingPoint" unique_id=445114105 node_paths=PackedStringArray("player_ref")]
+[node name="HeldItems" type="Node3D" parent="CamPiviot/MainCamera/HoldingPoint" unique_id=445114105]
 unique_name_in_owner = true
 transform = Transform3D(0.9999997, 0, 0, 0, 0.9999997, 0, 0, 0, 1, -0.09871, -0.1900469, 0.20350301)
 script = ExtResource("5_h1ktb")
-player_ref = NodePath("../../../..")
 current_selected_item = 1
 
 [node name="BasicGun" parent="CamPiviot/MainCamera/HoldingPoint/HeldItems" unique_id=1101744858 instance=ExtResource("4_khmeo")]

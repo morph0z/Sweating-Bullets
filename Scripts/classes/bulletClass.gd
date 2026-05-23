@@ -26,13 +26,14 @@ func _physics_process(delta: float) -> void:
 	#Destroys bullet when passes range
 	if distanceTraveled > RANGE: queue_free()
 
-
+##When the bullet enters a body.
 func _on_body_entered(body: Node3D) -> void:
-	#If the body that is entered is an entity then it's damaged.
+	#If the body that is entered is an entity, then the entity is damaged.
 	if ((body is entityClass) and (body != null)):
 		var attack = Attack.new()
 		attack.attack_damage = damage_dealt
 		attack.attack_position = self.position
 		body.hurtBox.healthComponent_reference.damage(attack)
-
+	
+	#The bullet is destroyed after
 	queue_free()

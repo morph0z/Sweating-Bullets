@@ -5,6 +5,9 @@ class_name camPivotClass extends Node3D
 @export var player_reference : player
 ##The refrence to the mouse input handler.
 @export var component_mouse_capture_reference : mouseCaptureComponent
+##The refrence to the player's arm rig.
+@export var arms: Node3D
+
 
 @export_category("Camera Settings")
 @export_group("Camera Tilt")
@@ -26,10 +29,10 @@ var incDelta: float
 ##The default hight of the camera.
 const DEFAULT_HEIGHT : float = 0.5
 
-
 func _process(_delta: float) -> void:
 	update_camera_rotation(component_mouse_capture_reference._mouse_input)
 
+##Updates the camera rotation every frame.
 func update_camera_rotation(input: Vector2) -> void:
 	#Adds mouse position to the rotation.
 	_rotation.x += input.y
@@ -46,6 +49,7 @@ func update_camera_rotation(input: Vector2) -> void:
 	
 	rotation.z = 0.0
 
+##Updates the camera height when it's changed.
 func update_camera_height(delta: float, down: bool, extrapolate:float) -> void:
 	#Responsible for smooth camera movement up and down.
 	incDelta = move_toward(clampf(incDelta, 0, 1), int(down), delta*crouch_speed)
