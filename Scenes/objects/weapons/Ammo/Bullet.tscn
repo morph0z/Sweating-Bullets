@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ba2om0p2jq4u"]
 
-[ext_resource type="Script" uid="uid://cjj02m8pxvp6r" path="res://Scripts/classes/bulletClass.gd" id="1_hdiks"]
+[ext_resource type="Script" uid="uid://cjj02m8pxvp6r" path="res://Scripts/classes/bulletClass.gd" id="1_px5lu"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_w5r1a"]
 radius = 0.05
@@ -9,8 +9,8 @@ height = 0.1
 [sub_resource type="SphereShape3D" id="SphereShape3D_hdiks"]
 radius = 0.09415765
 
-[node name="BasicBullet" type="Area3D" unique_id=1380257050]
-script = ExtResource("1_hdiks")
+[node name="Bullet" type="Area3D" unique_id=1380257050]
+script = ExtResource("1_px5lu")
 SPEED = 100
 damage_dealt = 10
 metadata/_custom_type_script = "uid://cjj02m8pxvp6r"

@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://dxo8l5kjh7cj5" path="res://Scenes/player/Player.tscn" id="1_kgmfg"]
 [ext_resource type="Texture2D" uid="uid://b4aw3jcgmt3kd" path="res://assets/textures/prototype/Green/texture_01.png" id="1_tlmva"]
 [ext_resource type="Texture2D" uid="uid://cbjugcyskdvc2" path="res://assets/textures/prototype/Orange/texture_01.png" id="3_lujis"]
-[ext_resource type="PackedScene" uid="uid://ddqcle8nu2bx8" path="res://Scenes/objects/weapons/BasicGun.tscn" id="6_lujis"]
-[ext_resource type="PackedScene" uid="uid://dl7kv7rwtbabg" path="res://Scenes/placeholders/basic_enemy.tscn" id="8_bkuco"]
+[ext_resource type="PackedScene" uid="uid://ddqcle8nu2bx8" path="res://Scenes/objects/weapons/Pistol.tscn" id="6_lujis"]
+[ext_resource type="PackedScene" uid="uid://dl7kv7rwtbabg" path="res://Scenes/enemies/melee_enemy.tscn" id="8_bkuco"]
 [ext_resource type="PackedScene" uid="uid://d24cb8h1wqnb6" path="res://Scenes/objects/weapons/ShotGun.tscn" id="8_rbciq"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mqfms"]

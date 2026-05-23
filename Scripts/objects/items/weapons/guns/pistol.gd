@@ -1,6 +1,6 @@
 extends gun
 
-func use_item() -> void: buck_shot(BULLET, 5, 0.1)
+func use_item() -> void: shoot(BULLET)
 
 func use_item_secondary() -> void: print("TODO: add a synergetic secondary")
 

@@ -1,86 +1,89 @@
 @abstract
 class_name gun extends item
 
-var BASIC_BULLET:PackedScene
+##The bullet scene
+const BULLET = preload("uid://ba2om0p2jq4u")
+
 @export_group("refrences")
+##The marker point that the bullet shoots from.
 @export var shoot_point:Marker3D
-@export var lazer_sight:lazer_sight_ray
-@export var sparks:AnimatedSprite3D
+##The spark effect after shooting.
+@export var sparks:CPUParticles3D
+##The ammo shell falling out partical effect.
 @export var ammo_fall_effect:CPUParticles3D
+
 @export_group("gun settings")
+##The sound made when a bullet is shot.
 @export var shoot_sound:AudioStreamPlayer3D
+##The sound made when ammo is "lacking".
 @export var empty_sound:AudioStreamPlayer3D
+##If the weapon fires while left click is held.
 @export var automatic:bool
-@export var shoot_timer:Timer
+##The length of the cooldown after each shot.
+@export var shoot_cooldown:float = 0.8
+##The damage of each bullet shot.
 @export var gun_damage:int = 10
 
-func shoot(bullet:PackedScene):
+func shoot_setup(shooting_function:Callable):
+	#Function doesn't run if ammo amount is equal to zero.
 	if player_ref.ammo_handler.get_ammo_amount() <= 0: return
-	match automatic:
-		true:
-			if !shoot_timer.time_left == 0: return
-			while automatic && Input.is_action_pressed("LeftClickSelect") && is_selected() && is_held():
-				create_bullet(bullet, gun_damage)
-				shoot_timer.start()
-				play_effects()
-				await shoot_timer.timeout
-			shoot_timer.start()
-		false:
-			if !shoot_timer.time_left == 0: return
-			create_bullet(bullet, gun_damage)
-			shoot_timer.start()
-	play_effects()
-
-func buck_shot(bullet:PackedScene, bullet_amount:int, spread:float, is_automatic:bool = false, input:StringName = "LeftClickSelect"):
-	if player_ref.ammo_handler.get_ammo_amount() <= 0: return
-	var spread_amount:float = 10 * spread
-	match is_automatic:
-		true:
-			if !shoot_timer.time_left == 0: return
-			while is_automatic && Input.is_action_pressed(input) && is_selected() && is_held():
-				for i in range(bullet_amount):
-					var created_bullet:bulletClass = create_bullet(bullet, gun_damage)
-					var random_vector:Vector3 = Vector3(randf_range(-spread_amount/10, spread_amount/10),randf_range(-spread_amount/10, spread_amount/10),randf_range(-spread_amount/10, spread_amount/10))
-					created_bullet.direction_overide = (-global_transform.basis.x + random_vector)/10
-				shoot_timer.start()
-				play_effects()
-				await shoot_timer.timeout
-			shoot_timer.start()
-		false:
-			if !shoot_timer.time_left == 0: return
-			for i in range(bullet_amount):
-				var created_bullet:bulletClass = create_bullet(bullet, gun_damage)
-				var random_vector:Vector3 = Vector3(randf_range(-spread_amount/10, spread_amount/10),randf_range(-spread_amount/10, spread_amount/10),randf_range(-spread_amount/10, spread_amount/10))
-				created_bullet.direction_overide = (-global_transform.basis.x + random_vector)/10
-			shoot_timer.start()
+	#Creates timer for shooting cooldown
+	var shoot_timer:SceneTreeTimer = get_tree().create_timer(shoot_cooldown)
+	shoot_timer.autostart = false
+	shoot_timer.one_shot = true
+	
+	#Doesn't shoot is cooldown is active
+	if !shoot_timer.time_left == 0: return
+	if automatic:
+		#Keeps shooting if key is held
+		while automatic && Input.is_action_pressed("LeftClickSelect") && is_selected() && is_held():
+			shooting_function.call()
 			play_effects()
+			shoot_timer.start()
+			await shoot_timer.timeout
+		shoot_timer.start()
+	else:
+		#Shoots only once
+		shooting_function.call()
+		play_effects()
+	
+func shoot(bullet:PackedScene): shoot_setup(func(): create_bullet(bullet, gun_damage, 1))
 
-@abstract
-func throwHit(bullet:PackedScene, thing_hit)
+func buck_shot(bullet:PackedScene, bullet_amount:int, spread:float):
+	shoot_setup(func(): 
+					for i in range(bullet_amount):
+						var created_bullet:bulletClass = create_bullet(bullet, gun_damage, bullet_amount)
+						var spread_amount:float = 10 * spread
+						var random_vector:Vector3 = Vector3(randf_range(-spread_amount/10, spread_amount/10),randf_range(-spread_amount/10, spread_amount/10),randf_range(-spread_amount/10, spread_amount/10))
+						created_bullet.direction_overide = (-global_transform.basis.x + random_vector)/10
+						)
+
+#@abstract
+#func throwHit(bullet:PackedScene, thing_hit)
 
 func play_effects() -> void:
+	#Particle effects
 	ammo_fall_effect.emitting = true
+	sparks.emitting = true
+	
+	#Sound effects
 	shoot_sound.pitch_scale = randf_range(0.9, 1.1)
 	shoot_sound.play()
-	sparks.play()
 
-func create_bullet(scene:PackedScene, damage:int) -> bulletClass:
-	if player_ref is player: player_ref.ammo_handler.reduce_ammo(1)
+func create_bullet(scene:PackedScene, damage:int, bullets_used:int) -> bulletClass:
+	#Reduces the amount of bullets used by the amount of bullets used
+	if player_ref is player: player_ref.ammo_handler.reduce_ammo(bullets_used)
+	#Instanciates new bullet
 	var newBullet:bulletClass = scene.instantiate()
 	newBullet.damage_dealt = damage
 	newBullet.position = self.shoot_point.global_position
 	newBullet.rotation = self.shoot_point.global_rotation
 	self.get_tree().get_root().add_child(newBullet)
 	return newBullet
-
-@abstract
-func override_bullet()
-
-func _ready() -> void:
-	super()
-	override_bullet()
-	for i in get_children():
-		if i is not hitboxComponent: continue
-		i.connect("body_entered", body_entered)
-
-func body_entered(body:Node3D) -> void: self.throwHit(BASIC_BULLET, body)
+	
+#TODO: REWORKING GUN THROW HIT BOUNCE
+	#for i in get_children():
+		#if i is not hitboxComponent: continue
+		#i.connect("body_entered", body_entered)
+		
+#func body_entered(body:Node3D) -> void: self.throwHit(BASIC_BULLET, body)

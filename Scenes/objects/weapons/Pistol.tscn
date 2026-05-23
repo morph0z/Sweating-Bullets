@@ -1,8 +1,7 @@
 [gd_scene format=4 uid="uid://ddqcle8nu2bx8"]
 
-[ext_resource type="Script" uid="uid://jc3bl2svtqsh" path="res://Scripts/objects/items/weapons/guns/basic_gun.gd" id="1_mdqoc"]
+[ext_resource type="Script" uid="uid://jc3bl2svtqsh" path="res://Scripts/objects/items/weapons/guns/pistol.gd" id="1_mdqoc"]
 [ext_resource type="Script" uid="uid://brpwbeykols0s" path="res://Scripts/componets/hitboxComponent.gd" id="2_70teg"]
-[ext_resource type="Script" uid="uid://dddfk8fqmgr83" path="res://Scenes/player/lazer_sight_ray.gd" id="3_dgfc2"]
 [ext_resource type="Texture2D" uid="uid://c2rgt3qq36des" path="res://assets/textures/shooting sparks/shoot_sparks_front.png" id="4_0kyec"]
 [ext_resource type="AudioStream" uid="uid://bcwu3rjxk0m1k" path="res://assets/sounds/shoot.mp3" id="5_igefx"]
 
@@ -107,17 +106,15 @@ animations = [{
 "speed": 24.0
 }]
 
-[node name="BasicGun" type="RigidBody3D" unique_id=1101744858 node_paths=PackedStringArray("shoot_point", "lazer_sight", "sparks", "ammo_fall_effect", "shoot_sound", "shoot_timer", "mesh")]
+[node name="Pistol" type="RigidBody3D" unique_id=1101744858 node_paths=PackedStringArray("shoot_point", "sparks", "ammo_fall_effect", "shoot_sound", "mesh")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 collision_layer = 0
 physics_material_override = SubResource("PhysicsMaterial_mdqoc")
 script = ExtResource("1_mdqoc")
 shoot_point = NodePath("ShootPoint")
-lazer_sight = NodePath("LazerSightRay")
 sparks = NodePath("Sparks")
 ammo_fall_effect = NodePath("BulletFalling")
 shoot_sound = NodePath("AudioStreamPlayer3D")
-shoot_timer = NodePath("CoolDown")
 mesh = NodePath("Skeleton3D/gun/gun")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1771147029]
@@ -164,12 +161,6 @@ metadata/_custom_type_script = "uid://brpwbeykols0s"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18644714, 0, 0)
 shape = SubResource("BoxShape3D_dgfc2")
 debug_color = Color(0.91842127, 0.28512478, 0, 0.41960785)
-
-[node name="LazerSightRay" type="RayCast3D" parent="." unique_id=1759396954]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4312575, 0.1355381, 0)
-target_position = Vector3(-10, 0, 0)
-debug_shape_custom_color = Color(1, 0, 0, 1)
-script = ExtResource("3_dgfc2")
 
 [node name="BulletFalling" type="CPUParticles3D" parent="." unique_id=845988191]
 transform = Transform3D(-0.99999994, 0, 1.589326e-08, 0, 1, 0, -1.589326e-08, 0, -0.99999994, -0.2330696, 0.14123541, 1.01877955e-08)

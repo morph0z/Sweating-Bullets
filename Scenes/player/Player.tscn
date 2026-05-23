@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://cwtbrbe1iwid6" path="res://Scenes/player/cameraEffects.gd" id="3_sy2hw"]
 [ext_resource type="Script" uid="uid://lnmket0am38i" path="res://Scripts/componets/healthComponent.gd" id="4_irnrt"]
 [ext_resource type="Script" uid="uid://boavu2vek6squ" path="res://Scenes/player/interation_ray.gd" id="4_k0nfp"]
-[ext_resource type="PackedScene" uid="uid://ddqcle8nu2bx8" path="res://Scenes/objects/weapons/BasicGun.tscn" id="4_khmeo"]
+[ext_resource type="PackedScene" uid="uid://ddqcle8nu2bx8" path="res://Scenes/objects/weapons/Pistol.tscn" id="4_khmeo"]
 [ext_resource type="Script" uid="uid://dx6viv5g35mcd" path="res://Scripts/player/state_machine.gd" id="4_mphk7"]
 [ext_resource type="Script" uid="uid://d3g3rq2vmlbm1" path="res://Scripts/player/states/base_state.gd" id="5_8hdke"]
 [ext_resource type="Script" uid="uid://claptrnmi8gft" path="res://Scripts/componets/heldItemComponent.gd" id="5_h1ktb"]
@@ -502,61 +502,71 @@ shape = SubResource("BoxShape3D_qp8bv")
 target_position = Vector3(0, 20, 0)
 debug_shape_custom_color = Color(0.247044, 0.504683, 1, 1)
 
-[node name="LimboHSM" type="LimboHSM" parent="." unique_id=270486214 node_paths=PackedStringArray("player_reference")]
+[node name="LimboHSM" type="LimboHSM" parent="." unique_id=673379558 node_paths=PackedStringArray("player_reference")]
 script = ExtResource("4_mphk7")
 player_reference = NodePath("..")
 
-[node name="Base" type="LimboState" parent="LimboHSM" unique_id=1550014736 node_paths=PackedStringArray("machine")]
+[node name="Base" type="LimboState" parent="LimboHSM" unique_id=1097577772 node_paths=PackedStringArray("machine")]
 script = ExtResource("5_8hdke")
 machine = NodePath("..")
+metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
 
-[node name="Idle" type="LimboState" parent="LimboHSM" unique_id=1799090346 node_paths=PackedStringArray("machine")]
+[node name="Idle" type="LimboState" parent="LimboHSM" unique_id=541203114 node_paths=PackedStringArray("machine")]
 script = ExtResource("6_3tjkw")
 machine = NodePath("..")
+metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
 
-[node name="Standing" type="LimboState" parent="LimboHSM" unique_id=683903018 node_paths=PackedStringArray("machine")]
+[node name="Standing" type="LimboState" parent="LimboHSM" unique_id=165470730 node_paths=PackedStringArray("machine")]
 script = ExtResource("7_kk05o")
 machine = NodePath("..")
+metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
 
-[node name="WallRunning" type="LimboState" parent="LimboHSM" unique_id=1751100870 node_paths=PackedStringArray("machine")]
+[node name="WallRunning" type="LimboState" parent="LimboHSM" unique_id=1325427656 node_paths=PackedStringArray("machine")]
 script = ExtResource("8_3tjkw")
 machine = NodePath("..")
+metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
 
-[node name="Sprinting" type="LimboState" parent="LimboHSM" unique_id=146681729 node_paths=PackedStringArray("machine")]
+[node name="Sprinting" type="LimboState" parent="LimboHSM" unique_id=903682621 node_paths=PackedStringArray("machine")]
 script = ExtResource("9_r5m3b")
 machine = NodePath("..")
+metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
 
 [node name="Sprint Sound" type="Timer" parent="LimboHSM/Sprinting" unique_id=562941644]
 wait_time = 0.3
 autostart = true
 
-[node name="Crouching" type="LimboState" parent="LimboHSM" unique_id=783383063 node_paths=PackedStringArray("machine")]
+[node name="Crouching" type="LimboState" parent="LimboHSM" unique_id=379964033 node_paths=PackedStringArray("machine")]
 script = ExtResource("10_0otme")
 machine = NodePath("..")
+metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
 
-[node name="Sliding" type="LimboState" parent="LimboHSM" unique_id=360468034 node_paths=PackedStringArray("machine")]
+[node name="Sliding" type="LimboState" parent="LimboHSM" unique_id=853125330 node_paths=PackedStringArray("machine")]
 script = ExtResource("11_3tjkw")
 machine = NodePath("..")
+metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
 
 [node name="Sliding Cooldown" type="Timer" parent="LimboHSM/Sliding" unique_id=1663835272]
 wait_time = 0.6
 
-[node name="Walking" type="LimboState" parent="LimboHSM" unique_id=67728671 node_paths=PackedStringArray("machine")]
+[node name="Walking" type="LimboState" parent="LimboHSM" unique_id=39649337 node_paths=PackedStringArray("machine")]
 script = ExtResource("11_sy2hw")
 machine = NodePath("..")
+metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
 
 [node name="Walk sound" type="Timer" parent="LimboHSM/Walking" unique_id=54485749]
 wait_time = 0.5
 autostart = true
 
-[node name="Moving" type="LimboState" parent="LimboHSM" unique_id=1031876114 node_paths=PackedStringArray("machine")]
+[node name="Moving" type="LimboState" parent="LimboHSM" unique_id=1158757127 node_paths=PackedStringArray("machine")]
 script = ExtResource("12_cba8u")
 machine = NodePath("..")
+metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
 
-[node name="Airborne" type="LimboState" parent="LimboHSM" unique_id=2107162161 node_paths=PackedStringArray("machine")]
+[node name="Airborne" type="LimboState" parent="LimboHSM" unique_id=794610320 node_paths=PackedStringArray("machine")]
 script = ExtResource("13_0h34x")
 air_move_speed = 250.0
 machine = NodePath("..")
+metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=117846459]
 follow_viewport_scale = 7.452
