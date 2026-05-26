@@ -1,15 +1,24 @@
 extends Control
 
+##The player reference.
 @export var player_ref:player
+##The ammo component reference.
 @export var ammo_component:ammoHandlerComponent
+##The health component reference.
 @export var health_component:healthComponent
+##The fear component reference.
 @export var fear_component:fearComponent
 
+##The health bar.
 @export var healthBar:ui_bar
+##The fear bar.
 @export var fearBar:ui_bar
 
+##The info on the top left of the screen.
 @export var topLeftInfo:Label
+##The info on the gun in the bottom corner.
 @export var gunInfo:Control
+##The view port of the mini gun 3D model.
 @export var gunInfoViewPort:SubViewport
 
 func _ready() -> void:
@@ -25,12 +34,17 @@ func _ready() -> void:
 	fearBar.fillAmount = fearBar.maxFill
 	healthBar.fillAmount = healthBar.maxFill
 	
+	healthBar.update()
+	fearBar.update()
+
+##Called when the health value is changed.
 func on_health_changed(amount: int) -> void: 
 	amount = amount * -1
 	healthBar.lastAmount = healthBar.fillAmount
 	healthBar.fillAmount -= (amount / health_component.intital_health)
 	healthBar.update()
 
+##Called when the fear value is changed.
 func on_fear_changed(amount: int) -> void: 
 	amount = amount * -1
 	fearBar.lastAmount = fearBar.fillAmount
@@ -43,6 +57,7 @@ func _process(_delta: float) -> void:
 	topLeftInfo.text = infoText
 
 @onready var gunMesh:MeshInstance3D = gunInfoViewPort.get_node("GunMesh")
+##Called when the current item is dropped.
 func on_item_dropped(_itemDropped:item) -> void:
 	if (player_ref.held_items.get_selected_item() == null): 
 		gunMesh.mesh = PlaceholderMesh.new()
@@ -50,10 +65,12 @@ func on_item_dropped(_itemDropped:item) -> void:
 	var modelMesh:Mesh = player_ref.held_items.get_selected_item().mesh.mesh
 	gunMesh.mesh = modelMesh
 
+##Called when an item is picked up.
 func on_item_picked_up(pickedUpItem:item) -> void:
 	var modelMesh:Mesh = pickedUpItem.mesh.mesh
 	gunMesh.mesh = modelMesh
 
+##Called when an item is switched.
 func on_item_switched() -> void:
 	var modelMesh:Mesh = player_ref.held_items.get_selected_item().mesh.mesh
 	gunMesh.mesh = modelMesh

@@ -1,8 +1,9 @@
 extends RayCast3D
 
+##The current object being looked at.
 var current_object
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if is_colliding():
 		var object = get_collider()
 		if object == current_object: return

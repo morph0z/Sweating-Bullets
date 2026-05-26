@@ -1,14 +1,19 @@
 extends PlayerState
 
+##If the player has already done one quickstep in the air to the left.
 var quickStepLeftOnce:bool = false
+##If the player has already done one quickstep in the air to the right.
 var quickStepRightOnce:bool = false
 
+##The velocity of airstrafing.
 var airStrafeVelocity:float = 0.1
 
-@export var air_cap := 0.85 # Can surf steeper ramps if this is higher, makes it easier to stick and bhop
+## Can surf steeper ramps if this is higher, makes it easier to stick and bhop.
+@export var air_cap := 0.85 
 @export var air_accel := 800.0
 @export var air_move_speed := 500.0
 
+##Emitted when ground is touched.
 signal touchedGround
 
 func _update(_delta: float) -> void:
@@ -26,8 +31,7 @@ func _update(_delta: float) -> void:
 	if player_reference.is_on_floor():
 		if Input.is_action_pressed("LeftShiftCrouch"): set_state(player_reference.sliding)
 		#OP Bunny hopping DO NOT ENABLE
-		#elif Input.is_action_pressed("SpaceJump"):
-			#jump(1)
+		#elif Input.is_action_pressed("SpaceJump"): jump(1)
 		else: set_state(player_reference.idle)
 
 	if player_reference.is_on_wall():
@@ -44,9 +48,7 @@ func _exit() -> void:
 	quickStepLeftOnce = false
 	quickStepRightOnce = false
 
-func _enter() -> void:
-	#machine.animationPlayer.play("Jump_Inair")
-	player_reference.feelingGravity = true
+func _enter() -> void: player_reference.feelingGravity = true
 	
 func velocity_handling(_delta:float):
 	if player_reference.canMove:
@@ -69,12 +71,10 @@ func velocity_handling(_delta:float):
 
 		hori_vel += wish_dir * accel_speed
 
-		# --- apply ---
 		player_reference.velocity.x = hori_vel.x
 		player_reference.velocity.z = hori_vel.z
 	
 func stomp(force: float, cancelLaunch:bool) -> void:
-	#machine.animationPlayer.play("Walk")
 	var previousVel = Vector3(player_reference.velocity.x, 0, player_reference.velocity.z)
 	player_reference.velocity = Vector3.ZERO
 	player_reference._wanted_velocity = Vector3.ZERO
@@ -83,13 +83,10 @@ func stomp(force: float, cancelLaunch:bool) -> void:
 	player_reference.canMove = false
 
 	await get_tree().create_timer(1).timeout
+	player_reference.canMove = true
+	player_reference.camera_effects.enable_effects = true
+		
 	if !cancelLaunch:
-		player_reference.canMove = true
-		player_reference.camera_effects.enable_effects = true
-		#player_reference.velocity = previousVel.rotated(Vector3.UP, -player_reference.transform.basis.z.angle_to(previousVel))
 		var speed := previousVel.length()
 		var forwards = -player_reference.transform.basis.z.normalized()
 		player_reference.velocity = forwards * speed
-	else:
-		player_reference.canMove = true
-		player_reference.camera_effects.enable_effects = true

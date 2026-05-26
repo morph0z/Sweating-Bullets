@@ -8,8 +8,7 @@ extends Control
 @export var gap_angle: float = 45.0 : set = set_crosshair_gap_angle
 @export var segments: int = 32 : set = set_crosshair_segments
 
-func _draw():
-	draw_circle_crosshair()
+func _draw(): draw_circle_crosshair()
 
 func draw_circle_crosshair():
 	var gap_rad = deg_to_rad(gap_angle)
@@ -36,33 +35,25 @@ func draw_circle_crosshair():
 			var point = Vector2(radius * cos(angle), radius * sin(angle))
 			points.append(point)
 		
-		if points.size() > 1:
-			draw_polyline(points, color, thickness, true)
+		if points.size() > 1: draw_polyline(points, color, thickness, true)
 
-
-func update_crosshair():
-	queue_redraw()
-
+func update_crosshair(): queue_redraw()
 
 func set_crosshair_radius(new_radius):
 	radius = new_radius
 	update_crosshair()
 
-
 func set_crosshair_color(new_color):
 	color = new_color
 	update_crosshair()
-
 
 func set_crosshair_thickness(new_thickness):
 	thickness = new_thickness
 	update_crosshair()
 
-
 func set_crosshair_gap_angle(new_gap_angle):
 	gap_angle = new_gap_angle
 	update_crosshair()
-
 
 func set_crosshair_segments(new_segments):
 	segments = new_segments
