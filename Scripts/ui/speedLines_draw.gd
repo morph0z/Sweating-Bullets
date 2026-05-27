@@ -3,8 +3,7 @@ extends CanvasLayer
 
 @export var speed_effect_color_rect:ColorRect
 
-func _process(_delta: float) -> void:
-	calculate_line_scale()
+func _process(_delta: float) -> void: calculate_line_scale()
 	
 func apply_effect(value:float) -> void:
 	speed_effect_color_rect.material.set_shader_parameter('effect_power', abs(value))

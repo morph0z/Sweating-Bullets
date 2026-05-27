@@ -35,7 +35,8 @@ folder_colors={
 "res://Scripts/classes/": "yellow",
 "res://Scripts/componets/": "yellow",
 "res://Scripts/objects/": "yellow",
-"res://Scripts/player/": "yellow"
+"res://Scripts/player/": "yellow",
+"res://Scripts/ui/": "yellow"
 }
 
 [global_group]
