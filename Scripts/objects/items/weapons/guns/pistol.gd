@@ -1,4 +1,5 @@
 extends gun
+class_name pistol
 
 func use_item() -> void: shoot(BULLET)
 

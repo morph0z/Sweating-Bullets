@@ -1,4 +1,5 @@
 extends gun
+class_name shot_gun
 
 func use_item() -> void: buck_shot(BULLET, 5, 0.1)
 
