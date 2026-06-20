@@ -29,10 +29,6 @@ extends Node
 ##The current state of the player.
 @onready var activeState:PlayerState = player_reference.state_machine.get_active_state()
 
-##Plays an animation for any held item types.
-func holdItem(itemType:item):
-	if itemType is gun: animationPlayer.play("holdPistol")
-
 ##Updates the animation tree with new values.
 func update_animTree():
 	animationTree["parameters/Sprint/blend_amount"] = sprintAniValue
@@ -73,15 +69,6 @@ func handle_animation(delta:float):
 	if !isHoldingItem: holdItemAniValue = lerpf(holdItemAniValue, 0, blendingSpeed/5)
 		
 func _process(delta: float) -> void:
-	#match player_reference.held_items.get_child_count():
-		#1:
-			#armAnimationActive = false
-			#player_reference.camera.arms.hide()
-		#0:
-			#armAnimationActive = true
-			#player_reference.camera.arms.show()
-			
-			
 	activeState = player_reference.state_machine.get_active_state()
 	if armAnimationActive:
 		update_animTree()

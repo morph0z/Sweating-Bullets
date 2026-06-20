@@ -67,7 +67,7 @@ func initilize_holding(entity:entityClass) -> void:
 	set_collision_layer_value(item_collison_layer, false)
 	freeze = true
 	position = Vector3.ZERO
-	rotation = Vector3(0, deg_to_rad(-90), 0)
+	rotation = Vector3(0,-90,0)
 
 ##Returns whether or not the item is currently selected.
 func is_selected() -> bool: return selected
