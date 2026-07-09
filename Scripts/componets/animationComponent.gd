@@ -29,6 +29,12 @@ extends Node
 ##The current state of the player.
 @onready var activeState:PlayerState = player_reference.state_machine.get_active_state()
 
+enum GunHolding{
+	NoGun=0,
+	SmallGun=1,
+	LargeGun=2
+}
+
 ##Updates the animation tree with new values.
 func update_animTree():
 	animationTree["parameters/Sprint/blend_amount"] = sprintAniValue
@@ -63,8 +69,8 @@ func handle_animation(delta:float):
 		holdItemAniValue = lerpf(holdItemAniValue, 1, blendingSpeed)
 		
 		var heldItem = player_reference.held_items.get_selected_item()
-		if heldItem is pistol: animationTree["parameters/HoldingItem/blend_position"] = Vector2(1, 0)
-		if heldItem is shot_gun: animationTree["parameters/HoldingItem/blend_position"] = Vector2(0, 0)
+		if heldItem is pistol: animationTree["parameters/HoldingItem/blend_position"] = Vector2(GunHolding.SmallGun, 0)
+		if heldItem is shot_gun: animationTree["parameters/HoldingItem/blend_position"] = Vector2(GunHolding.NoGun, 0)
 	#TODO: Add throwing animation
 	if !isHoldingItem: holdItemAniValue = lerpf(holdItemAniValue, 0, blendingSpeed/5)
 		
