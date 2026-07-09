@@ -29,19 +29,35 @@ extends Node
 ##The current state of the player.
 @onready var activeState:PlayerState = player_reference.state_machine.get_active_state()
 
-enum GunHolding{
-	NoGun=0,
-	SmallGun=1,
-	LargeGun=2
+enum GunSizeState{
+	SmallGun=0,
+	LargeGun=1
 }
+
+enum GunHoldingState{
+	Held=0,
+	Shot=1
+}
+
+enum MovementState{
+	Idle=0,
+	Sprinting=1,
+	InAir=2,
+	Sliding=3
+}
+
+var MovementStateVectorPoints:Array[Vector2] = [
+	Vector2(0,0),
+	Vector2(0,1),
+	Vector2(0,1),
+	Vector2(1,1)
+]
+
+var currentMovementState:int = 0
 
 ##Updates the animation tree with new values.
 func update_animTree():
-	animationTree["parameters/Sprint/blend_amount"] = sprintAniValue
-	animationTree["parameters/Airbourn/blend_amount"] = airbornAniValue
-	animationTree["parameters/WallRunRight/blend_amount"] = wallrunRAniValue
-	animationTree["parameters/WallRunLeft/blend_amount"] = wallrunLAniValue
-	animationTree["parameters/HoldItem/blend_amount"] = holdItemAniValue
+	animationTree["parameters/Movement/blend_position"] = MovementStateVectorPoints[currentMovementState]
 
 ##Changes the animation based on the players current state.
 func handle_animation(delta:float):
@@ -49,28 +65,13 @@ func handle_animation(delta:float):
 	var idleAniBool:bool = (activeState == player_reference.walking) or (activeState == player_reference.moving) or (activeState == player_reference.crouching) or (activeState == player_reference.idle)
 	var isHoldingItem:bool = player_reference.held_items.get_selected_item() != null
 	var blendingSpeed:float = animationBlendSpeed*delta
-	if  idleAniBool:
-		sprintAniValue = lerpf(sprintAniValue, 0, blendingSpeed)
-		wallrunRAniValue = lerpf(wallrunRAniValue, 0, blendingSpeed)
-		airbornAniValue = lerpf(airbornAniValue, 0, blendingSpeed)
-	if activeState == player_reference.sprinting:
-		sprintAniValue = lerpf(sprintAniValue, 1, blendingSpeed)
-		wallrunRAniValue = lerpf(wallrunRAniValue, 0, blendingSpeed)
-		airbornAniValue = lerpf(airbornAniValue, 0, blendingSpeed)
-	if activeState == player_reference.airborne:
-		sprintAniValue = lerpf(sprintAniValue, 0, blendingSpeed)
-		wallrunRAniValue = lerpf(wallrunRAniValue, 0, blendingSpeed)
-		airbornAniValue = lerpf(airbornAniValue, 1, blendingSpeed)
-	if wallRunAniBool:
-		sprintAniValue = lerpf(sprintAniValue, 0, blendingSpeed)
-		wallrunRAniValue = lerpf(wallrunRAniValue, 1, blendingSpeed)
-		airbornAniValue = lerpf(airbornAniValue, 0, blendingSpeed)
+
 	if isHoldingItem:
 		holdItemAniValue = lerpf(holdItemAniValue, 1, blendingSpeed)
 		
 		var heldItem = player_reference.held_items.get_selected_item()
-		if heldItem is pistol: animationTree["parameters/HoldingItem/blend_position"] = Vector2(GunHolding.SmallGun, 0)
-		if heldItem is shot_gun: animationTree["parameters/HoldingItem/blend_position"] = Vector2(GunHolding.NoGun, 0)
+		if heldItem is pistol: animationTree["parameters/HoldingItem/blend_position"] = Vector2(GunSizeState.SmallGun, 0)
+		if heldItem is shot_gun: animationTree["parameters/HoldingItem/blend_position"] = Vector2(GunSizeState.LargeGun, 0)
 	#TODO: Add throwing animation
 	if !isHoldingItem: holdItemAniValue = lerpf(holdItemAniValue, 0, blendingSpeed/5)
 		

@@ -640,32 +640,6 @@ _data = {
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_d43aw"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d43aw"]
-animation = &"Walk"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3wtu8"]
-animation = &"Sprint"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0ix20"]
-animation = &"Slide"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bqivf"]
-animation = &"Jump_Inair"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_trtan"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_d43aw")
-blend_point_0/pos = Vector2(0, 0)
-blend_point_0/name = &"Walk"
-blend_point_1/node = SubResource("AnimationNodeAnimation_3wtu8")
-blend_point_1/pos = Vector2(0.1, 0.1)
-blend_point_1/name = &"Sprint"
-blend_point_2/node = SubResource("AnimationNodeAnimation_0ix20")
-blend_point_2/pos = Vector2(0.2, 0)
-blend_point_2/name = &"Slide"
-blend_point_3/node = SubResource("AnimationNodeAnimation_bqivf")
-blend_point_3/pos = Vector2(0, 0.1)
-blend_point_3/name = &"Jump_Inair"
-
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_3wtu8"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_trtan"]
@@ -681,6 +655,33 @@ blend_point_0/name = &"ShootSmallGun"
 blend_point_1/node = SubResource("AnimationNodeAnimation_oxyqu")
 blend_point_1/pos = 0.0
 blend_point_1/name = &"HoldSmallGun"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d43aw"]
+animation = &"Walk"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3wtu8"]
+animation = &"Sprint"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0ix20"]
+animation = &"Slide"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bqivf"]
+animation = &"Jump_Inair"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_trtan"]
+max_space = Vector2(2, 1)
+blend_point_0/node = SubResource("AnimationNodeAnimation_d43aw")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_0/name = &"Walk"
+blend_point_1/node = SubResource("AnimationNodeAnimation_3wtu8")
+blend_point_1/pos = Vector2(1, 1)
+blend_point_1/name = &"Sprint"
+blend_point_2/node = SubResource("AnimationNodeAnimation_0ix20")
+blend_point_2/pos = Vector2(2, 0)
+blend_point_2/name = &"Slide"
+blend_point_3/node = SubResource("AnimationNodeAnimation_bqivf")
+blend_point_3/pos = Vector2(0, 1)
+blend_point_3/name = &"Jump_Inair"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_53txx"]
 animation = &"HoldSmallGun"
@@ -699,10 +700,10 @@ blend_point_1/pos = 1.0
 blend_point_1/name = &"ShootSmallGun"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_0ix20"]
-graph_offset = Vector2(-5.581421, -62.93187)
+graph_offset = Vector2(-174.60596, -13.187878)
 nodes/output/position = Vector2(1160, 140)
-nodes/BlendSpace2D/node = SubResource("AnimationNodeBlendSpace2D_trtan")
-nodes/BlendSpace2D/position = Vector2(460, 0)
+nodes/Movement/node = SubResource("AnimationNodeBlendSpace2D_trtan")
+nodes/Movement/position = Vector2(460, 0)
 nodes/SmallGun/node = SubResource("AnimationNodeBlendSpace1D_gw1s6")
 nodes/SmallGun/position = Vector2(460, 240)
 nodes/LargeGun/node = SubResource("AnimationNodeBlendSpace1D_gl7pf")
@@ -711,7 +712,7 @@ nodes/Blend2/node = SubResource("AnimationNodeBlend2_d43aw")
 nodes/Blend2/position = Vector2(700, 220)
 nodes/HoldingGun/node = SubResource("AnimationNodeBlend2_3wtu8")
 nodes/HoldingGun/position = Vector2(920, 80)
-node_connections = [&"output", 0, &"HoldingGun", &"Blend2", 0, &"SmallGun", &"Blend2", 1, &"LargeGun", &"HoldingGun", 0, &"BlendSpace2D", &"HoldingGun", 1, &"Blend2"]
+node_connections = [&"output", 0, &"HoldingGun", &"Blend2", 0, &"SmallGun", &"Blend2", 1, &"LargeGun", &"HoldingGun", 0, &"Movement", &"HoldingGun", 1, &"Blend2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_irnrt"]
 radius = 0.525164
@@ -895,7 +896,7 @@ libraries/ = SubResource("AnimationLibrary_0ix20")
 [node name="AnimationTree" type="AnimationTree" parent="CamPiviot/Arms" unique_id=74138304]
 tree_root = SubResource("AnimationNodeBlendTree_0ix20")
 anim_player = NodePath("../AnimationPlayer")
-parameters/BlendSpace2D/blend_position = Vector2(-0.004476249, 0.0021321774)
+parameters/Movement/blend_position = Vector2(0.09937334, 0.11415529)
 parameters/SmallGun/blend_position = 1.0
 parameters/LargeGun/blend_position = 0.0
 parameters/Blend2/blend_amount = 0.0
