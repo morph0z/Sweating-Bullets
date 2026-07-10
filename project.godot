@@ -31,7 +31,7 @@ window/size/mode=3
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg")
+enabled=PackedStringArray("res://addons/anthonyec.camera_preview/plugin.cfg", "res://addons/discord-rpc-gd/plugin.cfg")
 
 [file_customization]
 
@@ -46,6 +46,8 @@ folder_colors={
 [global_group]
 
 BulletCanBounce=""
+LargeGun=""
+SmallGun=""
 
 [input]
 

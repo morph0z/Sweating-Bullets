@@ -641,6 +641,8 @@ _data = {
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_d43aw"]
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_3wtu8"]
+filter_enabled = true
+filters = ["Armature/Skeleton3D:R.Arm", "Armature/Skeleton3D:R.ForeArm", "Armature/Skeleton3D:R.Hand"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_trtan"]
 animation = &"ShootSmallGun"
@@ -700,7 +702,6 @@ blend_point_1/pos = 1.0
 blend_point_1/name = &"ShootSmallGun"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_0ix20"]
-graph_offset = Vector2(-174.60596, -13.187878)
 nodes/output/position = Vector2(1160, 140)
 nodes/Movement/node = SubResource("AnimationNodeBlendSpace2D_trtan")
 nodes/Movement/position = Vector2(460, 0)
@@ -708,11 +709,11 @@ nodes/SmallGun/node = SubResource("AnimationNodeBlendSpace1D_gw1s6")
 nodes/SmallGun/position = Vector2(460, 240)
 nodes/LargeGun/node = SubResource("AnimationNodeBlendSpace1D_gl7pf")
 nodes/LargeGun/position = Vector2(460, 420)
-nodes/Blend2/node = SubResource("AnimationNodeBlend2_d43aw")
-nodes/Blend2/position = Vector2(700, 220)
+nodes/GunSize/node = SubResource("AnimationNodeBlend2_d43aw")
+nodes/GunSize/position = Vector2(700, 220)
 nodes/HoldingGun/node = SubResource("AnimationNodeBlend2_3wtu8")
 nodes/HoldingGun/position = Vector2(920, 80)
-node_connections = [&"output", 0, &"HoldingGun", &"Blend2", 0, &"SmallGun", &"Blend2", 1, &"LargeGun", &"HoldingGun", 0, &"Movement", &"HoldingGun", 1, &"Blend2"]
+node_connections = [&"output", 0, &"HoldingGun", &"GunSize", 0, &"SmallGun", &"GunSize", 1, &"LargeGun", &"HoldingGun", 0, &"Movement", &"HoldingGun", 1, &"GunSize"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_irnrt"]
 radius = 0.525164
@@ -831,7 +832,7 @@ script = ExtResource("5_h1ktb")
 player_ref = NodePath("../../../../..")
 current_selected_item = 1
 
-[node name="BasicGun" parent="CamPiviot/MainCamera/BoneAttachment3D/HoldingPoint/HeldItems" unique_id=1101744858 instance=ExtResource("4_khmeo")]
+[node name="BasicGun" parent="CamPiviot/MainCamera/BoneAttachment3D/HoldingPoint/HeldItems" unique_id=1101744858 groups=["SmallGun"] instance=ExtResource("4_khmeo")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, -0.0046299696, -0.02871418)
 freeze = true
 selected = true
@@ -896,11 +897,11 @@ libraries/ = SubResource("AnimationLibrary_0ix20")
 [node name="AnimationTree" type="AnimationTree" parent="CamPiviot/Arms" unique_id=74138304]
 tree_root = SubResource("AnimationNodeBlendTree_0ix20")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Movement/blend_position = Vector2(0.09937334, 0.11415529)
+parameters/Movement/blend_position = Vector2(1.0116384, 1.0365298)
 parameters/SmallGun/blend_position = 1.0
 parameters/LargeGun/blend_position = 0.0
-parameters/Blend2/blend_amount = 0.0
-parameters/HoldingGun/blend_amount = 1.0
+parameters/GunSize/blend_amount = 0.0
+parameters/HoldingGun/blend_amount = 0.0
 
 [node name="Components" type="Node3D" parent="." unique_id=166493132]
 
@@ -909,10 +910,11 @@ script = ExtResource("3_r5va5")
 mouse_sensitivity = 0.003
 metadata/_custom_type_script = "uid://bm04r57d3em0p"
 
-[node name="animationComponent" type="Node" parent="Components" unique_id=2129387237 node_paths=PackedStringArray("player_reference", "animationTree")]
+[node name="animationComponent" type="Node" parent="Components" unique_id=2129387237 node_paths=PackedStringArray("player_reference", "animationTree", "animationPlayer")]
 script = ExtResource("9_83gp5")
 player_reference = NodePath("../..")
 animationTree = NodePath("../../CamPiviot/Arms/AnimationTree")
+animationPlayer = NodePath("../../CamPiviot/Arms/AnimationPlayer")
 metadata/_custom_type_script = "uid://q2ta3qdc87as"
 
 [node name="healthComponent" type="Node" parent="Components" unique_id=1361080999 node_paths=PackedStringArray("Entity")]
@@ -1068,6 +1070,7 @@ wall_jump = ExtResource("35_53txx")
 metadata/_custom_type_script = "uid://bk3ikkbfjnvx4"
 
 [connection signal="ItemInSight" from="CamPiviot/MainCamera/Interation Ray" to="CamPiviot/MainCamera/BoneAttachment3D/HoldingPoint/HeldItems" method="_on_interation_ray_item_in_sight"]
+[connection signal="active_state_changed" from="LimboHSM" to="Components/animationComponent" method="_on_limbo_hsm_active_state_changed"]
 [connection signal="timeout" from="LimboHSM/Sprinting/Sprint Sound" to="LimboHSM/Sprinting" method="_on_sprint_sound_timeout"]
 [connection signal="timeout" from="LimboHSM/Sliding/Sliding Cooldown" to="LimboHSM/Sliding" method="_on_sliding_cooldown_timeout"]
 [connection signal="timeout" from="LimboHSM/Walking/Walk sound" to="LimboHSM/Walking" method="_on_walk_sound_timeout"]

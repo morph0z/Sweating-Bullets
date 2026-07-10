@@ -413,7 +413,7 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1292425116]
 environment = SubResource("Environment_bds5b")
 
-[node name="BasicGun2" parent="." unique_id=1101744858 instance=ExtResource("6_lujis")]
+[node name="BasicGun2" parent="." unique_id=1101744858 groups=["SmallGun"] instance=ExtResource("6_lujis")]
 transform = Transform3D(-4.369215e-08, 1.2967527e-09, -1, 0.029666245, 0.9995599, -2.421301e-24, 0.9995599, -0.029666245, -4.371139e-08, 3.537381, 4.4193625, -0.84283304)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="BasicGun2" unique_id=1468531170]

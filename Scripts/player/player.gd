@@ -106,6 +106,7 @@ var canMove:bool = true
 
 ##Emitted when the player throws an item.
 signal ItemThrown(thrownItem:item)
+var throwingCharge:float = 0
 
 func _ready() -> void: _initialize_state_machine()
 
@@ -120,10 +121,12 @@ func _input(event: InputEvent) -> void:
 	if canUseItem: UseItem.emit()
 	var canUseItemSecondary = (event.is_action_pressed("RightClickSelect") and held_items.get_children().size() != 0)
 	if canUseItemSecondary: UseItemSecondary.emit()
-		
-	var canThrow = (event.is_action_pressed("EnterThrow") and !held_items.get_children().is_empty() and !interaction_raycast.is_colliding())
-	#TODO: change the throw force to be more consistant with player.
-	if canThrow: throwItem(5*((velocity.length()/10)+1))
+	var chargeThrow = (event.is_action_pressed("EnterThrow") and !held_items.get_children().is_empty() and !interaction_raycast.is_colliding())
+	var throwRelease = (event.is_action_released("EnterThrow") and !held_items.get_children().is_empty() and !interaction_raycast.is_colliding())
+	
+	if chargeThrow: pass
+	elif throwRelease: throwItem(throwingCharge)
+
 
 func _physics_process(delta: float) -> void:
 	if (not is_on_floor()) and feelingGravity: apply_force(delta, get_gravity())
