@@ -20,6 +20,8 @@
 [ext_resource type="Script" uid="uid://3i7fe0kmvqhn" path="res://Scripts/player/states/walking_state.gd" id="11_sy2hw"]
 [ext_resource type="Script" uid="uid://dkjxjlfqyrc77" path="res://Scripts/player/states/moving_state.gd" id="12_cba8u"]
 [ext_resource type="Script" uid="uid://djtq2iuleu2br" path="res://Scripts/player/states/airborne_state.gd" id="13_0h34x"]
+[ext_resource type="Script" uid="uid://cd2bewjhusiai" path="res://resources/fear ability/base_fear_ability.gd" id="13_3wtu8"]
+[ext_resource type="Script" uid="uid://cyu4e6mkchndi" path="res://resources/fear ability/fear_give_ammo.gd" id="14_0ix20"]
 [ext_resource type="Script" uid="uid://dlhps6b0eo25m" path="res://Scripts/componets/ammoHandlerComponent.gd" id="15_trtan"]
 [ext_resource type="Script" uid="uid://dw71ubyl70v5p" path="res://Scripts/componets/fearComponent.gd" id="16_oxyqu"]
 [ext_resource type="Script" uid="uid://cbws3lma2j738" path="res://Scripts/ui/cursor_draw.gd" id="20_cba8u"]
@@ -719,6 +721,13 @@ node_connections = [&"output", 0, &"HoldingGun", &"GunSize", 0, &"SmallGun", &"G
 radius = 0.525164
 height = 2.46123
 
+[sub_resource type="Resource" id="Resource_2qu66"]
+script = ExtResource("14_0ix20")
+ammo_increase = 2
+keyBind = &"CFearUseA"
+fearCost = 5
+metadata/_custom_type_script = "uid://cyu4e6mkchndi"
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_0h34x"]
 size = Vector3(2, 1, 1)
 
@@ -753,7 +762,7 @@ standing_collision = NodePath("StandingCollision")
 crouching_collision = NodePath("CrouchingCollision")
 crouch_check = NodePath("CrouchCheck")
 interaction_raycast = NodePath("CamPiviot/MainCamera/Interation Ray")
-sound_component = NodePath("playerSoundComponent")
+sound_component = NodePath("Components/playerSoundComponent")
 held_items = NodePath("CamPiviot/MainCamera/BoneAttachment3D/HoldingPoint/HeldItems")
 leftCast = NodePath("SideStepCasts/Left")
 rightCast = NodePath("SideStepCasts/Right")
@@ -941,9 +950,14 @@ script = ExtResource("16_oxyqu")
 player_ref = NodePath("../..")
 max_fear = 20.0
 fear_value = 20.0
-ammo_increase = 2
-ammo_give_cost = 5
+fear_abilities = Array[ExtResource("13_3wtu8")]([SubResource("Resource_2qu66")])
 metadata/_custom_type_script = "uid://dw71ubyl70v5p"
+
+[node name="playerSoundComponent" type="AudioStreamPlayer3D" parent="Components" unique_id=676175331]
+script = ExtResource("30_h5vdi")
+footstep_sounds = Array[AudioStreamWAV]([ExtResource("31_bqivf"), ExtResource("32_trtan"), ExtResource("33_oxyqu"), ExtResource("34_gl7pf")])
+wall_jump = ExtResource("35_53txx")
+metadata/_custom_type_script = "uid://bk3ikkbfjnvx4"
 
 [node name="SideStepCasts" type="Node3D" parent="." unique_id=1999536261]
 
@@ -1062,12 +1076,6 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="Visuals" type="Node3D" parent="." unique_id=471362143]
-
-[node name="playerSoundComponent" type="AudioStreamPlayer3D" parent="." unique_id=676175331]
-script = ExtResource("30_h5vdi")
-footstep_sounds = Array[AudioStreamWAV]([ExtResource("31_bqivf"), ExtResource("32_trtan"), ExtResource("33_oxyqu"), ExtResource("34_gl7pf")])
-wall_jump = ExtResource("35_53txx")
-metadata/_custom_type_script = "uid://bk3ikkbfjnvx4"
 
 [connection signal="ItemInSight" from="CamPiviot/MainCamera/Interation Ray" to="CamPiviot/MainCamera/BoneAttachment3D/HoldingPoint/HeldItems" method="_on_interation_ray_item_in_sight"]
 [connection signal="active_state_changed" from="LimboHSM" to="Components/animationComponent" method="_on_limbo_hsm_active_state_changed"]

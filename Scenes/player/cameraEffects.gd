@@ -69,17 +69,32 @@ func calculate_fov_effect(_delta:float):
 var resetWallTiltOnce:bool = false
 func calculate_wallrun_tilt(_delta:float):
 	if not playerReference: return
-
+	
+	var wallNormal:Vector3 = playerReference.get_wall_normal().normalized().round()
+	
+	var wallTiltCalc:Vector3 
+	
 	if playerReference.state_machine.get_active_state().name == "WallRunning":
 		resetWallTiltOnce = false
+		
 		var wallTiltTween:Tween = create_tween()
 		wallTiltTween.set_ease(Tween.EASE_IN_OUT)
 		wallTiltTween.set_trans(Tween.TRANS_CUBIC)
-		if playerReference.get_wall_normal().x != 0:
-			wallTiltTween.tween_property(self, "rotation_degrees", Vector3(0,0,wallrun_tilt)*-playerReference.get_wall_normal().normalized().x * playerReference.transform.basis, wallrun_tilt_time)
-		elif playerReference.get_wall_normal().z != 0:
-			wallTiltTween.tween_property(self, "rotation_degrees", Vector3(0,0,wallrun_tilt)*-playerReference.get_wall_normal().normalized().z * playerReference.transform.basis.x, wallrun_tilt_time)
-			
+
+		if (wallNormal.z != 0) and (wallNormal.x == 0): 
+			wallTiltCalc = (Vector3(wallrun_tilt,0,wallrun_tilt) * wallNormal) * -playerReference.basis.x 
+		elif (wallNormal.x != 0) and (wallNormal.z == 0): 
+			wallTiltCalc = (Vector3(wallrun_tilt,0,wallrun_tilt) * wallNormal).rotated(Vector3.UP, deg_to_rad(90)) * playerReference.basis.z
+		elif (wallNormal.z != 0) and (wallNormal.x != 0):
+			wallTiltCalc = Vector3(wallrun_tilt,0,wallrun_tilt) * wallNormal
+		
+		if playerReference.is_on_wall_only():
+			wallTiltTween.tween_property(self, "rotation_degrees",
+			wallTiltCalc, wallrun_tilt_time)
+		#if playerReference.get_wall_normal().z != 0:
+		#	wallTiltTween.tween_property(self, "rotation_degrees", Vector3(0,0,wallrun_tilt)*-playerReference.get_wall_normal().normalized().z * playerReference.transform.basis, wallrun_tilt_time)
+	print("Wall Normal: " + str(wallNormal) + " || Tilt Calc: " + str(wallTiltCalc) + " || IsOnWall: " + str(playerReference.is_on_wall_only()))
+	
 	if playerReference.state_machine.get_active_state().name != "WallRunning":
 		if !resetWallTiltOnce:
 			var wallTiltTween:Tween = create_tween()

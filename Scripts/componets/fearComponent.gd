@@ -7,12 +7,11 @@ class_name fearComponent extends Node
 ##The current fear value that is held.
 @export var fear_value:float
 
-##The amount of ammo that is given when fear is used to get ammo.
-@export var ammo_increase:int
+@export var fear_abilities:Array[fearAbility]
 
-@export_category("Use Values")
-##The cost of fear that must be used to get ammo.
-@export var ammo_give_cost:int
+func _ready() -> void:
+	for fear_ability in fear_abilities:
+		fear_ability.initilize_fear(player_ref, self)
 
 ##Emitted when the amount of fear held is changed.
 signal fearChanged(amount: int)
@@ -20,17 +19,14 @@ signal fearChanged(amount: int)
 ##Returns the current amount of fear.
 func get_fear_amount() -> float: return fear_value
 
-##Gives ammo.
-func give_ammo() -> void: 
-	player_ref.ammo_handler.increase_ammo(ammo_increase)
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("CFearUseA"):
-		if (fear_value < ammo_give_cost): return
-		changeFear(ammo_give_cost)
-		give_ammo()
-
 ##Reduces the fear by a given amount.
 func changeFear(amount:int):
 	fearChanged.emit(-amount)
 	fear_value -= amount
+
+func _input(event: InputEvent) -> void:
+	for fear_ability in fear_abilities:
+		if event.is_action_pressed(fear_ability.keyBind):
+			if (fear_value < fear_ability.fearCost): return
+			changeFear(fear_ability.fearCost)
+			fear_ability.do_ability()

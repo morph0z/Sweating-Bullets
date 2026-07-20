@@ -116,6 +116,7 @@ func _initialize_state_machine():
 	state_machine.initialize(self)
 	state_machine.set_active(true)
 
+var isChargingThrow:bool = false
 func _input(event: InputEvent) -> void:
 	var canUseItem = (event.is_action_pressed("LeftClickSelect") and held_items.get_children().size() != 0)
 	if canUseItem: UseItem.emit()
@@ -124,9 +125,20 @@ func _input(event: InputEvent) -> void:
 	var chargeThrow = (event.is_action_pressed("EnterThrow") and !held_items.get_children().is_empty() and !interaction_raycast.is_colliding())
 	var throwRelease = (event.is_action_released("EnterThrow") and !held_items.get_children().is_empty() and !interaction_raycast.is_colliding())
 	
-	if chargeThrow: pass
-	elif throwRelease: throwItem(throwingCharge)
+	if chargeThrow: isChargingThrow = true
+	if (throwRelease and throwingCharge >= 1): 
+		isChargingThrow = false
+		throwItem(throwingCharge)
+		throwingCharge = 0
 
+func _process(_delta: float) -> void: 
+	charging_throw()
+	
+func charging_throw() -> void:
+	if !isChargingThrow: return
+	await get_tree().create_timer(0.5).timeout
+	throwingCharge += 1
+	print(throwingCharge)
 
 func _physics_process(delta: float) -> void:
 	if (not is_on_floor()) and feelingGravity: apply_force(delta, get_gravity())
