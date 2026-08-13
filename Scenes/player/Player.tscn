@@ -5,9 +5,9 @@
 [ext_resource type="Script" uid="uid://dtr2p1f3xhiav" path="res://Scripts/componets/hurtboxComponent.gd" id="2_kk05o"]
 [ext_resource type="Script" uid="uid://b5x2fagogswuw" path="res://Scripts/classes/camPiviotClass.gd" id="2_mphk7"]
 [ext_resource type="Script" uid="uid://bm04r57d3em0p" path="res://Scripts/componets/mouseCaptureComponent.gd" id="3_r5va5"]
-[ext_resource type="Script" uid="uid://cwtbrbe1iwid6" path="res://Scenes/player/cameraEffects.gd" id="3_sy2hw"]
+[ext_resource type="Script" uid="uid://cwtbrbe1iwid6" path="res://Scripts/player/cameraEffects.gd" id="3_sy2hw"]
 [ext_resource type="Script" uid="uid://lnmket0am38i" path="res://Scripts/componets/healthComponent.gd" id="4_irnrt"]
-[ext_resource type="Script" uid="uid://boavu2vek6squ" path="res://Scenes/player/interation_ray.gd" id="4_k0nfp"]
+[ext_resource type="Script" uid="uid://boavu2vek6squ" path="res://Scripts/player/interation_ray.gd" id="4_k0nfp"]
 [ext_resource type="PackedScene" uid="uid://ddqcle8nu2bx8" path="res://Scenes/objects/weapons/Pistol.tscn" id="4_khmeo"]
 [ext_resource type="Script" uid="uid://dx6viv5g35mcd" path="res://Scripts/player/state_machine.gd" id="4_mphk7"]
 [ext_resource type="Script" uid="uid://claptrnmi8gft" path="res://Scripts/componets/heldItemComponent.gd" id="5_h1ktb"]
@@ -22,18 +22,14 @@
 [ext_resource type="Script" uid="uid://djtq2iuleu2br" path="res://Scripts/player/states/airborne_state.gd" id="13_0h34x"]
 [ext_resource type="Script" uid="uid://cd2bewjhusiai" path="res://resources/fear ability/base_fear_ability.gd" id="13_3wtu8"]
 [ext_resource type="Script" uid="uid://cyu4e6mkchndi" path="res://resources/fear ability/fear_give_ammo.gd" id="14_0ix20"]
+[ext_resource type="Script" uid="uid://bylcw7bokp820" path="res://Scripts/componets/throwComponent.gd" id="15_h1ktb"]
 [ext_resource type="Script" uid="uid://dlhps6b0eo25m" path="res://Scripts/componets/ammoHandlerComponent.gd" id="15_trtan"]
 [ext_resource type="Script" uid="uid://dw71ubyl70v5p" path="res://Scripts/componets/fearComponent.gd" id="16_oxyqu"]
 [ext_resource type="Script" uid="uid://cbws3lma2j738" path="res://Scripts/ui/cursor_draw.gd" id="20_cba8u"]
 [ext_resource type="Shader" uid="uid://dft6baklaquwf" path="res://Shaders/speedLines.gdshader" id="21_0h34x"]
 [ext_resource type="Script" uid="uid://dxg6k2t6ocuqy" path="res://Scripts/ui/speedLines_draw.gd" id="21_cba8u"]
-[ext_resource type="Script" uid="uid://bk3ikkbfjnvx4" path="res://Scripts/componets/playerSoundComponent.gd" id="30_h5vdi"]
-[ext_resource type="AudioStream" uid="uid://djf2skr5pwykc" path="res://assets/sounds/footsteps/foley_footstep_concrete_1.wav" id="31_bqivf"]
+[ext_resource type="Script" uid="uid://bas3tr3kma51i" path="res://Scripts/player/states/grinding_state.gd" id="25_h5vdi"]
 [ext_resource type="PackedScene" uid="uid://t4ko1hteuohu" path="res://Scenes/ui/PlayerGui.tscn" id="31_gl7pf"]
-[ext_resource type="AudioStream" uid="uid://wr3l8yp85pst" path="res://assets/sounds/footsteps/foley_footstep_concrete_2.wav" id="32_trtan"]
-[ext_resource type="AudioStream" uid="uid://277hi12dlhd8" path="res://assets/sounds/footsteps/foley_footstep_concrete_3.wav" id="33_oxyqu"]
-[ext_resource type="AudioStream" uid="uid://nu2tk5j1upkc" path="res://assets/sounds/footsteps/foley_footstep_concrete_4.wav" id="34_gl7pf"]
-[ext_resource type="AudioStream" uid="uid://bdafd5yfwi25p" path="res://assets/sounds/footsteps/kick.wav" id="35_53txx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_r5va5"]
 radius = 0.534691
@@ -44,6 +40,8 @@ radius = 0.534691
 height = 2.74166
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mphk7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d31mh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r5m3b"]
 size = Vector3(1, 2.5, 1)
@@ -752,8 +750,9 @@ shader_parameter/animation_speed = 20.0
 shader_parameter/blur_strength = 0.01
 shader_parameter/effect_power = 0.5
 
-[node name="Player" type="CharacterBody3D" unique_id=1286935134 node_paths=PackedStringArray("camera", "camera_effects", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "sound_component", "held_items", "leftCast", "rightCast", "ammo_handler", "fear_handler", "moving", "airborne", "walking", "sprinting", "crouching", "sliding", "idle", "wallRunning", "health_component", "hurtBox")]
+[node name="Player" type="CharacterBody3D" unique_id=1286935134 node_paths=PackedStringArray("camera", "camera_effects", "state_machine", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "held_items", "leftCast", "rightCast", "fear_handler", "moving", "airborne", "walking", "sprinting", "crouching", "sliding", "grinding", "idle", "wallRunning", "health_component", "hurtBox")]
 collision_layer = 2
+safe_margin = 0.1
 script = ExtResource("1_1ycki")
 camera = NodePath("CamPiviot")
 camera_effects = NodePath("CamPiviot/MainCamera")
@@ -762,11 +761,9 @@ standing_collision = NodePath("StandingCollision")
 crouching_collision = NodePath("CrouchingCollision")
 crouch_check = NodePath("CrouchCheck")
 interaction_raycast = NodePath("CamPiviot/MainCamera/Interation Ray")
-sound_component = NodePath("Components/playerSoundComponent")
 held_items = NodePath("CamPiviot/MainCamera/BoneAttachment3D/HoldingPoint/HeldItems")
 leftCast = NodePath("SideStepCasts/Left")
 rightCast = NodePath("SideStepCasts/Right")
-ammo_handler = NodePath("Components/ammoHandlerComponent")
 fear_handler = NodePath("Components/fearComponent")
 acceleration = 10.0
 deceleration = 1.0
@@ -776,6 +773,7 @@ walking = NodePath("LimboHSM/Walking")
 sprinting = NodePath("LimboHSM/Sprinting")
 crouching = NodePath("LimboHSM/Crouching")
 sliding = NodePath("LimboHSM/Sliding")
+grinding = NodePath("LimboHSM/Grinding")
 idle = NodePath("LimboHSM/Idle")
 wallRunning = NodePath("LimboHSM/WallRunning")
 health_component = NodePath("Components/healthComponent")
@@ -793,6 +791,13 @@ shape = SubResource("CapsuleShape3D_etc70")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.700361, 0)
 shape = SubResource("SphereShape3D_mphk7")
 target_position = Vector3(0, 0, 0)
+
+[node name="RailCheck" type="Area3D" parent="." unique_id=1901262224]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0676501, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RailCheck" unique_id=155815122]
+shape = SubResource("BoxShape3D_d31mh")
+debug_color = Color(1, 0.5254902, 0, 0.41960785)
 
 [node name="PickUpItemBox" type="Area3D" parent="." unique_id=697598956]
 
@@ -834,11 +839,12 @@ external_skeleton = NodePath("../../Arms/Armature/Skeleton3D")
 [node name="HoldingPoint" type="Marker3D" parent="CamPiviot/MainCamera/BoneAttachment3D" unique_id=919940559]
 transform = Transform3D(4.1321428e-07, 2.3108623, -2.7547625e-07, -8.3682266e-07, -1.3773794e-07, -2.3108604, -2.3108623, 5.5095245e-07, 6.990847e-07, 0.32708526, 0.08466029, 1.1920929e-07)
 
-[node name="HeldItems" type="Node3D" parent="CamPiviot/MainCamera/BoneAttachment3D/HoldingPoint" unique_id=445114105 node_paths=PackedStringArray("player_ref")]
+[node name="HeldItems" type="Node3D" parent="CamPiviot/MainCamera/BoneAttachment3D/HoldingPoint" unique_id=445114105 node_paths=PackedStringArray("player_ref", "ammo_component")]
 unique_name_in_owner = true
 transform = Transform3D(0.99999964, 0, 0, 0, 0.9999997, 0, 0, 0, 1, 0, 0, 0)
 script = ExtResource("5_h1ktb")
 player_ref = NodePath("../../../../..")
+ammo_component = NodePath("../../../../../Components/ammoHandlerComponent")
 current_selected_item = 1
 
 [node name="BasicGun" parent="CamPiviot/MainCamera/BoneAttachment3D/HoldingPoint/HeldItems" unique_id=1101744858 groups=["SmallGun"] instance=ExtResource("4_khmeo")]
@@ -953,11 +959,13 @@ fear_value = 20.0
 fear_abilities = Array[ExtResource("13_3wtu8")]([SubResource("Resource_2qu66")])
 metadata/_custom_type_script = "uid://dw71ubyl70v5p"
 
-[node name="playerSoundComponent" type="AudioStreamPlayer3D" parent="Components" unique_id=676175331]
-script = ExtResource("30_h5vdi")
-footstep_sounds = Array[AudioStreamWAV]([ExtResource("31_bqivf"), ExtResource("32_trtan"), ExtResource("33_oxyqu"), ExtResource("34_gl7pf")])
-wall_jump = ExtResource("35_53txx")
-metadata/_custom_type_script = "uid://bk3ikkbfjnvx4"
+[node name="throwComponent" type="Node" parent="Components" unique_id=125430685 node_paths=PackedStringArray("player_ref", "held_items", "interaction_raycast")]
+script = ExtResource("15_h1ktb")
+player_ref = NodePath("../..")
+held_items = NodePath("../../CamPiviot/MainCamera/BoneAttachment3D/HoldingPoint/HeldItems")
+interaction_raycast = NodePath("../../CamPiviot/MainCamera/Interation Ray")
+throw_strength = 10.0
+metadata/_custom_type_script = "uid://bylcw7bokp820"
 
 [node name="SideStepCasts" type="Node3D" parent="." unique_id=1999536261]
 
@@ -1001,14 +1009,6 @@ script = ExtResource("10_0otme")
 machine = NodePath("..")
 metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
 
-[node name="Sliding" type="LimboState" parent="LimboHSM" unique_id=853125330 node_paths=PackedStringArray("machine")]
-script = ExtResource("11_3tjkw")
-machine = NodePath("..")
-metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
-
-[node name="Sliding Cooldown" type="Timer" parent="LimboHSM/Sliding" unique_id=1663835272]
-wait_time = 0.6
-
 [node name="Walking" type="LimboState" parent="LimboHSM" unique_id=39649337 node_paths=PackedStringArray("machine")]
 script = ExtResource("11_sy2hw")
 machine = NodePath("..")
@@ -1026,6 +1026,19 @@ metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
 [node name="Airborne" type="LimboState" parent="LimboHSM" unique_id=794610320 node_paths=PackedStringArray("machine")]
 script = ExtResource("13_0h34x")
 air_move_speed = 250.0
+machine = NodePath("..")
+metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
+
+[node name="Sliding" type="LimboState" parent="LimboHSM" unique_id=502685225 node_paths=PackedStringArray("machine")]
+script = ExtResource("11_3tjkw")
+machine = NodePath("..")
+metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
+
+[node name="Sliding Cooldown" type="Timer" parent="LimboHSM/Sliding" unique_id=1990461964]
+wait_time = 0.6
+
+[node name="Grinding" type="LimboState" parent="LimboHSM" unique_id=747976070 node_paths=PackedStringArray("machine")]
+script = ExtResource("25_h5vdi")
 machine = NodePath("..")
 metadata/_custom_type_script = "uid://d3g3rq2vmlbm1"
 
@@ -1061,6 +1074,7 @@ mouse_filter = 2
 script = ExtResource("20_cba8u")
 
 [node name="speedLines" type="CanvasLayer" parent="." unique_id=1692883011 node_paths=PackedStringArray("playerRefrence", "speed_effect_color_rect")]
+unique_name_in_owner = true
 layer = 0
 script = ExtResource("21_cba8u")
 playerRefrence = NodePath("..")
@@ -1077,8 +1091,10 @@ mouse_filter = 2
 
 [node name="Visuals" type="Node3D" parent="." unique_id=471362143]
 
+[connection signal="area_entered" from="RailCheck" to="LimboHSM/Airborne" method="_on_rail_check_area_entered"]
 [connection signal="ItemInSight" from="CamPiviot/MainCamera/Interation Ray" to="CamPiviot/MainCamera/BoneAttachment3D/HoldingPoint/HeldItems" method="_on_interation_ray_item_in_sight"]
 [connection signal="active_state_changed" from="LimboHSM" to="Components/animationComponent" method="_on_limbo_hsm_active_state_changed"]
+[connection signal="active_state_changed" from="LimboHSM" to="LimboHSM" method="_on_active_state_changed"]
 [connection signal="timeout" from="LimboHSM/Sprinting/Sprint Sound" to="LimboHSM/Sprinting" method="_on_sprint_sound_timeout"]
-[connection signal="timeout" from="LimboHSM/Sliding/Sliding Cooldown" to="LimboHSM/Sliding" method="_on_sliding_cooldown_timeout"]
 [connection signal="timeout" from="LimboHSM/Walking/Walk sound" to="LimboHSM/Walking" method="_on_walk_sound_timeout"]
+[connection signal="timeout" from="LimboHSM/Sliding/Sliding Cooldown" to="LimboHSM/Sliding" method="_on_sliding_cooldown_timeout"]

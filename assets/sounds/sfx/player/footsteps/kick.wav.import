@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bdafd5yfwi25p"
-path="res://.godot/imported/kick.wav-a82df14fae367554f4cf86e238d0096f.sample"
+path="res://.godot/imported/kick.wav-a72ddf327a2daec4da90edef2904e1c3.sample"
 
 [deps]
 
-source_file="res://assets/sounds/footsteps/kick.wav"
-dest_files=["res://.godot/imported/kick.wav-a82df14fae367554f4cf86e238d0096f.sample"]
+source_file="res://assets/sounds/sfx/player/footsteps/kick.wav"
+dest_files=["res://.godot/imported/kick.wav-a72ddf327a2daec4da90edef2904e1c3.sample"]
 
 [params]
 

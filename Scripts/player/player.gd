@@ -18,8 +18,8 @@ class_name player extends entityClass
 ##Reference to the interaction ray cast.
 @export var interaction_raycast : ShapeCast3D
 ##Reference to the sound component.
-@export var sound_component : playerSoundComponent
-##Reference to the sound component. 
+#@export var sound_component : playerSoundComponent
+##Reference to the holding items component. 
 @export var held_items:heldItemComponent
 ##Reference to the left ray cast.
 @export var leftCast: ShapeCast3D
@@ -27,8 +27,6 @@ class_name player extends entityClass
 @export var rightCast: ShapeCast3D
 
 @export_category("Components")
-##Reference to the ammo handler.
-@export var ammo_handler:ammoHandlerComponent
 ##Reference to the fear handler.
 @export var fear_handler:fearComponent
 
@@ -70,6 +68,8 @@ class_name player extends entityClass
 @export var crouching: PlayerState
 ##The state when the player is doing a slide.
 @export var sliding: PlayerState
+##The state when the player is on a grind rail.
+@export var grinding: PlayerState
 @export_group("Non-Movement")
 ##The state when the player is doing nothing.
 @export var idle: PlayerState
@@ -89,6 +89,8 @@ var direction:Vector3
 ##The velocity that the current velocity is trying to reach.
 var _wanted_velocity : Vector3 = Vector3.ZERO
 
+var cur_rail:rail
+
 ##Changes to the sprint speed.
 var sprint_modifier : float = 0.0
 ##Changes to the crouch speed.
@@ -104,41 +106,13 @@ var feelingGravity : bool = true
 ##If the player is able to move or not.
 var canMove:bool = true
 
-##Emitted when the player throws an item.
-signal ItemThrown(thrownItem:item)
-var throwingCharge:float = 0
+@onready var speed_lines_effect:speedLines = %speedLines
 
-func _ready() -> void: _initialize_state_machine()
-
-##Prepairs the state machine.
-func _initialize_state_machine():
-	state_machine.initial_state = idle
-	state_machine.initialize(self)
-	state_machine.set_active(true)
-
-var isChargingThrow:bool = false
 func _input(event: InputEvent) -> void:
 	var canUseItem = (event.is_action_pressed("LeftClickSelect") and held_items.get_children().size() != 0)
 	if canUseItem: UseItem.emit()
 	var canUseItemSecondary = (event.is_action_pressed("RightClickSelect") and held_items.get_children().size() != 0)
 	if canUseItemSecondary: UseItemSecondary.emit()
-	var chargeThrow = (event.is_action_pressed("EnterThrow") and !held_items.get_children().is_empty() and !interaction_raycast.is_colliding())
-	var throwRelease = (event.is_action_released("EnterThrow") and !held_items.get_children().is_empty() and !interaction_raycast.is_colliding())
-	
-	if chargeThrow: isChargingThrow = true
-	if (throwRelease and throwingCharge >= 1): 
-		isChargingThrow = false
-		throwItem(throwingCharge)
-		throwingCharge = 0
-
-func _process(_delta: float) -> void: 
-	charging_throw()
-	
-func charging_throw() -> void:
-	if !isChargingThrow: return
-	await get_tree().create_timer(0.5).timeout
-	throwingCharge += 1
-	print(throwingCharge)
 
 func _physics_process(delta: float) -> void:
 	if (not is_on_floor()) and feelingGravity: apply_force(delta, get_gravity())
@@ -211,27 +185,3 @@ func sideStepLeft() -> void:
 		side_step_dir = 0
 	await sideStepTween.finished
 	side_step_dir = 0
-
-##Throws the currently held item.
-func throwItem(force:float) -> void:
-	var itemThrown:item
-	var itemThrownIndex:int
-	for itemHeld:item in held_items.get_children(): if itemHeld.is_selected(): 
-		itemThrownIndex = held_items.get_children().find(itemHeld)
-		itemThrown = itemHeld
-	if (!(itemThrown is item) or !(itemThrown.is_selected())): return
-	itemThrown.initilize_dropped(true)
-	for node in get_tree().get_root().get_children(): if node is level: itemThrown.reparent(node)
-	itemThrown.apply_impulse(transform.basis*Vector3(0,force,-force))
-	itemThrown.angular_velocity = transform.basis * Vector3(-10*force,0,0)
-	
-	var nextItem:item
-	if !held_items.get_children().is_empty():
-		for itemHeld in held_items.get_children(): nextItem = held_items.get_children()[itemThrownIndex-1]
-		nextItem.select()
-	
-	set_collision_layer_value(3, true)
-	await get_tree().create_timer(0.1).timeout
-	set_collision_layer_value(3, false)
-	
-	ItemThrown.emit(itemThrown)

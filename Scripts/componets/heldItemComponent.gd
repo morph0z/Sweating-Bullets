@@ -1,6 +1,7 @@
 class_name heldItemComponent extends Node3D
 ##Refrence to the player.
 @export var player_ref:player
+@export var ammo_component:ammoHandlerComponent
 
 @export_group("Settings")
 ##The maximum amount of items that can be held total.
@@ -47,9 +48,11 @@ func _ready() -> void:
 	for itemChild:item in get_children(): 
 		items_held.append(itemChild)
 		connect_item_dropping(itemChild)
+		if itemChild is gun: itemChild.connect_ammo_comp(ammo_component) 
 
 ##Called when an item is dropped.
 func _on_item_dropped(itemDropped:item) -> void:
+	if itemDropped is gun: itemDropped.disconnect_ammo_comp()
 	update_selection()
 	var last_item_held_id:int = items_held.find(itemDropped)
 	items_held.remove_at(items_held.find(itemDropped))
@@ -86,6 +89,8 @@ func pick_item_up(pickedItem:item) -> void:
 	pickedItem.reparent(self)
 	pickedItem.connect_on_use_item(player_ref)
 	pickedItem.initilize_holding(player_ref)
+	if pickedItem is gun:
+		pickedItem.connect_ammo_comp(ammo_component)
 	#Adds to list
 	items_held.append(pickedItem)
 	#Sets it to current selected item

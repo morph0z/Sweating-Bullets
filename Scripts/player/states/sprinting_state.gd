@@ -21,5 +21,3 @@ func _enter() -> void: player_reference.sprint_modifier = player_reference.sprin
 func _exit() -> void:
 	var notSpeeding:bool = player_reference.state_machine.get_active_state().name == "Walking" or player_reference.state_machine.get_active_state().name == "Moving" or player_reference.state_machine.get_active_state().name == "Crouching"
 	if notSpeeding: cancel_velocity()
-
-func _on_sprint_sound_timeout() -> void: if self.is_active(): player_reference.sound_component.footstep()

@@ -26,8 +26,17 @@ const BULLET = preload("uid://ba2om0p2jq4u")
 ##The amount of bullets it costs to shoot.
 @export var bullets_amount_use:int = 1
 
+##Ammo handler
+var ammo_handler:ammoHandlerComponent
+
 ##True if ammo amount is equal to zero, or if ammo amount is less then the cost to shoot.
 var is_blank:bool
+
+func connect_ammo_comp(ammo_component:ammoHandlerComponent):
+	ammo_handler = ammo_component
+
+func disconnect_ammo_comp():
+	ammo_handler = null
 
 func _ready() -> void:
 	super()
@@ -53,7 +62,7 @@ func shoot_setup(shooting_function:Callable):
 		shooting_function.call()
 		return
 	
-	is_blank = player_ref.ammo_handler.get_ammo_amount() <= 0 || player_ref.ammo_handler.get_ammo_amount() < bullets_amount_use
+	is_blank = ammo_handler.get_ammo_amount() <= 0 || ammo_handler.get_ammo_amount() < bullets_amount_use
 	
 	#Doesn't shoot is cooldown is active
 	if shoot_timer.time_left != 0: return
@@ -70,7 +79,7 @@ func shoot_setup(shooting_function:Callable):
 			shooting_function.call()
 			play_effects()
 			#Reduces the amount of bullets used by the amount of bullets used
-			if player_ref is player: player_ref.ammo_handler.reduce_ammo(bullets_amount_use)
+			if player_ref is player: ammo_handler.reduce_ammo(bullets_amount_use)
 			shoot_timer.start()
 			await shoot_timer.timeout
 		shoot_timer.start()
@@ -79,9 +88,8 @@ func shoot_setup(shooting_function:Callable):
 		play_effects()
 		shooting_function.call()
 		#Reduces the amount of bullets used by the amount of bullets used
-		if player_ref is player: player_ref.ammo_handler.reduce_ammo(bullets_amount_use)
+		if player_ref is player: ammo_handler.reduce_ammo(bullets_amount_use)
 		shoot_timer.start()
-
 
 ##Shoots a single bullet.
 func shoot(bullet:PackedScene): shoot_setup(func(): create_bullet(bullet, gun_damage))
@@ -107,13 +115,12 @@ func play_effects() -> void:
 		sparks.emitting = true
 		
 		#Sound effects
-		shoot_sound.pitch_scale = randf_range(0.9, 1.1)
-		shoot_sound.play()
+		#shoot_sound.pitch_scale = randf_range(0.9, 1.1)
+		#shoot_sound.play()
 	#No blank sounds yet
 	#else:
 		#empty_sound.pitch_scale = randf_range(0.9, 1.1)
 		#empty_sound.play()
-		
 
 ##The initilization of the bullet when shot
 func create_bullet(scene:PackedScene, damage:int) -> bulletClass:
@@ -129,5 +136,5 @@ func create_bullet(scene:PackedScene, damage:int) -> bulletClass:
 	#for i in get_children():
 		#if i is not hitboxComponent: continue
 		#i.connect("body_entered", body_entered)
-		
+
 #func body_entered(body:Node3D) -> void: self.throwHit(BASIC_BULLET, body)

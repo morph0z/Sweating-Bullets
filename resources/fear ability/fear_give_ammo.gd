@@ -5,6 +5,6 @@ class_name ammo_fear
 @export var ammo_increase:int
 
 func do_ability() -> void: give_ammo()
-	
+
 ##Gives ammo.
 func give_ammo() -> void: player_ref.ammo_handler.increase_ammo(ammo_increase)

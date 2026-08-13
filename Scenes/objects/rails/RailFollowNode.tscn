@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dyx6mtwpd4yqf"]
+
+[ext_resource type="Script" uid="uid://b0ve2vt84rd4c" path="res://Scripts/objects/rail/RailFollowNode.gd" id="1_k47xx"]
+
+[node name="RailFollowNode" type="PathFollow3D" unique_id=41679732]
+script = ExtResource("1_k47xx")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=58773530]
+visible = false

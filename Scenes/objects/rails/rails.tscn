@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://wyoiljs3sbsf"]
+
+[ext_resource type="Script" uid="uid://b0mnsjfgnu75k" path="res://Scripts/objects/rail/rail.gd" id="1_gaqok"]
+
+[sub_resource type="Curve3D" id="Curve3D_gplcb"]
+
+[node name="Rail" type="Path3D" unique_id=2097912300]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0, 0, 0)
+curve = SubResource("Curve3D_gplcb")
+debug_custom_color = Color(0.99999994, 0.62665516, 0.18758786, 1)
+script = ExtResource("1_gaqok")
+metadata/_custom_type_script = "uid://b0mnsjfgnu75k"

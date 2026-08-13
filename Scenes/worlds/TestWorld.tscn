@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://ddqcle8nu2bx8" path="res://Scenes/objects/weapons/Pistol.tscn" id="6_lujis"]
 [ext_resource type="PackedScene" uid="uid://dl7kv7rwtbabg" path="res://Scenes/enemies/melee_enemy.tscn" id="8_bkuco"]
 [ext_resource type="PackedScene" uid="uid://d24cb8h1wqnb6" path="res://Scenes/objects/weapons/ShotGun.tscn" id="8_rbciq"]
+[ext_resource type="PackedScene" uid="uid://wyoiljs3sbsf" path="res://Scenes/objects/rails/rails.tscn" id="9_bkuco"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mqfms"]
 albedo_texture = ExtResource("3_lujis")
@@ -49,6 +50,20 @@ background_mode = 2
 sky = SubResource("Sky_8v7lr")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_2elpg"]
+
+[sub_resource type="Curve3D" id="Curve3D_bkuco"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 24.31457, -0.0824195, 31.720345, 0, 0, 0, 0, 0, 0, 74.91554, -0.0824195, 42.34343, 0, 0, 0, 0, 0, 0, 139.50052, -0.082421586, 12.235397, 0, 0, 0, 0, 0, 0, 149.5294, 13.54424, -126.64898),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
+
+[sub_resource type="Curve3D" id="Curve3D_mqfms"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 52.332394, 7.697446, -387.38297, 2.0457916, -0.77611077, -3.9287357, -2.0457916, 0.77611077, 3.9287357, 47.170486, 0.766281, 22.769377, -3.586712, -0.5434371, -6.799156, 3.586712, 0.5434371, 6.799156, 54.22635, 2.8223982, 43.26839, -2.836731, -1.3914888, -3.6487732, 2.836731, 1.3914888, 3.6487732, 74.72377, 3.2876532, 77.75679, -5.8318634, -0.7481948, -5.1502533, 5.8318634, 0.7481948, 5.1502533, 97.06254, 1.4916562, 88.19581, -0.71151733, -3.2495234, 2.633438, 0.71151733, 3.2495234, -2.633438, 160.70589, 5.9622006, 87.41126, 1.9821625, -0.8735275, 6.653778, -1.9821625, 0.8735275, -6.653778, 136.49496, 25.730072, 67.05249, 3.4573975, -0.10888672, 9.893894, -3.4573975, 0.10888672, -9.893894, 144.4797, 9.077438, 41.65379, 3.9953156, 0.58241653, 11.773933, -3.9953156, -0.58241653, -11.773933, 137.37102, 33.84015, 7.23159, 2.7530365, 4.299906, 3.3962135, -2.7530365, -4.299906, -3.3962135, 115.75737, 21.882513, -1.4785728, -0.5509186, 2.957797, -5.298726, 0.5509186, -2.957797, 5.298726, 83.23211, 11.523013, 8.874618, 1.155098, -2.8100204, -3.449524, -1.155098, 2.8100204, 3.449524, 78.80717, 15.892414, 42.458874, -8.551933, -6.048958, -5.110649, 8.551933, 6.048958, 5.110649, 81.3168, 22.037914, 62.470726, -3.5086746, -4.310421, 1.9781418, 3.5086746, 4.310421, -1.9781418, 106.57213, 38.381058, 68.26917, -2.100319, -2.9007607, 5.559536, 2.100319, 2.9007607, -5.559536, 122.03635, 55.25422, 55.32135, -2.686432, -3.535553, 7.2930374, 2.686432, 3.535553, -7.2930374, 122.0999, 61.10498, 35.250595, 0, 0, 0, 0, 0, 0, 111.34621, 60.831367, 8.534431),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 17
 
 [node name="TestWorld" type="Node3D" unique_id=1005569092]
 script = ExtResource("1_2elpg")
@@ -176,33 +191,33 @@ size = Vector3(0.519409, 27.042, 1.80402)
 material = SubResource("StandardMaterial3D_2elpg")
 
 [node name="CSGBox3D42" type="CSGBox3D" parent="Boxes" unique_id=580299659 groups=["BulletCanBounce"]]
-transform = Transform3D(-0.0280991, 0, -8.87025, 0, 0.658065, 0, 5.09473, 0, -0.0489222, 130.661, 6.54298, -243.705)
+transform = Transform3D(5.094807, 0, 0, 0, 0.658065, 0, 0, 0, 8.870384, 128.60973, 6.54298, -238.68028)
 use_collision = true
-size = Vector3(0.519409, 27.042, 1.80402)
+size = Vector3(2.5641785, 27.042, 0.67109776)
 material = SubResource("StandardMaterial3D_2elpg")
 
-[node name="CSGBox3D43" type="CSGBox3D" parent="Boxes" unique_id=1521849533 groups=["BulletCanBounce"]]
-transform = Transform3D(-0.0280991, 0, -8.87025, 0, 0.658065, 0, 5.09473, 0, -0.0489222, 142.773, 6.29003, -252.307)
+[node name="CSGBox3D43" type="CSGBox3D" parent="Boxes" unique_id=326065641 groups=["BulletCanBounce"]]
+transform = Transform3D(5.094807, 0, 0, 0, 0.658065, 0, 0, 0, 8.870384, 143.35283, 6.54298, -254.77621)
 use_collision = true
-size = Vector3(0.519409, 27.042, 1.80402)
+size = Vector3(2.5641785, 27.042, 0.67109776)
 material = SubResource("StandardMaterial3D_2elpg")
 
-[node name="CSGBox3D44" type="CSGBox3D" parent="Boxes" unique_id=2145530127 groups=["BulletCanBounce"]]
-transform = Transform3D(-0.0280991, 0, -8.87025, 0, 0.658065, 0, 5.09473, 0, -0.0489222, 154.846, 6.54298, -243.705)
+[node name="CSGBox3D44" type="CSGBox3D" parent="Boxes" unique_id=1000821181 groups=["BulletCanBounce"]]
+transform = Transform3D(5.094807, 0, 0, 0, 0.658065, 0, 0, 0, 8.870384, 157.48486, 6.54298, -240.79327)
 use_collision = true
-size = Vector3(0.519409, 27.042, 1.80402)
+size = Vector3(2.5641785, 27.042, 0.67109776)
 material = SubResource("StandardMaterial3D_2elpg")
 
-[node name="CSGBox3D45" type="CSGBox3D" parent="Boxes" unique_id=396879356 groups=["BulletCanBounce"]]
-transform = Transform3D(-0.0280991, 0, -8.87025, 0, 0.658065, 0, 5.09473, 0, -0.0489222, 166.958, 6.29003, -252.307)
+[node name="CSGBox3D45" type="CSGBox3D" parent="Boxes" unique_id=1514362430 groups=["BulletCanBounce"]]
+transform = Transform3D(-2.2270108e-07, 0, -8.870383, 0, 0.65806496, 0, 5.0948067, 0, -3.8773678e-07, 164.09854, 6.54298, -254.63974)
 use_collision = true
-size = Vector3(0.519409, 27.042, 1.80402)
+size = Vector3(1.0633392, 27.042, 1.6131841)
 material = SubResource("StandardMaterial3D_2elpg")
 
-[node name="CSGBox3D46" type="CSGBox3D" parent="Boxes" unique_id=1814253777 groups=["BulletCanBounce"]]
-transform = Transform3D(-0.0280991, 0, -8.87025, 0, 0.658065, 0, 5.09473, 0, -0.0489222, 179.494, 6.54298, -243.705)
+[node name="CSGBox3D53" type="CSGBox3D" parent="Boxes" unique_id=2037262797 groups=["BulletCanBounce"]]
+transform = Transform3D(5.09473, 0, -0.048921816, 0, 0.658065, 0, 0.028098874, 0, 8.87025, 189.34337, 6.54298, -83.86992)
 use_collision = true
-size = Vector3(0.519409, 27.042, 1.80402)
+size = Vector3(0.519409, 27.042, 17.352694)
 material = SubResource("StandardMaterial3D_2elpg")
 
 [node name="CSGBox3D48" type="CSGBox3D" parent="Boxes" unique_id=1913150392 groups=["BulletCanBounce"]]
@@ -403,6 +418,8 @@ use_collision = true
 size = Vector3(67.2879, 1, 70.0465)
 material = SubResource("StandardMaterial3D_8v7lr")
 
+[node name="Rails" type="Node3D" parent="." unique_id=1515567831]
+
 [node name="Player" parent="." unique_id=1863119559 instance=ExtResource("1_kgmfg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.001581192, 1.3241358, -0.00022232533)
 
@@ -425,3 +442,10 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -21.
 
 [node name="enemy" parent="." unique_id=1311699113 instance=ExtResource("8_bkuco")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.276098, 0.91758025, -21.408468)
+
+[node name="Rail" parent="." unique_id=2092779826 instance=ExtResource("9_bkuco")]
+curve = SubResource("Curve3D_bkuco")
+
+[node name="Rail2" parent="." unique_id=2097912300 instance=ExtResource("9_bkuco")]
+curve = SubResource("Curve3D_mqfms")
+resolution = 250

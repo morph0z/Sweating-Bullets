@@ -9,7 +9,6 @@ func set_state(state: PlayerState):
 	player_reference.state_machine.change_active_state(state)
 
 func jump(force: float) -> void:
-	player_reference.sound_component.jump()
 	player_reference.apply_force(player_reference.jump_velocity*force, Vector3.UP)
 	await get_root().get_tree().create_timer(0.1).timeout
 	set_state(player_reference.airborne)

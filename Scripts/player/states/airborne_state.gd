@@ -25,7 +25,7 @@ func _update(_delta: float) -> void:
 		if !quickStepRightOnce:
 			player_reference.sideStepRight()
 			quickStepRightOnce = true
-	
+
 	velocity_handling(_delta)
 
 	if player_reference.is_on_floor():
@@ -35,10 +35,10 @@ func _update(_delta: float) -> void:
 		else: set_state(player_reference.idle)
 
 	if player_reference.is_on_wall():
-		if !player_reference.wallRunning.alreadyWallJumped:
-			await get_tree().create_timer(0.2).timeout
-			set_state(player_reference.wallRunning)
-			cancel_velocity()
+		#if !player_reference.wallRunning.alreadyWallJumped:
+		await get_tree().create_timer(0.1).timeout
+		set_state(player_reference.wallRunning)
+		cancel_velocity()
 
 	if Input.is_action_just_pressed("ZStomp"): stomp(5, false)
 	if Input.is_action_just_pressed("XCancelStomp"): stomp(5, true)
@@ -90,3 +90,11 @@ func stomp(force: float, cancelLaunch:bool) -> void:
 		var speed := previousVel.length()
 		var forwards = -player_reference.transform.basis.z.normalized()
 		player_reference.velocity = forwards * speed
+
+
+func _on_rail_check_area_entered(area: Area3D) -> void:
+	if machine.get_active_state() != self: return
+	if !(area is railArea): return
+	player_reference.cur_rail = area.owned_rail
+	cancel_velocity()
+	set_state(player_reference.grinding)

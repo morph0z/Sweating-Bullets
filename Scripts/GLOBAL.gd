@@ -1,5 +1,13 @@
 class_name GameManager extends Node
 
+func _ready() -> void:
+	init_audio_groups()
+
+func init_audio_groups() -> void:
+	AudioSystem.create_audio_group("SFX")
+	AudioSystem.create_audio_group("Music")
+	AudioSystem.create_audio_group("Ambient")
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("EscapePause"): get_tree().quit()
 	if event.is_action_pressed("F2ReloadScene"): get_tree().reload_current_scene()

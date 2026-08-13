@@ -15,4 +15,4 @@ func _update(delta: float) -> void:
 	can_crouch()
 	can_jump(1)
 
-func _on_walk_sound_timeout() -> void: if self.is_active(): player_reference.sound_component.footstep()
+#func _on_walk_sound_timeout() -> void: if self.is_active(): player_reference.sound_component.footstep()
